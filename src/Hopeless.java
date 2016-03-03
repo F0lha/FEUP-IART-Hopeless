@@ -12,59 +12,70 @@ import java.lang.Integer;
 //TODO mems troca todos os rows com os cols
 public class Hopeless {
 
-    public int[][] table;
+    public ArrayList<Integer> table;
+
+    int row,col;
+
     int difficulty;
 
     public Hopeless(int row, int col, int diff){
-        table = new int[row][col];
-        difficulty = diff;
+        this.row = row;
+        this.col = col;
+        this.difficulty = diff;
+
+        table = new ArrayList<>();
 
         initializeTable();
 
     }
 
     int getColor(Point point){
-        if((point.getRow()>=0 && point.getRow()<table.length)&&(point.getCol()>=0 && point.getCol()<table[0].length))
-            return table[point.getRow()][point.getCol()];
+        if((point.getRow()>=0 && point.getRow()<row)&&(point.getCol()>=0 && point.getCol()<col))
+            return table.get(point.getRow()*this.col+point.getCol());
         else return -1;
     }
 
     void initializeTable(){
         Random rand = new Random();
 
-        for(int i = 0;i < table.length;i++)
+        for(int i = 0;i < row;i++)
         {
-            for(int j = 0; j < table[i].length;j++)
+            for(int j = 0; j < col;j++)
             {
-                table[i][j] = rand.nextInt(difficulty) + 1;
+                table.add(rand.nextInt(difficulty) + 1);
             }
         }
     }
 
     boolean validMove(Point point)
     {
-        if (point.getRow() >= table.length || point.getCol() >= table[0].length)
+        if (point.getRow() >= row || point.getCol() >= col) {
+            //System.out.println("out of bounds");
             return false;
-        else if(getColor(point) == 0)
+        }
+        else if(getColor(point) == 0){
+           // System.out.println("empty");
             return false;
-
-        else if(
-                (point.getRow()>0 && (table[point.getRow()-1][point.getCol()] == table[point.getRow()][point.getCol()])) ||
-                (point.getCol()>0 && (table[point.getRow()][point.getCol()-1] == table[point.getRow()][point.getCol()])) ||
-                (point.getRow()<(table.length-2) && (table[point.getRow()+1][point.getCol()] == table[point.getRow()][point.getCol()])) ||
-                (point.getCol()<(table[0].length-2) && (table[point.getRow()][point.getCol()+1] == table[point.getRow()][point.getCol()]))
+        }
+        else if((point.getRow()>0 && (getColor(new Point(point.getRow()-1,point.getCol())) == getColor(point))) ||
+                (point.getCol()>0 && (getColor(new Point(point.getRow(),point.getCol()-1)) == getColor(point))) ||
+                (point.getRow()<(row-1) && (getColor(new Point(point.getRow()-1,point.getCol())) == getColor(point))) ||
+                (point.getCol()<(col-1) && (getColor(new Point(point.getRow()-1,point.getCol())) == getColor(point)))
                 )
             return true;
-        else return false;
+        else
+        {
+            //System.out.println("isolated" + point + " colour = " + getColor(point));
+            return false;
+        }
     }
 
     List<Point> getAllValidMoves(){
 
         ArrayList<Point> listOfValidMoves = new ArrayList<>();
 
-        for(int i = 0;i < table.length;i++) {
-            for (int j = 0; j < table[i].length; j++) {
-
+        for(int i = 0;i < row;i++) {
+            for (int j = 0; j < col; j++) {
                 if(validMove(new Point(i,j)))
                     listOfValidMoves.add(new Point(i,j));
             }
@@ -72,17 +83,16 @@ public class Hopeless {
         return listOfValidMoves;
     }
 
-    int makePlay(Point point){
+    int makePlay(Point point, List<Point> validMoves){
 
         if(!validMove(point)){
-            System.out.println("yo"+ point);
             return -1;
         }
 
         int colour = getColor(point);
 
         // removes all Points recursively
-        int removals = removePoint(point,colour);
+        int removals = removePoint(point,colour,validMoves);
 
         //colapse the table
 
@@ -94,51 +104,56 @@ public class Hopeless {
         return (int)points;
     }
 
-    int removePoint(Point point, int colour)
+    int removePoint(Point point, int colour,List<Point> validMoves)
     {
         Point up,down,left,right;
 
         //delete color
 
-        table[point.getRow()][point.getCol()] = 0;
+        table.set((point.getRow()*this.col)+point.getCol(),0);
+
+        int index = validMoves.indexOf(point);
+
+        if(index != -1)
+            validMoves.remove(index);
 
         //accumulator
         int acc = 1;
 
-        if(point.getRow()<table.length-1)
+        if(point.getRow()<row-1)
             up = new Point(point.getRow()+1,point.getCol());
         else up = null;
 
         if (up != null && (colour == getColor(up)))
-            acc += removePoint(up,colour);
+            acc += removePoint(up,colour,validMoves);
 
         if(point.getRow()>0)
             down = new Point(point.getRow()-1,point.getCol());
         else down = null;
 
         if (down != null &&(colour == getColor(down)))
-            acc += removePoint(down,colour);
+            acc += removePoint(down,colour,validMoves);
 
-        if(point.getCol()<table[0].length-1)
+        if(point.getCol()<col-1)
             left = new Point(point.getRow(),point.getCol()+1);
         else left = null;
 
         if (left != null && (colour == getColor(left)))
-            acc += removePoint(left,colour);
+            acc += removePoint(left,colour,validMoves);
 
         if(point.getCol()>0)
             right = new Point(point.getRow(),point.getCol()-1);
         else right = null;
 
         if (right != null && (colour == getColor(right)))
-            acc += removePoint(right,colour);
+            acc += removePoint(right,colour,validMoves);
         return acc;
     }
 
     void colapseBoardVertically(){
-        for(int i = table.length-1; i > 0;i--)
+        for(int i = row-1; i > 0;i--)
         {
-            for(int j = 0; j< table[i].length ;j++)
+            for(int j = 0; j< col ;j++)
             {
                 if(getColor(new Point(i,j)) == 0)
                 {
@@ -151,29 +166,29 @@ public class Hopeless {
                         else upperValue--;
                     }
 
-                    table[i][j] = table[upperValue][j];
-                    table[upperValue][j] = 0;
+                    table.set((i*this.col)+j,table.get(upperValue*this.col+j));
+                    table.set((upperValue*this.col)+j,0);
                 }
             }
         }
     }
 
     boolean checkIfColumnIsEmpty(int col){
-        for(int row = 0;row < table.length;row++)
+        for(int row = 0;row < this.row;row++)
         {
-                if(table[row][col] != 0)
+                if(table.get(row*this.col+col) != 0)
                     return false;
         }
         return true;
     }
 
     void colapseBoardHorizonatlly(){
-        for(int i = 0; i < table[0].length-1;i++)
+        for(int i = 0; i < col-1;i++)
         {
             if(checkIfColumnIsEmpty(i))
             {
                 int left = i+1;
-                while(left < table[0].length-1)
+                while(left < col-1)
                 {
                     if(!checkIfColumnIsEmpty(left))
                         break;
@@ -185,11 +200,11 @@ public class Hopeless {
     }
 
     void switchColumn(int col1, int col2){
-        for(int i = 0; i < table.length;i++)
+        for(int i = 0; i < row;i++)
         {
-            int temp = table[i][col1];
-            table[i][col1] = table[i][col2];
-            table[i][col2] = temp;
+            int temp = table.get(i*this.col+col1);
+            table.set((i*this.col)+col1,table.get(i*this.col+col2));
+            table.set((i*this.col)+col2,temp);
         }
     }
 

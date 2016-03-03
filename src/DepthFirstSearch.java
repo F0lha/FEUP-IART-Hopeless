@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -6,11 +7,13 @@ import java.util.*;
 public class DepthFirstSearch {
     List<Point> bestMoves;
 
-    Hashtable<int[][],Integer> hashtable = new Hashtable<>();
+    Map<ArrayList<Integer>,Integer> hashtable = new Hashtable<>();
 
     int bestScore = 0;
 
     int solutions = 0;
+
+    boolean running = true;
 
     Hopeless tempHope;
 
@@ -20,63 +23,65 @@ public class DepthFirstSearch {
 
     public DepthFirstSearch(Hopeless hope){
 
-        this.row = hope.table.length;
-        this.col = hope.table[0].length;
+        this.row = hope.row;
+        this.col = hope.col;
         this.difficulty = hope.difficulty;
 
         tempHope = new Hopeless(row,col,difficulty);
 
-        List<Point> listPoints = new ArrayList<Point>();
+        List<Point> listPoints = new ArrayList<>();
 
         dfs(listPoints,0,hope.table);
     }
 
-    void dfs(List<Point> listPoints,int points, int[][] table){
+    void dfs(List<Point> listPoints, int points, ArrayList<Integer> table){
+        if(running) {
 
+            tempHope.table = new ArrayList<>(table);
 
-        tempHope.table =  deepCopyIntMatrix(table);
+            List<Point> validMoves = tempHope.getAllValidMoves();
 
-        List<Point> validMoves = tempHope.getAllValidMoves();
+            Iterator<Point> iter = validMoves.iterator();
 
-        for(Point validMove: validMoves)
-        {
-            //System.out.println("I = " + i);
+            while (iter.hasNext()) {
+                Point validMove = iter.next();
 
-            tempHope.table =  deepCopyIntMatrix(table);
+                tempHope.table = new ArrayList<>(table);
 
+                int tempPoints = tempHope.makePlay(validMove, validMoves);
 
+                iter = validMoves.iterator();
 
-
-            int tempPoints = tempHope.makePlay(validMove);
-
-            if(hashtable.contains(tempHope.table)) {
-                System.out.println("fuck");
+            /*if(hashtable.containsKey(tempHope.table)) {
                 continue;
             }
-            else hashtable.put(tempHope.table,tempPoints);
+            else hashtable.put(tempHope.table,tempPoints);*/
 
-            List<Point> tempListPoints = (ArrayList)((ArrayList) listPoints).clone();
+                List<Point> tempListPoints = (ArrayList) ((ArrayList) listPoints).clone();
 
-            tempListPoints.add(validMove);
+                tempListPoints.add(validMove);
 
-            Integer newPoints = Integer.valueOf(points)+tempPoints;
+                Integer newPoints = Integer.valueOf(points) + tempPoints;
 
-            if(tempHope.gameOver())
-            {
-                solutions++;
+                if (tempHope.gameOver()) {
+                    solutions++;
 
-                finalResults.add(Integer.valueOf(tempPoints+points));
 
-                if(bestScore < (tempPoints+points))
-                {
-                    bestMoves = (ArrayList)((ArrayList) tempListPoints).clone();
-                    bestScore = Integer.valueOf(tempPoints+points);
+                    finalResults.add(Integer.valueOf(tempPoints + points));
+
+                    if (bestScore < (tempPoints + points)) {
+                        bestMoves = (ArrayList) ((ArrayList) tempListPoints).clone();
+                        bestScore = Integer.valueOf(tempPoints + points);
+                    }
+
+                    if (solutions >= row*col*100)
+                        running = false;
+
+                    continue;
                 }
+                dfs(tempListPoints, newPoints, tempHope.table);
 
-                continue;
             }
-            dfs(tempListPoints,newPoints,tempHope.table);
-
         }
     }
     public static int[][] deepCopyIntMatrix(int[][] input) {
