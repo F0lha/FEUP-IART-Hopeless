@@ -7,7 +7,7 @@ import java.util.*;
 public class DepthFirstSearch {
     List<Point> bestMoves;
 
-    Map<ArrayList<Integer>,Integer> hashtable = new Hashtable<>();
+    //Map<ArrayList<Integer>,Integer> hashtable = new Hashtable<>();
 
     int bestScore = 0;
 
@@ -83,15 +83,6 @@ public class DepthFirstSearch {
 
             }
         }
-    }
-    public static int[][] deepCopyIntMatrix(int[][] input) {
-        if (input == null)
-            return null;
-        int[][] result = new int[input.length][];
-        for (int r = 0; r < input.length; r++) {
-            result[r] = input[r].clone();
-        }
-        return result;
     }
 }
 
