@@ -9,15 +9,19 @@ public class Node implements Comparable<Node>{
 
     int nodeID; //
     int parentNode;
+    int realScore;
+    Point move;
 
     int score;
 
     ArrayList<Integer> table;
 
-    public Node(int parentNode, ArrayList<Integer> table, int score){
+    public Node(int parentNode, ArrayList<Integer> table, int score,int realScore, Point move){
 
         this.parentNode = parentNode;
         this.score = score;
+        this.realScore = realScore;
+        this.move = move;
         nodeID = nextNodeID;
         nextNodeID++;
 
@@ -26,7 +30,7 @@ public class Node implements Comparable<Node>{
 
     public int compareTo(Node node){
         if(score == node.score)
-            return (parentNode < node.parentNode) ? 1 : -1;
+            return (parentNode > node.parentNode) ? 1 : -1;
         else if(score < node.score)
             return 1;
         else return -1;

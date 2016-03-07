@@ -99,9 +99,13 @@ public class Hopeless {
         colapseBoardVertically();
         colapseBoardHorizonatlly();
 
-        double points = Math.pow((double)((removals-1)*2),2.0);
+        double points = getPoints(removals);
 
         return (int)points;
+    }
+
+    public static double getPoints(int removals){
+        return Math.pow((double)((removals-1)*2),2.0);
     }
 
     int removePoint(Point point, int colour,List<Point> validMoves)

@@ -10,17 +10,17 @@ public class main {
 
     public static void main(String[] args)
     {
-        Hopeless hope = new Hopeless(5,5,4);
+        Hopeless hopeAStar = new Hopeless(4,4,4);
 
-        Hopeless temp = new Hopeless(5,5,4);
+        Hopeless hopeDFS = new Hopeless(4,4,4);
 
-        temp.table = new ArrayList<>(hope.table);
+        hopeDFS.table = new ArrayList<>(hopeAStar.table);
 
-        for(int i= 0;i < hope.row;i++)
+        for(int i= 0;i < hopeAStar.row;i++)
         {
-            for(int j = 0; j < hope.col;j++)
+            for(int j = 0; j < hopeAStar.col;j++)
             {
-                System.out.print(hope.table.get(i*hope.col+j)+"|");
+                System.out.print(hopeAStar.table.get(i*hopeAStar.col+j)+"|");
             }
             System.out.println();
         }
@@ -44,6 +44,58 @@ public class main {
        }
 
 */
+        long startTime = System.currentTimeMillis();
+
+        //DepthFirstSearch rip = new DepthFirstSearch(hope);
+
+
+        //A STAR
+
+        runAstar(hopeAStar);
+
+        dfs(hopeDFS);
+    }
+
+
+    static void runAstar(Hopeless hope){
+
+        long startTime = System.currentTimeMillis();
+
+        //DepthFirstSearch rip = new DepthFirstSearch(hope);
+
+
+        //A STAR
+        AStarSearch rip = new AStarSearch(hope);
+
+        ArrayList<Point> bestMoves = rip.getAStarMoves();
+
+        if(rip.bestScore!= 0)
+            for(Point move : bestMoves)
+            {
+                hope.makePlay(move,new ArrayList<Point>());
+            }
+        System.out.println("Final ----");
+        for(int i= 0;i < hope.row;i++)
+        {
+            for(int j = 0; j < hope.col;j++)
+            {
+                System.out.print(hope.table.get(i*hope.col+j)+"|");
+            }
+            System.out.println();
+        }
+
+
+        System.out.println("Moves = " + bestMoves);
+        System.out.println("Score = " + rip.bestScore);
+
+        long endTime   = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+        System.out.println("Time of Computing = " + totalTime);
+
+        System.out.println("Is Gameover " + hope.gameOver());
+    }
+
+    static void dfs(Hopeless hope){
         long startTime = System.currentTimeMillis();
 
         DepthFirstSearch rip = new DepthFirstSearch(hope);
