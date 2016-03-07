@@ -17,7 +17,7 @@ public class DepthFirstSearch {
 
     Hopeless tempHope;
 
-    ArrayList<Integer> finalResults = new ArrayList<Integer>();
+    ArrayList<Integer> finalResults = new ArrayList<>();
 
     int row, col, difficulty;
 
