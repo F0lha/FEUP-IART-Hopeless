@@ -7,7 +7,7 @@ import java.util.*;
 public class DepthFirstSearch {
     List<Point> bestMoves;
 
-    //Map<ArrayList<Integer>,Integer> hashtable = new Hashtable<>();
+    Map<ArrayList<Integer>,Integer> hashtable = new Hashtable<>();
 
     int bestScore = 0;
 
@@ -52,10 +52,11 @@ public class DepthFirstSearch {
 
                 iter = validMoves.iterator();
 
-            /*if(hashtable.containsKey(tempHope.table)) {
-                continue;
+            if(hashtable.containsKey(tempHope.table)) {
+                if(hashtable.get(tempHope.table) > tempPoints)
+                    continue;
             }
-            else hashtable.put(tempHope.table,tempPoints);*/
+            else hashtable.put(tempHope.table,tempPoints);
 
                 List<Point> tempListPoints = (ArrayList) ((ArrayList) listPoints).clone();
 
@@ -74,8 +75,8 @@ public class DepthFirstSearch {
                         bestScore = Integer.valueOf(tempPoints + points);
                     }
 
-                    if (solutions >= row*col*100)
-                        running = false;
+                    //if (solutions >= row*col*100)
+                      //  running = false;
 
                     continue;
                 }

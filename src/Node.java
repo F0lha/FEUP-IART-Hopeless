@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * Created by Pedro Castro on 05/03/2016.
  */
-public class Node implements Comparable{
+public class Node implements Comparable<Node>{
 
     static int nextNodeID = 0;
 
@@ -24,7 +24,11 @@ public class Node implements Comparable{
         this.table = new ArrayList<>(table);
     }
 
-    public int compareTo(Object node){
-        return 1;
+    public int compareTo(Node node){
+        if(score == node.score)
+            return (parentNode < node.parentNode) ? 1 : -1;
+        else if(score < node.score)
+            return 1;
+        else return -1;
     }
 }

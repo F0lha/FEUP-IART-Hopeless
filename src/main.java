@@ -10,7 +10,11 @@ public class main {
 
     public static void main(String[] args)
     {
-        Hopeless hope = new Hopeless(50,50,4);
+        Hopeless hope = new Hopeless(5,5,4);
+
+        Hopeless temp = new Hopeless(5,5,4);
+
+        temp.table = new ArrayList<>(hope.table);
 
         for(int i= 0;i < hope.row;i++)
         {
@@ -43,8 +47,6 @@ public class main {
         long startTime = System.currentTimeMillis();
 
         DepthFirstSearch rip = new DepthFirstSearch(hope);
-
-
 
         if(rip.bestScore!= 0)
             for(Point move : rip.bestMoves)
