@@ -10,9 +10,9 @@ public class main {
 
     public static void main(String[] args)
     {
-        Hopeless hopeAStar = new Hopeless(4,4,4);
+        Hopeless hopeAStar = new Hopeless(5,5,4);
 
-        Hopeless hopeDFS = new Hopeless(4,4,4);
+        Hopeless hopeDFS = new Hopeless(5,5,4);
 
         hopeDFS.table = new ArrayList<>(hopeAStar.table);
 
@@ -91,8 +91,6 @@ public class main {
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
         System.out.println("Time of Computing = " + totalTime);
-
-        System.out.println("Is Gameover " + hope.gameOver());
     }
 
     static void dfs(Hopeless hope){
@@ -114,10 +112,6 @@ public class main {
             }
             System.out.println();
         }
-        for(int i = 0; i < rip.finalResults.size();i++)
-        {
-            System.out.print(rip.finalResults.get(i)+"/");
-        }System.out.println();
 
         System.out.println("Moves = " + rip.bestMoves);
         System.out.println("Score = " + rip.bestScore);
@@ -126,7 +120,5 @@ public class main {
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
         System.out.println("Time of Computing = " + totalTime);
-
-        System.out.println("Is Gameover " + hope.gameOver());
     }
 }

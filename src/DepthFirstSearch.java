@@ -40,7 +40,7 @@ public class DepthFirstSearch {
 
             tempHope.table = new ArrayList<>(table);
 
-            List<Point> validMoves = tempHope.getAllValidMoves();
+            ArrayList<Point> validMoves = tempHope.getAllValidMoves();
 
             Iterator<Point> iter = validMoves.iterator();
 
@@ -86,6 +86,8 @@ public class DepthFirstSearch {
                     continue;
                 }
                 dfs(tempListPoints, newPoints, tempHope.table);
+
+                tempHope.table = new ArrayList<>(table);
 
             }
         }

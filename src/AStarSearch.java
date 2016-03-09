@@ -26,20 +26,40 @@ public class AStarSearch {
 
         while(!aStarEnd()){
 
-            ArrayList<Integer> tempTable = new ArrayList<>(AStarQueue.peek().table);
+            ArrayList<Integer> currTable = new ArrayList<>(AStarQueue.peek().table);
             int nodeID = AStarQueue.peek().nodeID;
-            int currentPoints = AStarQueue.peek().realScore;
+            int currentPoints = AStarQueue.poll().realScore;
 
-            List<Point> validMoves = hope.getAllValidMoves();
+            hope.table = new ArrayList<>(currTable);
+            ArrayList<Point> validMoves = hope.getAllValidMoves();
 
             Iterator<Point> iter = validMoves.iterator();
 
+            //System.out.println("Number of plays : " + validMoves.size());
+            //hope.print();
+
+            //int i = 0;
+
             while (iter.hasNext()) {
+
                 Point validMove = iter.next();
 
-                hope.table = new ArrayList<>(tempTable);
+                //System.out.println("Plays : " + validMoves);
+                //System.out.println("Play : " + validMove);
+                //System.out.println("Play Number : " + i);
+                //i++;
+
+
+                hope.table = new ArrayList<>(currTable);
+
+                //hope.print();
 
                 int tempPoints = hope.makePlay(validMove, validMoves);
+
+                if(tempPoints == -1) {
+                    System.out.println("merdou");
+                    //hope.print();
+                }
 
                 iter = validMoves.iterator();
 
@@ -52,8 +72,8 @@ public class AStarSearch {
                 AStarQueue.add(nextNode);
                 mapNode.put(nextNode.nodeID,nextNode);
 
-                System.out.println(nextNode.nodeID);
-                System.out.println(AStarQueue.peek().score);
+                //System.out.println(nextNode.nodeID);
+                //System.out.println(AStarQueue.peek().score);
             }
 
         }

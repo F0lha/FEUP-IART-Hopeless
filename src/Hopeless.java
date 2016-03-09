@@ -54,23 +54,28 @@ public class Hopeless {
             return false;
         }
         else if(getColor(point) == 0){
-           // System.out.println("empty");
+            //System.out.println("empty");
             return false;
         }
         else if((point.getRow()>0 && (getColor(new Point(point.getRow()-1,point.getCol())) == getColor(point))) ||
                 (point.getCol()>0 && (getColor(new Point(point.getRow(),point.getCol()-1)) == getColor(point))) ||
-                (point.getRow()<(row-1) && (getColor(new Point(point.getRow()-1,point.getCol())) == getColor(point))) ||
-                (point.getCol()<(col-1) && (getColor(new Point(point.getRow()-1,point.getCol())) == getColor(point)))
+                (point.getRow()<(row-1) && (getColor(new Point(point.getRow()+1,point.getCol())) == getColor(point))) ||
+                (point.getCol()<(col-1) && (getColor(new Point(point.getRow(),point.getCol()+1)) == getColor(point)))
                 )
             return true;
         else
         {
             //System.out.println("isolated" + point + " colour = " + getColor(point));
+
+            //System.out.println("Cima = " + getColor(new Point(point.getRow()-1,point.getCol())));
+            //System.out.println("Baixo = " + getColor(new Point(point.getRow()+1,point.getCol())));
+            //System.out.println("Esquerda = " + getColor(new Point(point.getRow(),point.getCol()-1)));
+            //System.out.println("Direita = " + getColor(new Point(point.getRow(),point.getCol()+1)));
             return false;
         }
     }
 
-    List<Point> getAllValidMoves(){
+    ArrayList<Point> getAllValidMoves(){
 
         ArrayList<Point> listOfValidMoves = new ArrayList<>();
 
@@ -83,7 +88,7 @@ public class Hopeless {
         return listOfValidMoves;
     }
 
-    int makePlay(Point point, List<Point> validMoves){
+    int makePlay(Point point, ArrayList<Point> validMoves){
 
         if(!validMove(point)){
             return -1;
@@ -108,7 +113,7 @@ public class Hopeless {
         return Math.pow((double)((removals-1)*2),2.0);
     }
 
-    int removePoint(Point point, int colour,List<Point> validMoves)
+    int removePoint(Point point, int colour,ArrayList<Point> validMoves)
     {
         Point up,down,left,right;
 
@@ -118,8 +123,10 @@ public class Hopeless {
 
         int index = validMoves.indexOf(point);
 
-        if(index != -1)
+        if(index != -1) {
+            //System.out.println("Apagou jogada desnecessaria");
             validMoves.remove(index);
+        }
 
         //accumulator
         int acc = 1;
@@ -214,6 +221,17 @@ public class Hopeless {
 
     boolean gameOver(){
         return getAllValidMoves().isEmpty();
+    }
+
+    void print(){
+        for(int i= 0;i < row;i++)
+        {
+            for(int j = 0; j < col;j++)
+            {
+                System.out.print(table.get(i*col+j)+"|");
+            }
+            System.out.println();
+        }
     }
 }
 
