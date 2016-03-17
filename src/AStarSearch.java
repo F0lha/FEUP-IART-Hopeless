@@ -5,7 +5,7 @@ import java.util.*;
  */
 public class AStarSearch {
 
-    PriorityQueue<Node> AStarQueue = new PriorityQueue<>();
+    PriorityQueue<Node> openList = new PriorityQueue<>();
     Map<Integer,Node> mapNode = new HashMap<>();
 
     int row,col,difficulty;
@@ -18,77 +18,49 @@ public class AStarSearch {
         this.col = hope.col;
         this.difficulty = hope.difficulty;
 
-        int fValue = heuristicF(0,hope);
-
-        Node fNode = new Node(-1,hope.table,0,0,null);
-        AStarQueue.add(fNode);
+        Node fNode = new Node(-1,0,hope.table,0,0,null);
+        openList.add(fNode);
         mapNode.put(fNode.nodeID,fNode);
 
-        while(!aStarEnd()){
+        while(!openList.isEmpty()) {
+            Node headNode = new Node(openList.poll(),0);
 
-            ArrayList<Integer> currTable = new ArrayList<>(AStarQueue.peek().table);
-            int nodeID = AStarQueue.peek().nodeID;
-            int currentPoints = AStarQueue.poll().realScore;
+            System.out.println("Node Level : " + headNode.level);
+            System.out.println("Score : " + headNode.score);
 
-            hope.table = new ArrayList<>(currTable);
+            hope.table = new ArrayList<>(headNode.table);
+
+            if(hope.gameOver())
+                break;
+
             ArrayList<Point> validMoves = hope.getAllValidMoves();
 
             Iterator<Point> iter = validMoves.iterator();
 
-            //System.out.println("Number of plays : " + validMoves.size());
-            //hope.print();
-
-            //int i = 0;
-
             while (iter.hasNext()) {
-
                 Point validMove = iter.next();
-
-                //System.out.println("Plays : " + validMoves);
-                //System.out.println("Play : " + validMove);
-                //System.out.println("Play Number : " + i);
-                //i++;
-
-
-                hope.table = new ArrayList<>(currTable);
-
-                //hope.print();
+                //resetBoard
+                hope.copyTable(headNode.table);
 
                 int tempPoints = hope.makePlay(validMove, validMoves);
 
-                if(tempPoints == -1) {
-                    System.out.println("merdou");
-                    //hope.print();
-                }
+                int value = heuristicF(tempPoints + headNode.realScore, hope);
+
+                //System.out.println("Value = " + value);
+
+                Node nextNode = new Node(headNode.nodeID, headNode.level + 1, new ArrayList<>(hope.table), value, tempPoints + headNode.realScore, validMove);
+
+                openList.add(nextNode);
+                mapNode.put(nextNode.nodeID, nextNode);
 
                 iter = validMoves.iterator();
-
-                int value = heuristicF(tempPoints+currentPoints,hope);
-
-                System.out.println(value);
-
-                Node nextNode = new Node(nodeID,new ArrayList<>(hope.table),value,tempPoints+currentPoints,validMove);
-
-                AStarQueue.add(nextNode);
-                mapNode.put(nextNode.nodeID,nextNode);
-
-                //System.out.println(nextNode.nodeID);
-                //System.out.println(AStarQueue.peek().score);
             }
-
         }
-
-    }
-
-    boolean aStarEnd(){
-        Hopeless temp = new Hopeless(row,col,difficulty);
-        temp.table = AStarQueue.peek().table;
-        return temp.gameOver();
     }
 
     ArrayList<Point> getAStarMoves(){
         ArrayList<Point> returningList = new ArrayList<>();
-        Node currentNode = AStarQueue.peek();
+        Node currentNode = openList.peek();
         this.bestScore = currentNode.realScore;
         while(currentNode.parentNode != -1)
         {
@@ -106,7 +78,6 @@ public class AStarSearch {
         for (int i = length - 1; i >= 0; i--) {
             result.add(list.get(i));
         }
-
         return result;
     }
 
@@ -138,10 +109,16 @@ public class AStarSearch {
 
         int limit = HTable.getNextColor();
 
+
+        int alone = 0;
+
         for(int i = 1; i < limit;i++){
             int removals = Collections.frequency(HTable.getTableRegions(), i);
-            if(removals != 0)
+            if(removals == 1)
+                weight++;
+            else if(removals != 0) {
                 weight += Hopeless.getPoints(removals);
+            }
         }
 
         return weight;

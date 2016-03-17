@@ -36,7 +36,7 @@ public class DepthFirstSearch {
     }
 
     void dfs(List<Point> listPoints, int points, ArrayList<Integer> table){
-        if(running && (hashtable.get(table) <= points)) {
+        if(running) {
 
             tempHope.table = new ArrayList<>(table);
 
@@ -59,16 +59,6 @@ public class DepthFirstSearch {
 
                 Integer newPoints = Integer.valueOf(points) + tempPoints;
 
-                if(hashtable.containsKey(tempHope.table)) {
-                    if(hashtable.get(tempHope.table) > newPoints) {
-                        //System.out.println("delete");
-                        continue;
-                    }
-                    else hashtable.put(tempHope.table,newPoints);
-                    //System.out.println("not delete");
-                }
-                else hashtable.put(tempHope.table,newPoints);
-
                 if (tempHope.gameOver()) {
                     solutions++;
 
@@ -80,7 +70,7 @@ public class DepthFirstSearch {
                         bestScore = Integer.valueOf(tempPoints + points);
                     }
 
-                    if (solutions >= row*col*10000)
+                    if (solutions >= row*col*10)
                         running = false;
 
                     continue;

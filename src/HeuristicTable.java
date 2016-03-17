@@ -9,7 +9,7 @@ public class HeuristicTable {
     ArrayList<Integer> tableRegions;
     ArrayList<Integer> tableVisited;
 
-    static int nextColor = 1;
+    int nextColor = 1;
 
 
 

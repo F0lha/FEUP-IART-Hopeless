@@ -16,6 +16,12 @@ public class Point {
     int getCol(){
         return col;
     }
+
+    @Override
+    public boolean equals(Object o){
+        return (o instanceof Point && getRow() == ((Point) o).getRow() && getCol() == ((Point) o).getCol());
+    }
+
     public String toString(){
         return "(" + row +"," + col + ")";
     }

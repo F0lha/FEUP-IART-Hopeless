@@ -10,46 +10,13 @@ public class main {
 
     public static void main(String[] args)
     {
-        Hopeless hopeAStar = new Hopeless(5,5,4);
+        Hopeless hopeAStar = new Hopeless(10,20,4);
 
-        Hopeless hopeDFS = new Hopeless(5,5,4);
+        Hopeless hopeDFS = new Hopeless(10,20,4);
 
         hopeDFS.table = new ArrayList<>(hopeAStar.table);
 
-        for(int i= 0;i < hopeAStar.row;i++)
-        {
-            for(int j = 0; j < hopeAStar.col;j++)
-            {
-                System.out.print(hopeAStar.table.get(i*hopeAStar.col+j)+"|");
-            }
-            System.out.println();
-        }
-/*
-        int points = 0;
-
-        Random rand = new Random();
-
-       while(!hope.gameOver())
-       {
-           List<Point> list = hope.getAllValidMoves();
-
-           points += hope.makePlay(list.get(rand.nextInt(list.size())));
-
-           for(int i = 0; i < hope.table.length;i++){
-               for(int j = 0; j < hope.table[i].length;j++)
-                   System.out.print(hope.table[i][j]+"|");
-               System.out.println();
-           }
-           System.out.println("Points:" + points);
-       }
-
-*/
-        long startTime = System.currentTimeMillis();
-
-        //DepthFirstSearch rip = new DepthFirstSearch(hope);
-
-
-        //A STAR
+        hopeAStar.print();
 
         runAstar(hopeAStar);
 
@@ -60,8 +27,6 @@ public class main {
     static void runAstar(Hopeless hope){
 
         long startTime = System.currentTimeMillis();
-
-        //DepthFirstSearch rip = new DepthFirstSearch(hope);
 
 
         //A STAR
@@ -75,14 +40,7 @@ public class main {
                 hope.makePlay(move,new ArrayList<Point>());
             }
         System.out.println("Final ----");
-        for(int i= 0;i < hope.row;i++)
-        {
-            for(int j = 0; j < hope.col;j++)
-            {
-                System.out.print(hope.table.get(i*hope.col+j)+"|");
-            }
-            System.out.println();
-        }
+        hope.print();
 
 
         System.out.println("Moves = " + bestMoves);
@@ -104,14 +62,7 @@ public class main {
                 hope.makePlay(move,new ArrayList<Point>());
             }
         System.out.println("Final ----");
-        for(int i= 0;i < hope.row;i++)
-        {
-            for(int j = 0; j < hope.col;j++)
-            {
-                System.out.print(hope.table.get(i*hope.col+j)+"|");
-            }
-            System.out.println();
-        }
+        hope.print();
 
         System.out.println("Moves = " + rip.bestMoves);
         System.out.println("Score = " + rip.bestScore);

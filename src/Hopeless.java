@@ -1,6 +1,7 @@
 import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.lang.Integer;
@@ -119,9 +120,12 @@ public class Hopeless {
 
         //delete color
 
-        table.set((point.getRow()*this.col)+point.getCol(),0);
-
         int index = validMoves.indexOf(point);
+
+        //this.print();
+        //System.out.println("Index : " +index + "//Point " + point.toString() +"// Colour : " + getColor(point));
+
+        table.set((point.getRow()*this.col)+point.getCol(),0);
 
         if(index != -1) {
             //System.out.println("Apagou jogada desnecessaria");
@@ -136,28 +140,29 @@ public class Hopeless {
         else up = null;
 
         if (up != null && (colour == getColor(up)))
-            acc += removePoint(up,colour,validMoves);
+            acc += this.removePoint(up,colour,validMoves);
 
         if(point.getRow()>0)
             down = new Point(point.getRow()-1,point.getCol());
         else down = null;
 
         if (down != null &&(colour == getColor(down)))
-            acc += removePoint(down,colour,validMoves);
+            acc += this.removePoint(down,colour,validMoves);
 
         if(point.getCol()<col-1)
             left = new Point(point.getRow(),point.getCol()+1);
         else left = null;
 
         if (left != null && (colour == getColor(left)))
-            acc += removePoint(left,colour,validMoves);
+            acc += this.removePoint(left,colour,validMoves);
 
         if(point.getCol()>0)
             right = new Point(point.getRow(),point.getCol()-1);
         else right = null;
 
         if (right != null && (colour == getColor(right)))
-            acc += removePoint(right,colour,validMoves);
+            acc += this.removePoint(right,colour,validMoves);
+
         return acc;
     }
 
@@ -232,6 +237,10 @@ public class Hopeless {
             }
             System.out.println();
         }
+    }
+
+    void copyTable(ArrayList<Integer> newTable){
+        this.table = new ArrayList<>(newTable);
     }
 }
 
