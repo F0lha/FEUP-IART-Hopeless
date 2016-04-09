@@ -1,8 +1,6 @@
-import javafx.util.Pair;
+package iart;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import java.lang.Integer;
 
@@ -15,7 +13,7 @@ public class Hopeless {
 
     public ArrayList<Integer> table;
 
-    int row,col;
+    int row, col;
 
     int difficulty;
 
@@ -30,7 +28,7 @@ public class Hopeless {
 
     }
 
-    int getColor(Point point){
+    public int getColor(Point point){
         if((point.getRow()>=0 && point.getRow()<row)&&(point.getCol()>=0 && point.getCol()<col))
             return table.get(point.getRow()*this.col+point.getCol());
         else return -1;
@@ -68,15 +66,15 @@ public class Hopeless {
         {
             //System.out.println("isolated" + point + " colour = " + getColor(point));
 
-            //System.out.println("Cima = " + getColor(new Point(point.getRow()-1,point.getCol())));
-            //System.out.println("Baixo = " + getColor(new Point(point.getRow()+1,point.getCol())));
-            //System.out.println("Esquerda = " + getColor(new Point(point.getRow(),point.getCol()-1)));
-            //System.out.println("Direita = " + getColor(new Point(point.getRow(),point.getCol()+1)));
+            //System.out.println("Cima = " + getColor(new iart.Point(point.getRow()-1,point.getCol())));
+            //System.out.println("Baixo = " + getColor(new iart.Point(point.getRow()+1,point.getCol())));
+            //System.out.println("Esquerda = " + getColor(new iart.Point(point.getRow(),point.getCol()-1)));
+            //System.out.println("Direita = " + getColor(new iart.Point(point.getRow(),point.getCol()+1)));
             return false;
         }
     }
 
-    ArrayList<Point> getAllValidMoves(){
+    public ArrayList<Point> getAllValidMoves(){
 
         ArrayList<Point> listOfValidMoves = new ArrayList<>();
 
@@ -89,7 +87,7 @@ public class Hopeless {
         return listOfValidMoves;
     }
 
-    int makePlay(Point point, ArrayList<Point> validMoves){
+    public int makePlay(Point point, ArrayList<Point> validMoves){
 
         if(!validMove(point)){
             return -1;
@@ -123,7 +121,7 @@ public class Hopeless {
         int index = validMoves.indexOf(point);
 
         //this.print();
-        //System.out.println("Index : " +index + "//Point " + point.toString() +"// Colour : " + getColor(point));
+        //System.out.println("Index : " +index + "//iart.Point " + point.toString() +"// Colour : " + getColor(point));
 
         table.set((point.getRow()*this.col)+point.getCol(),0);
 
@@ -224,11 +222,11 @@ public class Hopeless {
         }
     }
 
-    boolean gameOver(){
+    public boolean gameOver(){
         return getAllValidMoves().isEmpty();
     }
 
-    void print(){
+    public void print(){
         for(int i= 0;i < row;i++)
         {
             for(int j = 0; j < col;j++)
@@ -239,8 +237,21 @@ public class Hopeless {
         }
     }
 
-    void copyTable(ArrayList<Integer> newTable){
+    public void copyTable(ArrayList<Integer> newTable){
         this.table = new ArrayList<>(newTable);
+    }
+
+
+    public int getCol() {
+        return col;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getDifficulty(){
+        return difficulty;
     }
 }
 

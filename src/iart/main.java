@@ -1,7 +1,9 @@
-import javax.swing.text.html.StyleSheet;
+package iart;
+
+import iart.AStar.AStarSearch;
+import iart.BBound.BBoundSearch;
+
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Pedro Castro on 02/03/2016.
@@ -10,17 +12,49 @@ public class main {
 
     public static void main(String[] args)
     {
-        Hopeless hopeAStar = new Hopeless(10,20,4);
+        Hopeless hopeAStar = new Hopeless(10,10,4);
 
-        Hopeless hopeDFS = new Hopeless(10,20,4);
+        Hopeless hopeDFS = new Hopeless(10,10,4);
+
+        Hopeless hopeBBound = new Hopeless(10,10,4);
 
         hopeDFS.table = new ArrayList<>(hopeAStar.table);
+
+        hopeBBound.table = new ArrayList<>(hopeAStar.table);
 
         hopeAStar.print();
 
         runAstar(hopeAStar);
 
         dfs(hopeDFS);
+
+        bbound(hopeBBound);
+    }
+
+    static void bbound(Hopeless hope){
+        long startTime = System.currentTimeMillis();
+
+
+        //A STAR
+        BBoundSearch rip = new BBoundSearch(hope);
+
+        ArrayList<Point> bestMoves = rip.getBBoundMoves();
+
+        if(rip.getBestScore()!= 0)
+            for(Point move : bestMoves)
+            {
+                hope.makePlay(move,new ArrayList<Point>());
+            }
+        System.out.println("Final ----");
+        hope.print();
+
+
+        System.out.println("Moves = " + bestMoves);
+        System.out.println("Score = " + rip.getBestScore());
+
+        long endTime   = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+        System.out.println("Time of Computing = " + totalTime);
     }
 
 
@@ -34,7 +68,7 @@ public class main {
 
         ArrayList<Point> bestMoves = rip.getAStarMoves();
 
-        if(rip.bestScore!= 0)
+        if(rip.getBestScore()!= 0)
             for(Point move : bestMoves)
             {
                 hope.makePlay(move,new ArrayList<Point>());
@@ -44,7 +78,7 @@ public class main {
 
 
         System.out.println("Moves = " + bestMoves);
-        System.out.println("Score = " + rip.bestScore);
+        System.out.println("Score = " + rip.getBestScore());
 
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;

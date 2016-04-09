@@ -74,7 +74,7 @@ Java Threads: ( => current thread )
   0x000000000a7d1000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=8892, stack(0x000000000bb40000,0x000000000bc40000)]
   0x000000000a79a000 JavaThread "Finalizer" daemon [_thread_blocked, id=8528, stack(0x000000000ba40000,0x000000000bb40000)]
   0x000000000a796800 JavaThread "Reference Handler" daemon [_thread_blocked, id=520, stack(0x000000000b940000,0x000000000ba40000)]
-  0x000000000216e800 JavaThread "main" [_thread_blocked, id=9316, stack(0x00000000022f0000,0x00000000023f0000)]
+  0x000000000216e800 JavaThread "iart.main" [_thread_blocked, id=9316, stack(0x00000000022f0000,0x00000000023f0000)]
 
 Other Threads:
   0x000000000a792800 VMThread [stack: 0x000000000b840000,0x000000000b940000] [id=5936]
@@ -110,10 +110,10 @@ Event: 0.345 Thread 0x000000000a7d8800 nmethod 40 0x000000000255d1d0 code [0x000
 Event: 0.345 Thread 0x000000000a7d8800   41             java.util.ArrayList$Itr::<init> (26 bytes)
 Event: 0.345 Thread 0x000000000a7d8800 nmethod 41 0x000000000255cf50 code [0x000000000255d080, 0x000000000255d118]
 Event: 0.694 Thread 0x000000000a7d5000 nmethod 31 0x00000000025732d0 code [0x0000000002573b40, 0x000000000257aaf0]
-Event: 2.117 Thread 0x000000000a7d8800   42 %           DepthFirstSearch::dfs @ 29 (220 bytes)
+Event: 2.117 Thread 0x000000000a7d8800   42 %           iart.DepthFirstSearch::dfs @ 29 (220 bytes)
 Event: 2.236 Thread 0x000000000a7d8800 nmethod 42% 0x000000000256bc10 code [0x000000000256bfc0, 0x000000000256f468]
-Event: 2.236 Thread 0x000000000a7d5000   43             DepthFirstSearch::dfs (220 bytes)
-Event: 2.256 Thread 0x000000000a7d8800   44             Hopeless::removePoint (268 bytes)
+Event: 2.236 Thread 0x000000000a7d5000   43             iart.DepthFirstSearch::dfs (220 bytes)
+Event: 2.256 Thread 0x000000000a7d8800   44             iart.Hopeless::removePoint (268 bytes)
 Event: 2.334 Thread 0x000000000a7d8800 nmethod 44 0x0000000002588350 code [0x0000000002588740, 0x000000000258b808]
 Event: 2.390 Thread 0x000000000a7d5000 nmethod 43 0x000000000258f4d0 code [0x000000000258f880, 0x00000000025926b8]
 
@@ -225,8 +225,8 @@ Event: 3314.863 GC heap before
   object space 21504K, 14% used [0x000000077ca00000,0x000000077ccf7e00,0x000000077df00000)
 
 Deoptimization events (2 events):
-Event: 2.112 Thread 0x000000000216e800 Uncommon trap: reason=unreached action=reinterpret pc=0x0000000002579668 method=Hopeless.removePoint(LPoint;I)I @ 113
-Event: 2.240 Thread 0x000000000216e800 Uncommon trap: reason=unreached action=reinterpret pc=0x0000000002566884 method=Hopeless.removePoint(LPoint;I)I @ 113
+Event: 2.112 Thread 0x000000000216e800 Uncommon trap: reason=unreached action=reinterpret pc=0x0000000002579668 method=iart.Hopeless.removePoint(LPoint;I)I @ 113
+Event: 2.240 Thread 0x000000000216e800 Uncommon trap: reason=unreached action=reinterpret pc=0x0000000002566884 method=iart.Hopeless.removePoint(LPoint;I)I @ 113
 
 Internal exceptions (7 events):
 Event: 0.059 Thread 0x000000000216e800 Threw 0x00000007d5e8b468 at C:\re\jdk7u79\2331\hotspot\src\share\vm\prims\jni.cpp:3991
@@ -283,7 +283,7 @@ Dynamic libraries:
 
 VM Arguments:
 jvm_args: -Didea.launcher.port=7542 -Didea.launcher.bin.path=C:\Program Files (x86)\JetBrains\IntelliJ IDEA Community Edition 15.0.3\bin -Dfile.encoding=UTF-8 
-java_command: com.intellij.rt.execution.application.AppMain main
+java_command: com.intellij.rt.execution.application.AppMain iart.main
 Launcher Type: SUN_STANDARD
 
 Environment Variables:

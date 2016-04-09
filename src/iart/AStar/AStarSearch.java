@@ -1,3 +1,8 @@
+package iart.AStar;
+
+import iart.Hopeless;
+import iart.Point;
+
 import java.util.*;
 
 /**
@@ -5,8 +10,8 @@ import java.util.*;
  */
 public class AStarSearch {
 
-    PriorityQueue<Node> openList = new PriorityQueue<>();
-    Map<Integer,Node> mapNode = new HashMap<>();
+    PriorityQueue<AStarNode> openList = new PriorityQueue<>();
+    Map<Integer, AStarNode> mapNode = new HashMap<>();
 
     int row,col,difficulty;
 
@@ -14,19 +19,18 @@ public class AStarSearch {
 
     public AStarSearch(Hopeless hope){
 
-        this.row = hope.row;
-        this.col = hope.col;
-        this.difficulty = hope.difficulty;
+        this.row = hope.getRow();
+        this.col = hope.getCol();
+        this.difficulty = hope.getDifficulty();
 
-        Node fNode = new Node(-1,0,hope.table,0,0,null);
+        AStarNode fNode = new AStarNode(-1,0,hope.table,0,0,null);
         openList.add(fNode);
         mapNode.put(fNode.nodeID,fNode);
 
         while(!openList.isEmpty()) {
-            Node headNode = new Node(openList.poll(),0);
-
-            System.out.println("Node Level : " + headNode.level);
-            System.out.println("Score : " + headNode.score);
+            AStarNode headNode = new AStarNode(openList.poll(),0);
+            if(mapNode.containsKey(headNode.parentNode))
+                System.out.println("Last Play : " + (headNode.realScore - mapNode.get(headNode.parentNode).realScore) + " at level :" + headNode.level);
 
             hope.table = new ArrayList<>(headNode.table);
 
@@ -37,6 +41,8 @@ public class AStarSearch {
 
             Iterator<Point> iter = validMoves.iterator();
 
+            int bestPlay = 0;
+
             while (iter.hasNext()) {
                 Point validMove = iter.next();
                 //resetBoard
@@ -44,23 +50,27 @@ public class AStarSearch {
 
                 int tempPoints = hope.makePlay(validMove, validMoves);
 
+                if(bestPlay < tempPoints)
+                    bestPlay = tempPoints;
+
                 int value = heuristicF(tempPoints + headNode.realScore, hope);
 
                 //System.out.println("Value = " + value);
 
-                Node nextNode = new Node(headNode.nodeID, headNode.level + 1, new ArrayList<>(hope.table), value, tempPoints + headNode.realScore, validMove);
+                AStarNode nextNode = new AStarNode(headNode.nodeID, headNode.level + 1, new ArrayList<>(hope.table), value, tempPoints + headNode.realScore, validMove);
 
                 openList.add(nextNode);
                 mapNode.put(nextNode.nodeID, nextNode);
 
                 iter = validMoves.iterator();
             }
+            System.out.println("Best Play : " + bestPlay);
         }
     }
 
-    ArrayList<Point> getAStarMoves(){
+    public ArrayList<Point> getAStarMoves(){
         ArrayList<Point> returningList = new ArrayList<>();
-        Node currentNode = openList.peek();
+        AStarNode currentNode = openList.peek();
         this.bestScore = currentNode.realScore;
         while(currentNode.parentNode != -1)
         {
@@ -81,22 +91,26 @@ public class AStarSearch {
         return result;
     }
 
+    public int getBestScore(){
+        return bestScore;
+    }
+
 
     public int heuristicF(int points, Hopeless hope){
         int weight = points;
 
-        HeuristicTable HTable = new HeuristicTable(hope.row * hope.col);
+        HeuristicTable HTable = new HeuristicTable(hope.getRow() * hope.getCol());
 
-        for(int i= 0;i < hope.row;i++)
+        for(int i= 0;i < hope.getRow();i++)
         {
-            for(int j = 0; j < hope.col;j++) {
+            for(int j = 0; j < hope.getCol();j++) {
 
                 int pointColour = hope.getColor(new Point(i,j));
 
                 if(pointColour == 0)
                 {
-                    HTable.getTableRegions().set(i*hope.col+j,0);
-                    HTable.getTableVisited().set(i*hope.col+j,1);
+                    HTable.getTableRegions().set(i*hope.getCol()+j,0);
+                    HTable.getTableVisited().set(i*hope.getCol()+j,1);
                 }
                 else{
                     recursiveRegions(i,j,hope,HTable,HTable.getNextColor());
@@ -110,8 +124,6 @@ public class AStarSearch {
         int limit = HTable.getNextColor();
 
 
-        int alone = 0;
-
         for(int i = 1; i < limit;i++){
             int removals = Collections.frequency(HTable.getTableRegions(), i);
             if(removals == 1)
@@ -124,12 +136,12 @@ public class AStarSearch {
         return weight;
     }
 
-    void recursiveRegions(int i,int j,Hopeless hope,HeuristicTable HTable,int HTableColor){
+    void recursiveRegions(int i, int j, Hopeless hope, HeuristicTable HTable, int HTableColor){
         //if not visited
-        if(HTable.getTableVisited().get(i*hope.col+j) != 1) {
+        if(HTable.getTableVisited().get(i*hope.getCol()+j) != 1) {
 
-            HTable.getTableRegions().set(i * hope.col + j, HTableColor);
-            HTable.getTableVisited().set(i * hope.col + j, 1);
+            HTable.getTableRegions().set(i * hope.getCol() + j, HTableColor);
+            HTable.getTableVisited().set(i * hope.getCol() + j, 1);
 
             //surrounding
 
@@ -137,9 +149,9 @@ public class AStarSearch {
                 recursiveRegions(i - 1, j, hope, HTable, HTableColor);
             if (j > 0 && (hope.getColor(new Point(i, j)) == hope.getColor(new Point(i, j - 1))))
                 recursiveRegions(i, j - 1, hope, HTable, HTableColor);
-            if (i < hope.row && (hope.getColor(new Point(i, j)) == hope.getColor(new Point(i + 1, j))))
+            if (i < hope.getRow() && (hope.getColor(new Point(i, j)) == hope.getColor(new Point(i + 1, j))))
                 recursiveRegions(i + 1, j, hope, HTable, HTableColor);
-            if (j < hope.col && (hope.getColor(new Point(i, j)) == hope.getColor(new Point(i, j + 1))))
+            if (j < hope.getCol() && (hope.getColor(new Point(i, j)) == hope.getColor(new Point(i, j + 1))))
                 recursiveRegions(i, j + 1, hope, HTable, HTableColor);
         }
     }

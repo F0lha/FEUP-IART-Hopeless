@@ -1,40 +1,43 @@
+package iart.BBound;
+
+import iart.Point;
+
 import java.util.ArrayList;
 
+
 /**
- * Created by Pedro Castro on 05/03/2016.
+ * Created by Pedro Castro on 07/04/2016.
  */
-public class Node implements Comparable<Node>{
+public class BBoundNode implements Comparable<BBoundNode>{
 
     static int nextNodeID = 0;
 
-    int nodeID; //
-    int parentNode;
-    int realScore;
-    Point move;
-    int level;
-
     int score;
+    int level;
+    int nodeID;
+
+    Point move;
+
+    int parentNode;
+
 
     ArrayList<Integer> table;
 
-    public Node(int parentNode, int level, ArrayList<Integer> table, int score,int realScore, Point move){
+    public BBoundNode(int level, int score, ArrayList<Integer> table ,Point move, int parentNode) {
 
-        this.parentNode = parentNode;
-        this.score = score;
-        this.realScore = realScore;
-        this.move = move;
         this.level = level;
-        nodeID = nextNodeID;
+        this.score = score;
+        this.move = move;
+        this.parentNode = parentNode;
+        this.nodeID = nextNodeID;
+        this.table = table;
         nextNodeID++;
-
-        this.table = new ArrayList<>(table);
     }
 
-    public Node(Node node, int levelSum)
+    public BBoundNode(BBoundNode node, int levelSum)
     {
         this.parentNode = node.parentNode;
         this.score = node.score;
-        this.realScore = node.realScore;
         this.move = node.move;
         this.level = node.level + levelSum;
         this.nodeID = node.nodeID;
@@ -42,7 +45,8 @@ public class Node implements Comparable<Node>{
         this.table = new ArrayList<>(node.table);
     }
 
-    public int compareTo(Node node){
+
+    public int compareTo(BBoundNode node){
         if(score == node.score)
             return (level > node.level) ? 1 : -1;
         else if(score < node.score)
@@ -50,3 +54,5 @@ public class Node implements Comparable<Node>{
         else return -1;
     }
 }
+
+
