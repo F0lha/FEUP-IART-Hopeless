@@ -35,8 +35,8 @@ public class BBoundSearch {
             hope.table = new ArrayList<>(headNode.table);
 
 
-            if(mapNode.containsKey(headNode.parentNode))
-                System.out.println("Last Play : " + (headNode.score - mapNode.get(headNode.parentNode).score) + " at level :" + headNode.level);
+//            if(mapNode.containsKey(headNode.parentNode))
+//                System.out.println("Last Play : " + (headNode.score - mapNode.get(headNode.parentNode).score) + " at level :" + headNode.level);
 
             if(hope.gameOver())
                 break;
@@ -67,7 +67,7 @@ public class BBoundSearch {
                 iter = validMoves.iterator();
             }
 
-            System.out.println("Best Play : " + bestPlay);
+//            System.out.println("Best Play : " + bestPlay);
         }
     }
 

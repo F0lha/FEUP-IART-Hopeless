@@ -29,9 +29,9 @@ public class AStarSearch {
 
         while(!openList.isEmpty()) {
             AStarNode headNode = new AStarNode(openList.poll(),0);
-            if(mapNode.containsKey(headNode.parentNode))
+            /*if(mapNode.containsKey(headNode.parentNode))
                 System.out.println("Last Play : " + (headNode.realScore - mapNode.get(headNode.parentNode).realScore) + " at level :" + headNode.level);
-
+*/
             hope.table = new ArrayList<>(headNode.table);
 
             if(hope.gameOver())
@@ -64,7 +64,7 @@ public class AStarSearch {
 
                 iter = validMoves.iterator();
             }
-            System.out.println("Best Play : " + bestPlay);
+            //System.out.println("Best Play : " + bestPlay);
         }
     }
 
