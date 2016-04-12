@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8b106a9a-5498-44fe-9462-cab17bd59d6b" name="Default" comment="delete comments&#10;">
+    <list default="true" id="8b106a9a-5498-44fe-9462-cab17bd59d6b" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/iart/AStar/AStarNodeComparator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/iart/BBound/BBoundNodeComparator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projecto/iart/AStar/AStarNode.class" afterPath="$PROJECT_DIR$/out/production/Projecto/iart/AStar/AStarNode.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projecto/iart/AStar/AStarSearch.class" afterPath="$PROJECT_DIR$/out/production/Projecto/iart/AStar/AStarSearch.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projecto/iart/BBound/BBoundNode.class" afterPath="$PROJECT_DIR$/out/production/Projecto/iart/BBound/BBoundNode.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projecto/iart/BBound/BBoundSearch.class" afterPath="$PROJECT_DIR$/out/production/Projecto/iart/BBound/BBoundSearch.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/iart/AStar/AStarNode.java" afterPath="$PROJECT_DIR$/src/iart/AStar/AStarNode.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/iart/AStar/AStarSearch.java" afterPath="$PROJECT_DIR$/src/iart/AStar/AStarSearch.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/iart/BBound/BBoundNode.java" afterPath="$PROJECT_DIR$/src/iart/BBound/BBoundNode.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/iart/BBound/BBoundSearch.java" afterPath="$PROJECT_DIR$/src/iart/BBound/BBoundSearch.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/iart/main.java" afterPath="$PROJECT_DIR$/src/iart/main.java" />
     </list>
     <ignored path="Projecto.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,36 +35,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AStarSearch.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AStarSearch.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/iart/AStar/AStarSearch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="66" column="14" selection-start-line="66" selection-start-column="14" selection-end-line="66" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.43762782">
+              <caret line="115" column="20" selection-start-line="115" selection-start-column="20" selection-end-line="115" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2835#2836#0" expanded="true" />
-                <element signature="e#2867#2868#0" expanded="true" />
+                <element signature="e#2935#2936#0" expanded="true" />
+                <element signature="e#2967#2968#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HeuristicTable.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/iart/AStar/HeuristicTable.java">
+      <file leaf-file-name="ArrayList.java" pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/util/ArrayList.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="2" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
+              <caret line="430" column="0" selection-start-line="430" selection-start-column="0" selection-end-line="430" selection-end-column="0" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#496#497#0" expanded="false" />
-                <element signature="e#531#532#0" expanded="false" />
-                <element signature="e#582#583#0" expanded="false" />
-                <element signature="e#617#618#0" expanded="false" />
-                <element signature="e#650#651#0" expanded="false" />
-                <element signature="e#682#683#0" expanded="false" />
-                <element signature="e#708#709#0" expanded="false" />
-                <element signature="e#735#736#0" expanded="false" />
+                <element signature="e#15414#15415#0" expanded="true" />
+                <element signature="e#15459#15460#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AStarNodeComparator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/iart/AStar/AStarNodeComparator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -70,11 +82,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BBoundSearch.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BBoundSearch.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/iart/BBound/BBoundSearch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44402984">
-              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="13" column="66" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,8 +98,10 @@
         <entry file="file://$PROJECT_DIR$/src/iart/BBound/BBoundNode.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-              <folding />
+              <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -96,7 +110,19 @@
         <entry file="file://$PROJECT_DIR$/src/iart/AStar/AStarNode.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="15" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
+              <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BBoundNodeComparator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/iart/BBound/BBoundNodeComparator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -106,33 +132,8 @@
         <entry file="file://$PROJECT_DIR$/src/iart/Hopeless.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#3251#3252#0" expanded="false" />
-                <element signature="e#3312#3313#0" expanded="false" />
-                <element signature="e#6489#6490#0" expanded="false" />
-                <element signature="e#6540#6541#0" expanded="false" />
-                <element signature="e#6843#6844#0" expanded="false" />
-                <element signature="e#6897#6898#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Point.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/iart/Point.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="97" selection-start-line="23" selection-start-column="97" selection-end-line="23" selection-end-column="97" />
-              <folding>
-                <element signature="e#220#221#0" expanded="false" />
-                <element signature="e#246#247#0" expanded="false" />
-                <element signature="e#264#265#0" expanded="false" />
-                <element signature="e#290#291#0" expanded="false" />
-                <element signature="e#488#489#0" expanded="false" />
-                <element signature="e#537#538#0" expanded="false" />
-              </folding>
+              <caret line="30" column="15" selection-start-line="30" selection-start-column="15" selection-end-line="30" selection-end-column="15" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -141,7 +142,7 @@
         <entry file="file://$PROJECT_DIR$/src/iart/main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="85" column="5" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
+              <caret line="18" column="46" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -183,12 +184,14 @@
         <option value="$PROJECT_DIR$/src/AStarNode.java" />
         <option value="$PROJECT_DIR$/src/BBound/BBound.java" />
         <option value="$PROJECT_DIR$/src/BBound/BBoundSearch.java" />
-        <option value="$PROJECT_DIR$/src/iart/AStar/AStarNode.java" />
         <option value="$PROJECT_DIR$/src/iart/Hopeless.java" />
+        <option value="$PROJECT_DIR$/src/iart/AStar/AStarNode.java" />
         <option value="$PROJECT_DIR$/src/iart/BBound/BBoundNode.java" />
-        <option value="$PROJECT_DIR$/src/iart/main.java" />
-        <option value="$PROJECT_DIR$/src/iart/AStar/AStarSearch.java" />
         <option value="$PROJECT_DIR$/src/iart/BBound/BBoundSearch.java" />
+        <option value="$PROJECT_DIR$/src/iart/main.java" />
+        <option value="$PROJECT_DIR$/src/iart/AStar/AStarNodeComparator.java" />
+        <option value="$PROJECT_DIR$/src/iart/BBound/BBoundNodeComparator.java" />
+        <option value="$PROJECT_DIR$/src/iart/AStar/AStarSearch.java" />
       </list>
     </option>
   </component>
@@ -628,7 +631,13 @@
       <option name="project" value="LOCAL" />
       <updated>1458225361684</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="delete comments&#10;">
+      <created>1460476112436</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1460476112436</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -646,12 +655,12 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.4939302" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936978" sideWeight="0.49676377" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936978" sideWeight="0.49676377" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936978" sideWeight="0.50323623" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38525563" sideWeight="0.5218447" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.4969651" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38525563" sideWeight="0.48139158" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38525563" sideWeight="0.47815534" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.4969651" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -702,47 +711,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/iart/Point.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="97" selection-start-line="23" selection-start-column="97" selection-end-line="23" selection-end-column="97" />
-          <folding>
-            <element signature="e#220#221#0" expanded="false" />
-            <element signature="e#246#247#0" expanded="false" />
-            <element signature="e#264#265#0" expanded="false" />
-            <element signature="e#290#291#0" expanded="false" />
-            <element signature="e#488#489#0" expanded="false" />
-            <element signature="e#537#538#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/iart/main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="80" column="49" selection-start-line="80" selection-start-column="49" selection-end-line="80" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/iart/AStar/HeuristicTable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="2" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#496#497#0" expanded="false" />
-            <element signature="e#531#532#0" expanded="false" />
-            <element signature="e#582#583#0" expanded="false" />
-            <element signature="e#617#618#0" expanded="false" />
-            <element signature="e#650#651#0" expanded="false" />
-            <element signature="e#682#683#0" expanded="false" />
-            <element signature="e#708#709#0" expanded="false" />
-            <element signature="e#735#736#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/iart/DepthFirstSearch.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -755,7 +723,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="19" column="78" selection-start-line="19" selection-start-column="73" selection-end-line="19" selection-end-column="78" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -763,15 +733,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3251#3252#0" expanded="false" />
-            <element signature="e#3312#3313#0" expanded="false" />
-            <element signature="e#6489#6490#0" expanded="false" />
-            <element signature="e#6540#6541#0" expanded="false" />
-            <element signature="e#6843#6844#0" expanded="false" />
-            <element signature="e#6897#6898#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -804,8 +766,8 @@
           <caret line="29" column="66" selection-start-line="29" selection-start-column="66" selection-end-line="29" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2835#2836#0" expanded="true" />
-            <element signature="e#2867#2868#0" expanded="true" />
+            <element signature="e#2935#2936#0" expanded="true" />
+            <element signature="e#2967#2968#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -840,7 +802,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="19" column="78" selection-start-line="19" selection-start-column="73" selection-end-line="19" selection-end-column="78" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -848,15 +812,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3251#3252#0" expanded="false" />
-            <element signature="e#3312#3313#0" expanded="false" />
-            <element signature="e#6489#6490#0" expanded="false" />
-            <element signature="e#6540#6541#0" expanded="false" />
-            <element signature="e#6843#6844#0" expanded="false" />
-            <element signature="e#6897#6898#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -889,8 +845,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2835#2836#0" expanded="true" />
-            <element signature="e#2867#2868#0" expanded="true" />
+            <element signature="e#2935#2936#0" expanded="true" />
+            <element signature="e#2967#2968#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -925,7 +881,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -933,15 +891,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="107" column="31" selection-start-line="107" selection-start-column="31" selection-end-line="107" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3251#3252#0" expanded="false" />
-            <element signature="e#3312#3313#0" expanded="false" />
-            <element signature="e#6489#6490#0" expanded="false" />
-            <element signature="e#6540#6541#0" expanded="false" />
-            <element signature="e#6843#6844#0" expanded="false" />
-            <element signature="e#6897#6898#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -974,8 +924,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2835#2836#0" expanded="true" />
-            <element signature="e#2867#2868#0" expanded="true" />
+            <element signature="e#2935#2936#0" expanded="true" />
+            <element signature="e#2967#2968#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1010,7 +960,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1018,15 +970,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="107" column="31" selection-start-line="107" selection-start-column="31" selection-end-line="107" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3251#3252#0" expanded="false" />
-            <element signature="e#3312#3313#0" expanded="false" />
-            <element signature="e#6489#6490#0" expanded="false" />
-            <element signature="e#6540#6541#0" expanded="false" />
-            <element signature="e#6843#6844#0" expanded="false" />
-            <element signature="e#6897#6898#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1059,8 +1003,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2835#2836#0" expanded="true" />
-            <element signature="e#2867#2868#0" expanded="true" />
+            <element signature="e#2935#2936#0" expanded="true" />
+            <element signature="e#2967#2968#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1095,7 +1039,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1103,15 +1049,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="107" column="31" selection-start-line="107" selection-start-column="31" selection-end-line="107" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3251#3252#0" expanded="false" />
-            <element signature="e#3312#3313#0" expanded="false" />
-            <element signature="e#6489#6490#0" expanded="false" />
-            <element signature="e#6540#6541#0" expanded="false" />
-            <element signature="e#6843#6844#0" expanded="false" />
-            <element signature="e#6897#6898#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1144,8 +1082,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2835#2836#0" expanded="true" />
-            <element signature="e#2867#2868#0" expanded="true" />
+            <element signature="e#2935#2936#0" expanded="true" />
+            <element signature="e#2967#2968#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1162,7 +1100,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1170,15 +1110,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="130" column="14" selection-start-line="130" selection-start-column="14" selection-end-line="130" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3251#3252#0" expanded="false" />
-            <element signature="e#3312#3313#0" expanded="false" />
-            <element signature="e#6489#6490#0" expanded="false" />
-            <element signature="e#6540#6541#0" expanded="false" />
-            <element signature="e#6843#6844#0" expanded="false" />
-            <element signature="e#6897#6898#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1188,8 +1120,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2835#2836#0" expanded="true" />
-            <element signature="e#2867#2868#0" expanded="true" />
+            <element signature="e#2935#2936#0" expanded="true" />
+            <element signature="e#2967#2968#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1220,30 +1152,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/iart/DepthFirstSearch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="42" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/iart/Hopeless.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3251#3252#0" expanded="false" />
-            <element signature="e#3312#3313#0" expanded="false" />
-            <element signature="e#6489#6490#0" expanded="false" />
-            <element signature="e#6540#6541#0" expanded="false" />
-            <element signature="e#6843#6844#0" expanded="false" />
-            <element signature="e#6897#6898#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/iart/Point.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1259,10 +1167,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/iart/AStar/AStarNode.java">
+    <entry file="file://$PROJECT_DIR$/src/iart/DepthFirstSearch.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="15" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
+          <caret line="62" column="42" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
           <folding />
         </state>
       </provider>
@@ -1270,37 +1178,84 @@
     <entry file="file://$PROJECT_DIR$/src/iart/BBound/BBoundNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
+          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/iart/AStar/AStarNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/iart/main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="85" column="5" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
+          <caret line="18" column="46" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/iart/BBound/BBoundSearch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="66" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/iart/AStar/AStarNodeComparator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/iart/BBound/BBoundNodeComparator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="430" column="0" selection-start-line="430" selection-start-column="0" selection-end-line="430" selection-end-column="0" />
+          <folding>
+            <element signature="e#15414#15415#0" expanded="true" />
+            <element signature="e#15459#15460#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/iart/Hopeless.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="15" selection-start-line="30" selection-start-column="15" selection-end-line="30" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/iart/AStar/AStarSearch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="66" column="14" selection-start-line="66" selection-start-column="14" selection-end-line="66" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.43762782">
+          <caret line="115" column="20" selection-start-line="115" selection-start-column="20" selection-end-line="115" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2835#2836#0" expanded="true" />
-            <element signature="e#2867#2868#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/iart/BBound/BBoundSearch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44402984">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2935#2936#0" expanded="true" />
+            <element signature="e#2967#2968#0" expanded="true" />
           </folding>
         </state>
       </provider>

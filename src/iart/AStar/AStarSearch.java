@@ -10,7 +10,8 @@ import java.util.*;
  */
 public class AStarSearch {
 
-    PriorityQueue<AStarNode> openList = new PriorityQueue<>();
+    Comparator<AStarNode> comparator = new AStarNodeComparator();
+    PriorityQueue<AStarNode> openList = new PriorityQueue<>(comparator);
     Map<Integer, AStarNode> mapNode = new HashMap<>();
 
     int row,col,difficulty;
@@ -28,14 +29,16 @@ public class AStarSearch {
         mapNode.put(fNode.nodeID,fNode);
 
         while(!openList.isEmpty()) {
-            AStarNode headNode = new AStarNode(openList.poll(),0);
-            /*if(mapNode.containsKey(headNode.parentNode))
+            AStarNode headNode = new AStarNode(openList.peek(),0);
+            if(mapNode.containsKey(headNode.parentNode))
                 System.out.println("Last Play : " + (headNode.realScore - mapNode.get(headNode.parentNode).realScore) + " at level :" + headNode.level);
-*/
+
             hope.table = new ArrayList<>(headNode.table);
 
             if(hope.gameOver())
                 break;
+
+            openList.poll();
 
             ArrayList<Point> validMoves = hope.getAllValidMoves();
 
@@ -64,7 +67,7 @@ public class AStarSearch {
 
                 iter = validMoves.iterator();
             }
-            //System.out.println("Best Play : " + bestPlay);
+            System.out.println("Best Play : " + bestPlay);
         }
     }
 
@@ -101,11 +104,16 @@ public class AStarSearch {
 
         HeuristicTable HTable = new HeuristicTable(hope.getRow() * hope.getCol());
 
+        List<Integer> list = new ArrayList<>(Collections.nCopies(hope.getDifficulty(), 0));
+
         for(int i= 0;i < hope.getRow();i++)
         {
             for(int j = 0; j < hope.getCol();j++) {
 
                 int pointColour = hope.getColor(new Point(i,j));
+
+                if(pointColour != 0)
+                    list.set(pointColour-1,list.get(pointColour-1));
 
                 if(pointColour == 0)
                 {
@@ -132,6 +140,10 @@ public class AStarSearch {
                 weight += Hopeless.getPoints(removals);
             }
         }
+
+        //tentativa
+        for(int i = 0; i < list.size();i++)
+            weight += Hopeless.getPoints(list.get(i));
 
         return weight;
     }

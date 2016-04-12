@@ -12,11 +12,11 @@ public class main {
 
     public static void main(String[] args)
     {
-        Hopeless hopeAStar = new Hopeless(10,10,4);
+        Hopeless hopeAStar = new Hopeless(5,5,4);
 
-        Hopeless hopeDFS = new Hopeless(10,10,4);
+        Hopeless hopeDFS = new Hopeless(5,5,4);
 
-        Hopeless hopeBBound = new Hopeless(10,10,4);
+        Hopeless hopeBBound = new Hopeless(5,5,4);
 
         hopeDFS.table = new ArrayList<>(hopeAStar.table);
 

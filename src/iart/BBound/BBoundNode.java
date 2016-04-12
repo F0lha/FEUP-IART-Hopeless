@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by Pedro Castro on 07/04/2016.
  */
-public class BBoundNode implements Comparable<BBoundNode>{
+public class BBoundNode {
 
     static int nextNodeID = 0;
 
@@ -43,15 +43,6 @@ public class BBoundNode implements Comparable<BBoundNode>{
         this.nodeID = node.nodeID;
 
         this.table = new ArrayList<>(node.table);
-    }
-
-
-    public int compareTo(BBoundNode node){
-        if(score == node.score)
-            return (level > node.level) ? 1 : -1;
-        else if(score < node.score)
-            return 1;
-        else return -1;
     }
 }
 

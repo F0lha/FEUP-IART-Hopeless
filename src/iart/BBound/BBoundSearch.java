@@ -11,7 +11,8 @@ import java.util.*;
  */
 public class BBoundSearch {
 
-    PriorityQueue<BBoundNode> openList = new PriorityQueue<>();
+    Comparator<BBoundNode> comparator = new BBoundNodeComparator();
+    PriorityQueue<BBoundNode> openList = new PriorityQueue<>(comparator);
 
     Map<Integer, BBoundNode> mapNode = new HashMap<>();
 
