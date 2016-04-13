@@ -4,6 +4,7 @@ import iart.Hopeless;
 import iart.Point;
 
 import java.util.*;
+import java.util.concurrent.LinkedBlockingDeque;
 
 /**
  * Created by Pedro Castro on 05/03/2016.
@@ -18,7 +19,7 @@ public class AStarSearch {
 
     int bestScore;
 
-    public AStarSearch(Hopeless hope){
+    public AStarSearch(Hopeless hope) {
 
         this.row = hope.getRow();
         this.col = hope.getCol();
@@ -29,11 +30,13 @@ public class AStarSearch {
         mapNode.put(fNode.nodeID,fNode);
 
         while(!openList.isEmpty()) {
-            AStarNode headNode = new AStarNode(openList.peek(),0);
-            if(mapNode.containsKey(headNode.parentNode))
-                System.out.println("Last Play : " + (headNode.realScore - mapNode.get(headNode.parentNode).realScore) + " at level :" + headNode.level);
+            AStarNode headNode = openList.peek();
+            //if(mapNode.containsKey(headNode.parentNode))
+              //  System.out.println("Last Play : " + (headNode.realScore - mapNode.get(headNode.parentNode).realScore) + " at level :" + headNode.level);
 
             hope.table = new ArrayList<>(headNode.table);
+
+            System.out.println("Level: " + headNode.level);
 
             if(hope.gameOver())
                 break;
@@ -44,30 +47,26 @@ public class AStarSearch {
 
             Iterator<Point> iter = validMoves.iterator();
 
-            int bestPlay = 0;
-
             while (iter.hasNext()) {
                 Point validMove = iter.next();
+
                 //resetBoard
                 hope.copyTable(headNode.table);
 
                 int tempPoints = hope.makePlay(validMove, validMoves);
 
-                if(bestPlay < tempPoints)
-                    bestPlay = tempPoints;
-
                 int value = heuristicF(tempPoints + headNode.realScore, hope);
 
                 //System.out.println("Value = " + value);
 
-                AStarNode nextNode = new AStarNode(headNode.nodeID, headNode.level + 1, new ArrayList<>(hope.table), value, tempPoints + headNode.realScore, validMove);
+                AStarNode nextNode = new AStarNode(headNode.nodeID, headNode.level + 1, hope.table, value, tempPoints + headNode.realScore, validMove);
 
                 openList.add(nextNode);
                 mapNode.put(nextNode.nodeID, nextNode);
 
                 iter = validMoves.iterator();
             }
-            System.out.println("Best Play : " + bestPlay);
+            //System.out.println("Best Play : " + bestPlay);
         }
     }
 

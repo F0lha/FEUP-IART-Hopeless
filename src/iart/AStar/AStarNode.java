@@ -6,7 +6,7 @@ import iart.Point;
 /**
  * Created by Pedro Castro on 05/03/2016.
  */
-public class AStarNode{
+public class AStarNode {
 
     static int nextNodeID = 0;
 
@@ -20,8 +20,7 @@ public class AStarNode{
 
     ArrayList<Integer> table;
 
-    public AStarNode(int parentNode, int level, ArrayList<Integer> table, int score, int realScore, Point move){
-
+    public AStarNode(int parentNode, int level, ArrayList<Integer> table, int score, int realScore, Point move) {
         this.parentNode = parentNode;
         this.score = score;
         this.realScore = realScore;
@@ -33,8 +32,7 @@ public class AStarNode{
         this.table = new ArrayList<>(table);
     }
 
-    public AStarNode(AStarNode node, int levelSum)
-    {
+    public AStarNode(AStarNode node, int levelSum) {
         this.parentNode = node.parentNode;
         this.score = node.score;
         this.realScore = node.realScore;
