@@ -55,7 +55,7 @@ public class AStarSearch {
 
                 int tempPoints = hope.makePlay(validMove, validMoves);
 
-                int value = heuristicF(tempPoints + headNode.realScore, hope);
+                int value = heuristicF(tempPoints, row, col, headNode.level);
 
                 //System.out.println("Value = " + value);
 
@@ -98,8 +98,8 @@ public class AStarSearch {
     }
 
 
-    public int heuristicF(int points, Hopeless hope){
-        int weight = points;
+    public int heuristicF(int points, int columns, int rows, int level){
+        /*int tablePoints = points;
 
         HeuristicTable HTable = new HeuristicTable(hope.getRow() * hope.getCol());
 
@@ -134,16 +134,15 @@ public class AStarSearch {
         for(int i = 1; i < limit;i++){
             int removals = Collections.frequency(HTable.getTableRegions(), i);
             if(removals == 1)
-                weight++;
+                tablePoints++;
             else if(removals != 0) {
-                weight += Hopeless.getPoints(removals);
+                tablePoints += Hopeless.getPoints(removals);
             }
-        }
+        }*/
 
-        //tentativa
-        for(int i = 0; i < list.size();i++)
-            weight += Hopeless.getPoints(list.get(i));
-
+        int factor = (columns > rows ? columns : rows);
+        double percentLevel = level / ((factor / 2) * 10.0);
+        int weight =  (int) (Integer.MAX_VALUE / (points * Math.pow((1 + percentLevel), factor)));
         return weight;
     }
 
