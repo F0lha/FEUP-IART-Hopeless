@@ -35,8 +35,6 @@ public class BBoundSearch {
 
             hope.table = new ArrayList<>(headNode.table);
 
-            System.out.println("Level: " + headNode.level);
-
 //            if(mapNode.containsKey(headNode.parentNode))
 //                System.out.println("Last Play : " + (headNode.score - mapNode.get(headNode.parentNode).score) + " at level :" + headNode.level);
 

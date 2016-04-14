@@ -12,11 +12,11 @@ public class main {
 
     public static void main(String[] args)
     {
-        Hopeless hopeAStar = new Hopeless(20,20,4);
+        Hopeless hopeAStar = new Hopeless(40,40,4);
 
         Hopeless hopeDFS = new Hopeless(20,20,4);
 
-        Hopeless hopeBBound = new Hopeless(30,30,4);
+        Hopeless hopeBBound = new Hopeless(20,20,4);
 
         hopeDFS.table = new ArrayList<>(hopeAStar.table);
 
@@ -24,11 +24,11 @@ public class main {
 
         hopeAStar.print();
 
-        //runAstar(hopeAStar);
+        runAstar(hopeAStar);
 
-        //dfs(hopeDFS);
+     //   dfs(hopeDFS);
 
-        bbound(hopeBBound);
+       // bbound(hopeBBound);
     }
 
     static void bbound(Hopeless hope){
@@ -46,7 +46,7 @@ public class main {
                 hope.makePlay(move,new ArrayList<Point>());
             }
         System.out.println("Final ----");
-        //hope.print();
+        hope.print();
 
 
         System.out.println("Moves = " + bestMoves);

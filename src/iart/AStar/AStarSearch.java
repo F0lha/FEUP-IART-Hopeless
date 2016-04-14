@@ -140,9 +140,15 @@ public class AStarSearch {
             }
         }*/
 
-        int factor = (columns > rows ? columns : rows);
-        double percentLevel = level / ((factor / 2) * 10.0);
-        int weight =  (int) (Integer.MAX_VALUE / (points * Math.pow((1 + percentLevel), factor)));
+        int size = columns * rows;
+        double factorExp = 10.835 * Math.pow(Math.E, 5.835 * size / 1000);
+        double factorLin = 0.195 * size + 3.589;
+        double factorPol = -3.178/100000 * Math.pow(size, 2) + 0.208 * size + 2.742;
+
+        double expectedLevel = factorExp; // Expected maximum level depth
+        double depthFactor = level / expectedLevel;
+
+        int weight =  (int) (Integer.MAX_VALUE / (points * Math.pow((1 + depthFactor), expectedLevel / 4)));
         return weight;
     }
 
