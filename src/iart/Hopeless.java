@@ -30,7 +30,7 @@ public class Hopeless {
 
     public int getColor(Point point){
         if((point.getRow()>=0 && point.getRow()<row)&&(point.getCol()>=0 && point.getCol()<col))
-            return table.get(point.getRow()*this.col+point.getCol());
+            return table.get(point.getRow() * col + point.getCol());
         else return -1;
     }
 

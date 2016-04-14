@@ -16,7 +16,7 @@ public class main {
 
         Hopeless hopeDFS = new Hopeless(20,20,4);
 
-        Hopeless hopeBBound = new Hopeless(20,20,4);
+        Hopeless hopeBBound = new Hopeless(30,30,4);
 
         hopeDFS.table = new ArrayList<>(hopeAStar.table);
 
@@ -24,9 +24,9 @@ public class main {
 
         hopeAStar.print();
 
-        runAstar(hopeAStar);
+        //runAstar(hopeAStar);
 
-        dfs(hopeDFS);
+        //dfs(hopeDFS);
 
         bbound(hopeBBound);
     }
@@ -46,7 +46,7 @@ public class main {
                 hope.makePlay(move,new ArrayList<Point>());
             }
         System.out.println("Final ----");
-        hope.print();
+        //hope.print();
 
 
         System.out.println("Moves = " + bestMoves);
