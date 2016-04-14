@@ -12,19 +12,30 @@ public class main {
 
     public static void main(String[] args)
     {
-        Hopeless hopeAStar = new Hopeless(20,20,4);
+        Hopeless hopeAStar = new Hopeless(5,5,4);
 
-        Hopeless hopeDFS = new Hopeless(4,4,4);
+        Hopeless hopeAStar2 = new Hopeless(5,5,4);
 
-        Hopeless hopeBBound = new Hopeless(20,20,4);
+        Hopeless hopeDFS = new Hopeless(10,10,4);
+
+        Hopeless hopeBBound = new Hopeless(20,10,4);
 
         hopeDFS.table = new ArrayList<>(hopeAStar.table);
 
         hopeBBound.table = new ArrayList<>(hopeAStar.table);
 
+        hopeAStar2.table = new ArrayList<>(hopeAStar.table);
+
         hopeAStar.print();
 
-        runAstar(hopeAStar);
+        runAstar(hopeAStar,true);
+
+        runAstar(hopeAStar2,false);
+
+
+
+
+
 
         //dfs(hopeDFS);
 
@@ -58,13 +69,13 @@ public class main {
     }
 
 
-    static void runAstar(Hopeless hope){
+    static void runAstar(Hopeless hope, boolean heu){
 
         long startTime = System.currentTimeMillis();
 
 
         //A STAR
-        AStarSearch rip = new AStarSearch(hope);
+        AStarSearch rip = new AStarSearch(hope, heu);
 
         ArrayList<Point> bestMoves = rip.getAStarMoves();
 

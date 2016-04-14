@@ -10,16 +10,21 @@ import java.util.concurrent.LinkedBlockingDeque;
  * Created by Pedro Castro on 05/03/2016.
  */
 public class AStarSearch {
-
-    Comparator<AStarNode> comparator = new AStarNodeComparator();
-    PriorityQueue<AStarNode> openList = new PriorityQueue<>(comparator);
+    Comparator<AStarNode> comparator;
+    PriorityQueue<AStarNode> openList;
     Map<Integer, AStarNode> mapNode = new HashMap<>();
 
     int row,col,difficulty;
 
     int bestScore;
 
-    public AStarSearch(Hopeless hope) {
+    public AStarSearch(Hopeless hope, boolean heu) {
+
+        if(heu)
+             comparator = new AStarNodeComparator();
+        else comparator = new AStarNodeComparator2();
+
+        openList = new PriorityQueue<>(comparator);
 
         this.row = hope.getRow();
         this.col = hope.getCol();
@@ -55,7 +60,7 @@ public class AStarSearch {
 
                 int tempPoints = hope.makePlay(validMove, validMoves);
 
-                int value = heuristicF(tempPoints, hope, headNode.level);
+                int value = heuristicF(tempPoints, hope, headNode.level,heu);
 
                 //System.out.println("Value = " + value);
 
@@ -98,29 +103,26 @@ public class AStarSearch {
     }
 
 
-    public int heuristicF(int points, Hopeless hope, int level){
-        int tablePoints = points;
+    public int heuristicF(int points, Hopeless hope, int level, boolean heu) {
+        int tablePoints = 0;
 
         HeuristicTable HTable = new HeuristicTable(hope.getRow() * hope.getCol());
 
         List<Integer> list = new ArrayList<>(Collections.nCopies(hope.getDifficulty(), 0));
 
-        for(int i= 0;i < hope.getRow();i++)
-        {
-            for(int j = 0; j < hope.getCol();j++) {
+        for (int i = 0; i < hope.getRow(); i++) {
+            for (int j = 0; j < hope.getCol(); j++) {
 
-                int pointColour = hope.getColor(new Point(i,j));
+                int pointColour = hope.getColor(new Point(i, j));
 
-                if(pointColour != 0)
-                    list.set(pointColour-1,list.get(pointColour-1));
+                if (pointColour != 0)
+                    list.set(pointColour - 1, list.get(pointColour - 1));
 
-                if(pointColour == 0)
-                {
-                    HTable.getTableRegions().set(i*hope.getCol()+j,0);
-                    HTable.getTableVisited().set(i*hope.getCol()+j,1);
-                }
-                else{
-                    recursiveRegions(i,j,hope,HTable,HTable.getNextColor());
+                if (pointColour == 0) {
+                    HTable.getTableRegions().set(i * hope.getCol() + j, 0);
+                    HTable.getTableVisited().set(i * hope.getCol() + j, 1);
+                } else {
+                    recursiveRegions(i, j, hope, HTable, HTable.getNextColor());
                     HTable.addNextColor();
                 }
 
@@ -131,14 +133,15 @@ public class AStarSearch {
         int limit = HTable.getNextColor();
 
 
-        for(int i = 1; i < limit;i++){
+        for (int i = 1; i < limit; i++) {
             int removals = Collections.frequency(HTable.getTableRegions(), i);
-            if(removals == 1)
-                tablePoints++;
-            else if(removals != 0) {
+            //if (removals == 1)
+               // tablePoints++;
+             if (removals != 0) {
                 tablePoints += Hopeless.getPoints(removals);
             }
         }
+
 
         int size = hope.getCol() * hope.getRow();
         double factorExp = 10.835 * Math.pow(Math.E, 5.835 * size / 1000);
@@ -149,7 +152,10 @@ public class AStarSearch {
         double depthFactor = level / expectedLevel;
 
         int weight =  (int) (Integer.MAX_VALUE / ((tablePoints + points) * Math.pow((1 + depthFactor), expectedLevel / 4)));
-        return weight;
+        if(heu)
+            return weight;
+        else return (points + tablePoints);
+
     }
 
     void recursiveRegions(int i, int j, Hopeless hope, HeuristicTable HTable, int HTableColor){
