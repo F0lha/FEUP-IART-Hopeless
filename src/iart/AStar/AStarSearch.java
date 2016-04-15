@@ -41,7 +41,7 @@ public class AStarSearch {
 
             hope.table = new ArrayList<>(headNode.table);
 
-            System.out.println("Level: " + headNode.level + "/Size : " + openList.size() +"/Score" + headNode.score + "/Calculated " + mapNode.size() );
+            //System.out.println("Level: " + headNode.level + "/Size : " + openList.size() +"/Score" + headNode.score + "/Calculated " + mapNode.size() );
 
             if(hope.gameOver())
                 break;
@@ -151,7 +151,7 @@ public class AStarSearch {
         double expectedLevel = factorExp; // Expected maximum level depth
         double depthFactor = level / expectedLevel;
 
-        int weight =  (int) (Integer.MAX_VALUE / ((tablePoints + points ) * Math.pow((1 + depthFactor),expectedLevel/3)));
+        int weight =  (int) (Integer.MAX_VALUE / ((tablePoints + points ) * Math.pow((1 + depthFactor),expectedLevel/4)));
         if(heu)
             return weight;
         else return (points + tablePoints + realPoints);
