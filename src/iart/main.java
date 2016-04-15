@@ -12,13 +12,13 @@ public class main {
 
     public static void main(String[] args)
     {
-        Hopeless hopeAStar = new Hopeless(5,5,4);
+        Hopeless hopeAStar = new Hopeless(10,20,4);
 
-        Hopeless hopeAStar2 = new Hopeless(5,5,4);
+        Hopeless hopeAStar2 = new Hopeless(10,20,4);
 
-        Hopeless hopeDFS = new Hopeless(10,10,4);
+        Hopeless hopeDFS = new Hopeless(5,5,4);
 
-        Hopeless hopeBBound = new Hopeless(20,10,4);
+        Hopeless hopeBBound = new Hopeless(10,20,4);
 
         hopeDFS.table = new ArrayList<>(hopeAStar.table);
 
@@ -39,7 +39,7 @@ public class main {
 
         //dfs(hopeDFS);
 
-       // bbound(hopeBBound);
+        bbound(hopeBBound);
     }
 
     static void bbound(Hopeless hope){
@@ -61,11 +61,11 @@ public class main {
 
 
         System.out.println("Moves = " + bestMoves);
-        System.out.println("Score = " + rip.getBestScore());
+        System.out.println("Greedy Score = " + rip.getBestScore());
 
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
-        System.out.println("Time of Computing = " + totalTime);
+        System.out.println("Greedy Time of Computing = " + totalTime);
     }
 
 
@@ -89,11 +89,11 @@ public class main {
 
 
         System.out.println("Moves = " + bestMoves);
-        System.out.println("Score = " + rip.getBestScore());
+        System.out.println("A* Score = " + rip.getBestScore());
 
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
-        System.out.println("Time of Computing = " + totalTime);
+        System.out.println("A* Time of Computing = " + totalTime);
     }
 
     static void dfs(Hopeless hope){

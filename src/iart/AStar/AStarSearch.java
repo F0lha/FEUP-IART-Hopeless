@@ -41,7 +41,7 @@ public class AStarSearch {
 
             hope.table = new ArrayList<>(headNode.table);
 
-            System.out.println("Level: " + headNode.level);
+            System.out.println("Level: " + headNode.level + "/Size : " + openList.size() +"/Score" + headNode.score + "/Calculated " + mapNode.size() );
 
             if(hope.gameOver())
                 break;
@@ -60,7 +60,7 @@ public class AStarSearch {
 
                 int tempPoints = hope.makePlay(validMove, validMoves);
 
-                int value = heuristicF(tempPoints, hope, headNode.level,heu);
+                int value = heuristicF(tempPoints,headNode.realScore, hope, headNode.level,heu, openList.size());
 
                 //System.out.println("Value = " + value);
 
@@ -103,7 +103,7 @@ public class AStarSearch {
     }
 
 
-    public int heuristicF(int points, Hopeless hope, int level, boolean heu) {
+    public int heuristicF(int points,int realPoints, Hopeless hope, int level, boolean heu, int sizeOpenList) {
         int tablePoints = 0;
 
         HeuristicTable HTable = new HeuristicTable(hope.getRow() * hope.getCol());
@@ -151,10 +151,10 @@ public class AStarSearch {
         double expectedLevel = factorExp; // Expected maximum level depth
         double depthFactor = level / expectedLevel;
 
-        int weight =  (int) (Integer.MAX_VALUE / ((tablePoints + points) * Math.pow((1 + depthFactor), expectedLevel / 4)));
+        int weight =  (int) (Integer.MAX_VALUE / ((tablePoints + points ) * Math.pow((1 + depthFactor),expectedLevel/3)));
         if(heu)
             return weight;
-        else return (points + tablePoints);
+        else return (points + tablePoints + realPoints);
 
     }
 

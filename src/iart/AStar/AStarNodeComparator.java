@@ -12,7 +12,7 @@ public class AStarNodeComparator implements Comparator<AStarNode> {
     {
         if(x.score == y.score)
             return (x.level < y.level) ? 1 : -1;
-        else if((x.score) > (y.score))
+        else if((x.score) > (y.score)) // x > y
             return 1;
         else return -1;
     }

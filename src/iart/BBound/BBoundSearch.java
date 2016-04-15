@@ -31,7 +31,7 @@ public class BBoundSearch {
 
         while(!openList.isEmpty()) {
 
-            BBoundNode headNode = new BBoundNode(openList.poll(),0);
+            BBoundNode headNode = new BBoundNode(openList.peek(),0);
 
             hope.table = new ArrayList<>(headNode.table);
 
@@ -40,6 +40,10 @@ public class BBoundSearch {
 
             if(hope.gameOver())
                 break;
+
+            openList.poll();
+
+            openList.clear();
 
             ArrayList<Point> validMoves = hope.getAllValidMoves();
 
