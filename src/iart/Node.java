@@ -9,11 +9,14 @@ public class Node {
 
     Point move;
 
+    int score;
+
     ArrayList<Integer> table;
 
-    public Node(Point move, ArrayList<Integer> table){
+    public Node(Point move, ArrayList<Integer> table, int score){
         this.move = move;
         this.table = new ArrayList<>(table);
+        this.score = score;
     }
 
     public Point getMove() {
@@ -24,4 +27,7 @@ public class Node {
         return table;
     }
 
+    public int getScore() {
+        return score;
+    }
 }

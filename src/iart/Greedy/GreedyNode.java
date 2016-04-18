@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class GreedyNode extends Node {
 
-    public GreedyNode(Point move, ArrayList<Integer> table){
-        super(move,table);
+    public GreedyNode(Point move, ArrayList<Integer> table,int score){
+        super(move,table,score);
     }
 }

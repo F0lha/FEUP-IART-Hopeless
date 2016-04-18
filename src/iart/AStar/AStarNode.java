@@ -23,7 +23,7 @@ public class AStarNode extends Node{
     ArrayList<Integer> table;
 
     public AStarNode(int parentNode, int level, ArrayList<Integer> table, int score, int realScore, Point move) {
-        super(move,table);
+        super(move,table,score);
         this.parentNode = parentNode;
         this.score = score;
         this.realScore = realScore;
@@ -33,7 +33,7 @@ public class AStarNode extends Node{
     }
 
     public AStarNode(AStarNode node, int levelSum) {
-        super(node.move,node.table);
+        super(node.move,node.table,node.getScore());
         this.parentNode = node.parentNode;
         this.score = node.score;
         this.realScore = node.realScore;

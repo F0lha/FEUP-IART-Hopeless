@@ -48,7 +48,7 @@ public class main {
         //A STAR
         Greedy rip = new Greedy(hope);
 
-        ArrayList<Point> bestMoves = rip.getBBoundMoves();
+        ArrayList<Point> bestMoves = rip.getGreedyPlays();
 
         hope.table = initialTable;
 

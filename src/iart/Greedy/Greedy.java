@@ -23,6 +23,7 @@ public class Greedy {
 
         ArrayList<Integer> bestTable = new ArrayList<>(hope.table);
 
+        int score = 0;
 
         while(!hope.gameOver()) {
 
@@ -48,10 +49,10 @@ public class Greedy {
                 hope.copyTable(currentTable);
 
 
-                int points = hope.makePlay(validMove, validMoves);
+                int playPoints = hope.makePlay(validMove, validMoves);
 
-                if(bestPlay < points) {
-                    bestPlay = points;
+                if(bestPlay < playPoints) {
+                    bestPlay = playPoints;
                     bestTable = new ArrayList<>(hope.table);
                     bestMove = validMove;
                 }
@@ -62,14 +63,15 @@ public class Greedy {
 
                 iter = validMoves.iterator();
             }
-            listOfPlays.add(new GreedyNode(bestMove,bestTable));
+            score += bestPlay;
+            listOfPlays.add(new GreedyNode(bestMove,bestTable,score));
 
             hope.table = bestTable;
 //            System.out.println("Best Play : " + bestPlay);
         }
     }
 
-    public ArrayList<Point> getBBoundMoves(){
+    public ArrayList<Point> getGreedyPlays(){
         ArrayList<Point> pointArray = new ArrayList<>();
         for(int i = 0; i < listOfPlays.size();i++) {
             pointArray.add(listOfPlays.get(i).getMove());
