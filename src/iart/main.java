@@ -33,12 +33,7 @@ public class main {
 
         runAstar(hopeAStar2);
 
-
-
-
-
-
-        //dfs(hopeDFS);
+        dfs(hopeDFS);
 
         greedy(hopeBBound);
     }
@@ -115,16 +110,15 @@ public class main {
         DepthFirstSearch rip = new DepthFirstSearch(hope);
 
         if(rip.bestScore!= 0)
-            for(Point move : rip.bestMoves)
+            for(Point move : rip.moves)
             {
                 hope.makePlay(move,new ArrayList<Point>());
             }
         System.out.println("Final ----");
         hope.print();
 
-        System.out.println("Moves = " + rip.bestMoves);
+        System.out.println("Moves = " + rip.moves);
         System.out.println("Score = " + rip.bestScore);
-        System.out.println("Solutions = " + rip.solutions);
 
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
