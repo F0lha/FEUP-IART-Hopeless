@@ -4,7 +4,6 @@ import iart.Hopeless;
 import iart.Point;
 
 import java.util.*;
-import java.util.concurrent.LinkedBlockingDeque;
 
 /**
  * Created by Pedro Castro on 05/03/2016.
@@ -18,11 +17,9 @@ public class AStarSearch {
 
     int bestScore;
 
-    public AStarSearch(Hopeless hope, boolean heu) {
+    public AStarSearch(Hopeless hope) {
 
-        if(heu)
-             comparator = new AStarNodeComparator();
-        else comparator = new AStarNodeComparator2();
+        comparator = new AStarNodeComparator();
 
         openList = new PriorityQueue<>(comparator);
 
@@ -39,7 +36,7 @@ public class AStarSearch {
             //if(mapNode.containsKey(headNode.parentNode))
               //  System.out.println("Last Play : " + (headNode.realScore - mapNode.get(headNode.parentNode).realScore) + " at level :" + headNode.level);
 
-            hope.table = new ArrayList<>(headNode.table);
+            hope.table = new ArrayList<>(headNode.getTable());
 
             //System.out.println("Level: " + headNode.level + "/Size : " + openList.size() +"/Score" + headNode.score + "/Calculated " + mapNode.size() );
 
@@ -56,11 +53,11 @@ public class AStarSearch {
                 Point validMove = iter.next();
 
                 //resetBoard
-                hope.copyTable(headNode.table);
+                hope.copyTable(headNode.getTable());
 
                 int tempPoints = hope.makePlay(validMove, validMoves);
 
-                int value = heuristicF(tempPoints,headNode.realScore, hope, headNode.level,heu, openList.size());
+                int value = heuristicF(tempPoints,headNode.realScore, hope, headNode.level, openList.size());
 
                 //System.out.println("Value = " + value);
 
@@ -81,7 +78,7 @@ public class AStarSearch {
         this.bestScore = currentNode.realScore;
         while(currentNode.parentNode != -1)
         {
-            returningList.add(currentNode.move);
+            returningList.add(currentNode.getMove());
             currentNode = mapNode.get(currentNode.parentNode);
         }
         return reverse(returningList);
@@ -103,7 +100,7 @@ public class AStarSearch {
     }
 
 
-    public int heuristicF(int points,int realPoints, Hopeless hope, int level, boolean heu, int sizeOpenList) {
+    public int heuristicF(int points,int realPoints, Hopeless hope, int level, int sizeOpenList) {
         int tablePoints = 0;
 
         HeuristicTable HTable = new HeuristicTable(hope.getRow() * hope.getCol());
@@ -142,19 +139,7 @@ public class AStarSearch {
             }
         }
 
-
-        int size = hope.getCol() * hope.getRow();
-        double factorExp = 10.835 * Math.pow(Math.E, 5.835 * size / 1000);
-        double factorLin = 0.195 * size + 3.589;
-        double factorPol = -3.178/100000 * Math.pow(size, 2) + 0.208 * size + 2.742;
-
-        double expectedLevel = factorExp; // Expected maximum level depth
-        double depthFactor = level / expectedLevel;
-
-        int weight =  (int) (Integer.MAX_VALUE / ((tablePoints + points ) * Math.pow((1 + depthFactor),expectedLevel/4)));
-        if(heu)
-            return weight;
-        else return (points + tablePoints + realPoints);
+       return (points + tablePoints + realPoints);
 
     }
 

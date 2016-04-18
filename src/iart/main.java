@@ -28,7 +28,7 @@ public class main {
 
         hopeAStar.print();
 
-        runAstar(hopeAStar2,false);
+        runAstar(hopeAStar2);
 
 
 
@@ -71,7 +71,7 @@ public class main {
     }
 
 
-    static void runAstar(Hopeless hope, boolean heu){
+    static void runAstar(Hopeless hope){
 
         long startTime = System.currentTimeMillis();
 
@@ -79,7 +79,7 @@ public class main {
 
 
         //A STAR
-        AStarSearch rip = new AStarSearch(hope, heu);
+        AStarSearch rip = new AStarSearch(hope);
 
         ArrayList<Point> bestMoves = rip.getAStarMoves();
 

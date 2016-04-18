@@ -72,7 +72,7 @@ public class Greedy {
     public ArrayList<Point> getBBoundMoves(){
         ArrayList<Point> pointArray = new ArrayList<>();
         for(int i = 0; i < listOfPlays.size();i++) {
-            pointArray.add(listOfPlays.get(i).move);
+            pointArray.add(listOfPlays.get(i).getMove());
         }
         return pointArray;
     }

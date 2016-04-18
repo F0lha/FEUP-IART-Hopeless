@@ -11,8 +11,8 @@ public class AStarNodeComparator implements Comparator<AStarNode> {
     public int compare(AStarNode x, AStarNode y)
     {
         if(x.score == y.score)
-            return (x.level < y.level) ? 1 : -1;
-        else if((x.score) > (y.score)) // x > y
+            return (x.level > y.level) ? 1 : -1;
+        else if((x.score) < (y.score))
             return 1;
         else return -1;
     }
