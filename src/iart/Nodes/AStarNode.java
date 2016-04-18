@@ -2,7 +2,7 @@ package iart.Nodes;
 
 import java.util.ArrayList;
 
-import iart.Point;
+import iart.Utilities.Point;
 
 /**
  * Created by Pedro Castro on 05/03/2016.

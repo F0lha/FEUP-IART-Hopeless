@@ -1,4 +1,6 @@
-package iart;
+package iart.Game;
+
+import iart.Utilities.Point;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -66,10 +68,10 @@ public class Hopeless {
         {
             //System.out.println("isolated" + point + " colour = " + getColor(point));
 
-            //System.out.println("Cima = " + getColor(new iart.Point(point.getRow()-1,point.getCol())));
-            //System.out.println("Baixo = " + getColor(new iart.Point(point.getRow()+1,point.getCol())));
-            //System.out.println("Esquerda = " + getColor(new iart.Point(point.getRow(),point.getCol()-1)));
-            //System.out.println("Direita = " + getColor(new iart.Point(point.getRow(),point.getCol()+1)));
+            //System.out.println("Cima = " + getColor(new iart.Utilities.Point(point.getRow()-1,point.getCol())));
+            //System.out.println("Baixo = " + getColor(new iart.Utilities.Point(point.getRow()+1,point.getCol())));
+            //System.out.println("Esquerda = " + getColor(new iart.Utilities.Point(point.getRow(),point.getCol()-1)));
+            //System.out.println("Direita = " + getColor(new iart.Utilities.Point(point.getRow(),point.getCol()+1)));
             return false;
         }
     }
@@ -121,7 +123,7 @@ public class Hopeless {
         int index = validMoves.indexOf(point);
 
         //this.print();
-        //System.out.println("Index : " +index + "//iart.Point " + point.toString() +"// Colour : " + getColor(point));
+        //System.out.println("Index : " +index + "//iart.Utilities.Point " + point.toString() +"// Colour : " + getColor(point));
 
         table.set((point.getRow()*this.col)+point.getCol(),0);
 

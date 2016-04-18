@@ -3,8 +3,8 @@ package iart.Algorithms;
 import iart.Nodes.AStarNode;
 import iart.Utilities.AStarNodeComparator;
 import iart.Utilities.HeuristicTable;
-import iart.Hopeless;
-import iart.Point;
+import iart.Game.Hopeless;
+import iart.Utilities.Point;
 
 import java.util.*;
 

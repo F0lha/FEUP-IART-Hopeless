@@ -1,4 +1,4 @@
-package iart;
+package iart.Utilities;
 
 /**
  * Created by Pedro Castro on 02/03/2016.
@@ -12,10 +12,10 @@ public class Point {
         this.row = row;
         this.col = col;
     }
-    int getRow(){
+    public int getRow(){
         return row;
     }
-    int getCol(){
+    public int getCol(){
         return col;
     }
 

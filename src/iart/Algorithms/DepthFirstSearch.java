@@ -1,4 +1,7 @@
-package iart;
+package iart.Algorithms;
+
+import iart.Game.Hopeless;
+import iart.Utilities.Point;
 
 import java.util.*;
 
@@ -6,13 +9,13 @@ import java.util.*;
  * Created by Pedro Castro on 02/03/2016.
  */
 public class DepthFirstSearch {
-    List<Point> bestMoves;
+    public List<Point> bestMoves;
 
     Map<ArrayList<Integer>,Integer> hashtable = new Hashtable<>();
 
-    int bestScore = 0;
+    public int bestScore = 0;
 
-    int solutions = 0;
+    public int solutions = 0;
 
     boolean running = true;
 
@@ -24,9 +27,9 @@ public class DepthFirstSearch {
 
     public DepthFirstSearch(Hopeless hope){
 
-        this.row = hope.row;
-        this.col = hope.col;
-        this.difficulty = hope.difficulty;
+        this.row = hope.getRow();
+        this.col = hope.getCol();
+        this.difficulty = hope.getDifficulty();
 
         tempHope = new Hopeless(row,col,difficulty);
 

@@ -1,6 +1,6 @@
 package iart.Nodes;
 
-import iart.Point;
+import iart.Utilities.Point;
 
 import java.util.ArrayList;
 

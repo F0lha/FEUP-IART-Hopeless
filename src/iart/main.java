@@ -1,7 +1,10 @@
 package iart;
 
 import iart.Algorithms.AStarSearch;
+import iart.Algorithms.DepthFirstSearch;
 import iart.Algorithms.Greedy;
+import iart.Game.Hopeless;
+import iart.Utilities.Point;
 
 import java.util.ArrayList;
 

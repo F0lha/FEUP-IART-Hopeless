@@ -1,8 +1,8 @@
 package iart.Algorithms;
 
-import iart.Hopeless;
+import iart.Game.Hopeless;
 import iart.Nodes.Node;
-import iart.Point;
+import iart.Utilities.Point;
 
 import java.util.*;
 
