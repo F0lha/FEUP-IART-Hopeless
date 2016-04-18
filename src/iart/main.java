@@ -1,7 +1,7 @@
 package iart;
 
 import iart.AStar.AStarSearch;
-import iart.BBound.BBoundSearch;
+import iart.Greedy.Greedy;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class main {
 
         Hopeless hopeAStar2 = new Hopeless(10,20,4);
 
-        Hopeless hopeDFS = new Hopeless(5,5,4);
+        Hopeless hopeDFS = new Hopeless(10,20,4);
 
         Hopeless hopeBBound = new Hopeless(10,20,4);
 
@@ -28,8 +28,6 @@ public class main {
 
         hopeAStar.print();
 
-        runAstar(hopeAStar,true);
-
         runAstar(hopeAStar2,false);
 
 
@@ -39,29 +37,33 @@ public class main {
 
         //dfs(hopeDFS);
 
-        bbound(hopeBBound);
+        greedy(hopeBBound);
     }
 
-    static void bbound(Hopeless hope){
+    static void greedy(Hopeless hope){
         long startTime = System.currentTimeMillis();
 
+        ArrayList<Integer> initialTable = new ArrayList<>(hope.table);
 
         //A STAR
-        BBoundSearch rip = new BBoundSearch(hope);
+        Greedy rip = new Greedy(hope);
 
         ArrayList<Point> bestMoves = rip.getBBoundMoves();
 
-        if(rip.getBestScore()!= 0)
+        hope.table = initialTable;
+
+        int points = 0;
+
             for(Point move : bestMoves)
             {
-                hope.makePlay(move,new ArrayList<Point>());
+                points += hope.makePlay(move,new ArrayList<Point>());
             }
         System.out.println("Final ----");
         hope.print();
 
 
         System.out.println("Moves = " + bestMoves);
-        System.out.println("Greedy Score = " + rip.getBestScore());
+        System.out.println("Greedy Score = " + points);
 
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
@@ -73,16 +75,22 @@ public class main {
 
         long startTime = System.currentTimeMillis();
 
+        ArrayList<Integer> initialTable = new ArrayList<>(hope.table);
+
 
         //A STAR
         AStarSearch rip = new AStarSearch(hope, heu);
 
         ArrayList<Point> bestMoves = rip.getAStarMoves();
 
+        hope.table = initialTable;
+
+        int points = 0;
+
         if(rip.getBestScore()!= 0)
             for(Point move : bestMoves)
             {
-                hope.makePlay(move,new ArrayList<Point>());
+                points += hope.makePlay(move,new ArrayList<Point>());
             }
         System.out.println("Final ----");
         hope.print();
@@ -90,6 +98,8 @@ public class main {
 
         System.out.println("Moves = " + bestMoves);
         System.out.println("A* Score = " + rip.getBestScore());
+
+        System.out.println("A* Sum Of Points = " + points);
 
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
