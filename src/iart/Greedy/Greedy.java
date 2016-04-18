@@ -1,6 +1,7 @@
 package iart.Greedy;
 
 import iart.Hopeless;
+import iart.Node;
 import iart.Point;
 
 import java.util.*;
@@ -14,7 +15,7 @@ public class Greedy {
 
     int bestScore;
 
-    ArrayList<GreedyNode> listOfPlays = new ArrayList<>();
+    ArrayList<Node> listOfPlays = new ArrayList<>();
 
     public Greedy(Hopeless hope){
         this.row = hope.getRow();
@@ -64,7 +65,7 @@ public class Greedy {
                 iter = validMoves.iterator();
             }
             score += bestPlay;
-            listOfPlays.add(new GreedyNode(bestMove,bestTable,score));
+            listOfPlays.add(new Node(bestMove,bestTable,score));
 
             hope.table = bestTable;
 //            System.out.println("Best Play : " + bestPlay);
