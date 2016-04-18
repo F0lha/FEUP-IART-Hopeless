@@ -1,8 +1,7 @@
-package iart.AStar;
+package iart.Nodes;
 
 import java.util.ArrayList;
 
-import iart.Node;
 import iart.Point;
 
 /**
@@ -10,17 +9,14 @@ import iart.Point;
  */
 public class AStarNode extends Node{
 
-    static int nextNodeID = 0;
+    public static int nextNodeID = 0;
 
-    int nodeID; //
-    int parentNode;
-    int realScore;
-    Point move;
-    int level;
+    public int nodeID; //
+    public int parentNode;
+    public int realScore;
+    public int level;
 
-    int score;
-
-    ArrayList<Integer> table;
+    public int score;
 
     public AStarNode(int parentNode, int level, ArrayList<Integer> table, int score, int realScore, Point move) {
         super(move,table,score);

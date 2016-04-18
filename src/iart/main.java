@@ -1,7 +1,7 @@
 package iart;
 
-import iart.AStar.AStarSearch;
-import iart.Greedy.Greedy;
+import iart.Algorithms.AStarSearch;
+import iart.Algorithms.Greedy;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,6 @@
-package iart.AStar;
+package iart.Utilities;
+
+import iart.Nodes.AStarNode;
 
 import java.util.Comparator;
 

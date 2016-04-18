@@ -1,4 +1,4 @@
-package iart.AStar;
+package iart.Utilities;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +34,7 @@ public class HeuristicTable {
         return nextColor;
     }
 
-    void addNextColor(){
+    public void addNextColor(){
         nextColor++;
     }
 }

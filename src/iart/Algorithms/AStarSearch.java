@@ -1,5 +1,8 @@
-package iart.AStar;
+package iart.Algorithms;
 
+import iart.Nodes.AStarNode;
+import iart.Utilities.AStarNodeComparator;
+import iart.Utilities.HeuristicTable;
 import iart.Hopeless;
 import iart.Point;
 

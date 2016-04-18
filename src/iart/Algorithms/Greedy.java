@@ -1,7 +1,7 @@
-package iart.Greedy;
+package iart.Algorithms;
 
 import iart.Hopeless;
-import iart.Node;
+import iart.Nodes.Node;
 import iart.Point;
 
 import java.util.*;
