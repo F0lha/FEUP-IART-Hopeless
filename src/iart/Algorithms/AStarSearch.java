@@ -16,8 +16,6 @@ public class AStarSearch {
     PriorityQueue<AStarNode> openList;
     Map<Integer, AStarNode> mapNode = new HashMap<>();
 
-    int row,col,difficulty;
-
     int bestScore;
 
     public AStarSearch(Hopeless hope) {
@@ -25,10 +23,6 @@ public class AStarSearch {
         comparator = new AStarNodeComparator();
 
         openList = new PriorityQueue<>(comparator);
-
-        this.row = hope.getRow();
-        this.col = hope.getCol();
-        this.difficulty = hope.getDifficulty();
 
         AStarNode fNode = new AStarNode(-1,0,hope.table,0,0,null);
         openList.add(fNode);

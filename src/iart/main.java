@@ -1,6 +1,7 @@
 package iart;
 
 import iart.Algorithms.AStarSearch;
+import iart.Algorithms.BreadthFirstSearch;
 import iart.Algorithms.DepthFirstSearch;
 import iart.Algorithms.Greedy;
 import iart.Game.Hopeless;
@@ -15,27 +16,31 @@ public class main {
 
     public static void main(String[] args)
     {
-        Hopeless hopeAStar = new Hopeless(10,20,4);
+        Hopeless hopeAStar2 = new Hopeless(5,5,4);
 
-        Hopeless hopeAStar2 = new Hopeless(10,20,4);
+        Hopeless hopeDFS = new Hopeless(5,5,4);
 
-        Hopeless hopeDFS = new Hopeless(10,20,4);
+        Hopeless hopeBBound = new Hopeless(5,5,4);
 
-        Hopeless hopeBBound = new Hopeless(10,20,4);
+        Hopeless hopeBFS = new Hopeless(5,5,4);
 
-        hopeDFS.table = new ArrayList<>(hopeAStar.table);
+        hopeDFS.table = new ArrayList<>(hopeAStar2.table);
 
-        hopeBBound.table = new ArrayList<>(hopeAStar.table);
+        hopeBBound.table = new ArrayList<>(hopeAStar2.table);
 
-        hopeAStar2.table = new ArrayList<>(hopeAStar.table);
+        hopeAStar2.table = new ArrayList<>(hopeAStar2.table);
 
-        hopeAStar.print();
+        hopeBFS.table = new ArrayList<>(hopeAStar2.table);
+
+        hopeAStar2.print();
 
         runAstar(hopeAStar2);
 
         dfs(hopeDFS);
 
         greedy(hopeBBound);
+
+        bfs(hopeBFS);
     }
 
     static void greedy(Hopeless hope){
@@ -119,6 +124,32 @@ public class main {
 
         System.out.println("Moves = " + rip.moves);
         System.out.println("Score = " + rip.bestScore);
+
+        long endTime   = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+        System.out.println("Time of Computing = " + totalTime);
+    }
+
+    static void bfs(Hopeless hope){
+        long startTime = System.currentTimeMillis();
+
+        ArrayList<Integer> initialTable = new ArrayList<>(hope.table);
+
+        BreadthFirstSearch rip = new BreadthFirstSearch(hope);
+
+        hope.table = initialTable;
+
+        int points = 0;
+
+        for(Point move : rip.getBFSPlays())
+            {
+                points += hope.makePlay(move,new ArrayList<>());
+            }
+        System.out.println("Final ----");
+        hope.print();
+
+        System.out.println("BFS Moves = " + rip.getBFSPlays());
+        System.out.println("BFS Score = " + points);
 
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;

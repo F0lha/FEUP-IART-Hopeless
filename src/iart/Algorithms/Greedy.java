@@ -11,16 +11,11 @@ import java.util.*;
  */
 public class Greedy {
 
-    int row,col,difficulty;
-
     int bestScore;
 
     ArrayList<Node> listOfPlays = new ArrayList<>();
 
     public Greedy(Hopeless hope){
-        this.row = hope.getRow();
-        this.col = hope.getCol();
-        this.difficulty = hope.getDifficulty();
 
         ArrayList<Integer> bestTable = new ArrayList<>(hope.table);
 
