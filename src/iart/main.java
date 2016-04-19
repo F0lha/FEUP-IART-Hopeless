@@ -16,6 +16,7 @@ public class main {
 
     public static void main(String[] args)
     {
+        /*
         Hopeless hopeAStar2 = new Hopeless(5,5,4);
 
         Hopeless hopeDFS = new Hopeless(5,5,4);
@@ -41,6 +42,24 @@ public class main {
         greedy(hopeBBound);
 
         bfs(hopeBFS);
+*/
+        int i = 0;
+        while(true){
+            i++;
+            Hopeless hopeAStar2 = new Hopeless(7,5,4);
+
+            Hopeless hopeBFS = new Hopeless(7,5,4);
+
+            hopeBFS.table = new ArrayList<>(hopeAStar2.table);
+
+            int AStar = runAstar(hopeAStar2);
+            int BFS = bfs(hopeBFS);
+
+            if(AStar < BFS)
+                break;
+        }
+
+        System.out.println("Times = " + i);
     }
 
     static void greedy(Hopeless hope){
@@ -74,7 +93,7 @@ public class main {
     }
 
 
-    static void runAstar(Hopeless hope){
+    static int runAstar(Hopeless hope){
 
         long startTime = System.currentTimeMillis();
 
@@ -107,6 +126,8 @@ public class main {
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
         System.out.println("A* Time of Computing = " + totalTime);
+
+        return rip.getBestScore();
     }
 
     static void dfs(Hopeless hope){
@@ -130,7 +151,7 @@ public class main {
         System.out.println("Time of Computing = " + totalTime);
     }
 
-    static void bfs(Hopeless hope){
+    static int bfs(Hopeless hope){
         long startTime = System.currentTimeMillis();
 
         ArrayList<Integer> initialTable = new ArrayList<>(hope.table);
@@ -154,5 +175,7 @@ public class main {
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
         System.out.println("Time of Computing = " + totalTime);
+
+        return points;
     }
 }

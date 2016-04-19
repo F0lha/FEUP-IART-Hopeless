@@ -35,7 +35,7 @@ public class AStarSearch {
 
             hope.table = new ArrayList<>(headNode.getTable());
 
-            System.out.println("Level: " + headNode.level + "/Size : " + openList.size() +"/Score" + headNode.score + "/Calculated " + mapNode.size() );
+            //System.out.println("Level: " + headNode.level + "/Size : " + openList.size() +"/Score" + headNode.score + "/Calculated " + mapNode.size() );
 
             if(hope.gameOver())
                 break;
