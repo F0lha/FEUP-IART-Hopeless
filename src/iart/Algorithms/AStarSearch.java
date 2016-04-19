@@ -54,7 +54,7 @@ public class AStarSearch {
 
                 int tempPoints = hope.makePlay(validMove, validMoves);
 
-                int value = heuristicF(tempPoints,headNode.realScore, hope);
+                int value = heuristicF(tempPoints,headNode.realScore, hope,openList.size());
 
                 //System.out.println("Value = " + value);
 
@@ -97,7 +97,7 @@ public class AStarSearch {
     }
 
 
-    public int heuristicF(int points,int realPoints, Hopeless hope) {
+    public int heuristicF(int points,int realPoints, Hopeless hope, int size) {
         int tablePoints = 0;
 
         HeuristicTable HTable = new HeuristicTable(hope.getRow() * hope.getCol());
@@ -136,7 +136,9 @@ public class AStarSearch {
             }
         }
 
-       return (points + tablePoints + realPoints);
+        if(size >= 100000)
+        return (int)Math.pow((points + tablePoints + realPoints),2);
+        else return (points + tablePoints + realPoints);
 
     }
 
