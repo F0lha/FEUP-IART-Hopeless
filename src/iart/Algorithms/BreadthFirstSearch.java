@@ -12,12 +12,20 @@ import java.util.List;
 /**
  * Created by up201305337 on 19-04-2016.
  */
-public class BreadthFirstSearch {
+public class BreadthFirstSearch implements Runnable{
 
     ArrayList<BreadthFirstNode> currentNodes = new ArrayList<>();
 
-    public BreadthFirstSearch(Hopeless hope){
+    Hopeless hope;
 
+    boolean finished = false;
+
+    public BreadthFirstSearch(Hopeless hope) {
+
+        this.hope = hope;
+
+    }
+    public void run(){
         currentNodes.add(new BreadthFirstNode(new Point(-1,-1),hope.table,0,new ArrayList<>()));
         outerLoop:
         while(!hope.gameOver()) {
@@ -58,10 +66,16 @@ public class BreadthFirstSearch {
             }
             currentNodes = new ArrayList<>(newNodes);
         }
+        finished = true;
+    }
 
+    public boolean isFinished() {
+        return finished;
     }
 
     public ArrayList<Point> getBFSPlays() {
         return currentNodes.get(currentNodes.size() - 1).getListOfMoves();
     }
+
+    public int getBestScore(){return currentNodes.get(currentNodes.size() - 1).getScore(); }
 }

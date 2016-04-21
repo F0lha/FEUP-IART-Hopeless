@@ -11,19 +11,26 @@ import java.util.*;
 /**
  * Created by Pedro Castro on 05/03/2016.
  */
-public class AStarSearch {
+public class AStarSearch implements Runnable{
     Comparator<AStarNode> comparator;
     PriorityQueue<AStarNode> openList;
     Map<Integer, AStarNode> mapNode = new HashMap<>();
 
     int bestScore;
 
+    Hopeless hope;
+
+    boolean finished = false;
+
     public AStarSearch(Hopeless hope) {
+        this.hope = hope;
 
         comparator = new AStarNodeComparator();
 
         openList = new PriorityQueue<>(comparator);
+    }
 
+    public void run(){
         AStarNode fNode = new AStarNode(-1,0,hope.table,0,0,null);
         openList.add(fNode);
         mapNode.put(fNode.nodeID,fNode);
@@ -37,8 +44,10 @@ public class AStarSearch {
 
             //System.out.println("Level: " + headNode.level + "/Size : " + openList.size() +"/Score" + headNode.score + "/Calculated " + mapNode.size() );
 
-            if(hope.gameOver())
+            if(hope.gameOver()) {
+                finished = true;
                 break;
+            }
 
             openList.poll();
 
@@ -67,12 +76,12 @@ public class AStarSearch {
             }
             //System.out.println("Best Play : " + bestPlay);
         }
+        this.bestScore = openList.peek().realScore;
     }
 
     public ArrayList<Point> getAStarMoves(){
         ArrayList<Point> returningList = new ArrayList<>();
         AStarNode currentNode = openList.peek();
-        this.bestScore = currentNode.realScore;
         while(currentNode.parentNode != -1)
         {
             returningList.add(currentNode.getMove());
@@ -160,5 +169,9 @@ public class AStarSearch {
             if (j < hope.getCol() && (hope.getColor(new Point(i, j)) == hope.getColor(new Point(i, j + 1))))
                 recursiveRegions(i, j + 1, hope, HTable, HTableColor);
         }
+    }
+
+    public boolean isFinished() {
+        return finished;
     }
 }

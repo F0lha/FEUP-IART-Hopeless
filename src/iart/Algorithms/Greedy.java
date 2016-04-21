@@ -9,13 +9,21 @@ import java.util.*;
 /**
  * Created by Pedro Castro on 07/04/2016.
  */
-public class Greedy {
+public class Greedy implements Runnable{
 
     int bestScore;
 
     ArrayList<Node> listOfPlays = new ArrayList<>();
 
-    public Greedy(Hopeless hope){
+    Hopeless hope;
+
+    boolean finished = false;
+
+    public Greedy(Hopeless hope) {
+
+        this.hope = hope;
+    }
+    public void run(){
 
         ArrayList<Integer> bestTable = new ArrayList<>(hope.table);
 
@@ -65,6 +73,7 @@ public class Greedy {
             hope.table = bestTable;
 //            System.out.println("Best Play : " + bestPlay);
         }
+        finished = true;
     }
 
     public ArrayList<Point> getGreedyPlays(){
@@ -88,5 +97,9 @@ public class Greedy {
 
     public int getBestScore() {
         return bestScore;
+    }
+
+    public boolean isFinished() {
+        return finished;
     }
 }

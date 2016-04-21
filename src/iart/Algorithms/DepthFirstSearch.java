@@ -8,12 +8,20 @@ import java.util.*;
 /**
  * Created by Pedro Castro on 02/03/2016.
  */
-public class DepthFirstSearch {
+public class DepthFirstSearch implements Runnable{
     public List<Point> moves = new ArrayList<>();
 
     public int bestScore = 0;
 
-    public DepthFirstSearch(Hopeless hope){
+    Hopeless hope;
+
+    boolean finished = false;
+
+    public DepthFirstSearch(Hopeless hope) {
+
+        this.hope = hope;
+    }
+    public void run(){
 
         while(!hope.gameOver())
         {
@@ -21,6 +29,15 @@ public class DepthFirstSearch {
             bestScore += hope.makePlay(move,new ArrayList<>());
             moves.add(move);
         }
+        finished = true;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public int getBestScore() {
+        return bestScore;
     }
 }
 

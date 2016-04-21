@@ -36,7 +36,7 @@ public class Hopeless {
         else return -1;
     }
 
-    void initializeTable(){
+    public void initializeTable(){
         Random rand = new Random();
 
         for(int i = 0;i < row;i++)

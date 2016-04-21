@@ -43,23 +43,31 @@ public class main {
 
         bfs(hopeBFS);
 */
-        int i = 0, tries = 1000;
+        /*
+        int i = 0, b = 0, e=0, tries = 1000;
         while(tries > 0){
             tries--;
-            Hopeless hopeAStar2 = new Hopeless(10,20,4);
+            Hopeless hopeAStar2 = new Hopeless(5,5,4);
 
-            Hopeless hopeBFS = new Hopeless(10,20,4);
+            Hopeless hopeBFS = new Hopeless(5,5,4);
 
             hopeBFS.table = new ArrayList<>(hopeAStar2.table);
 
             int AStar = runAstar(hopeAStar2);
-            int DFS = dfs(hopeBFS);
+            int Other = bfs(hopeBFS);
 
-            if(AStar < DFS)
+            if(AStar < Other)
                 i++;
+            else if(AStar > Other)
+                b++;
+            else e++;
         }
 
-        System.out.println("Times = " + i);
+        System.out.println("AStar < Other : " + i);
+        System.out.println("AStar > Other : " + b);
+        System.out.println("AStar = Other : " + e);
+*/
+        Statistics.createStatistics(10000,200,5,5);
     }
 
     static int greedy(Hopeless hope){
