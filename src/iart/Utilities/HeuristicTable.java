@@ -1,4 +1,4 @@
-package iart.Utilities;
+package iart.utilities;
 
 import java.util.ArrayList;
 import java.util.Collections;

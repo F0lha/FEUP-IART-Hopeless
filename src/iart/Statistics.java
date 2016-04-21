@@ -1,15 +1,9 @@
 package iart;
 
-import iart.Algorithms.AStarSearch;
-import iart.Algorithms.BreadthFirstSearch;
-import iart.Algorithms.DepthFirstSearch;
-import iart.Algorithms.Greedy;
-import iart.Game.Hopeless;
+import iart.algorithms.*;
+import iart.game.Hopeless;
 
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Pedro Castro on 20/04/2016.
@@ -20,13 +14,15 @@ public class Statistics {
 
         int i = 0;
 
-        Hopeless AStar = new Hopeless(tableRows,tableCols,4);
+        Hopeless AStar;
 
         Hopeless BFS = new Hopeless(tableRows,tableCols,4);
 
         Hopeless DFS = new Hopeless(tableRows,tableCols,4);
 
         Hopeless greedy = new Hopeless(tableRows,tableCols,4);
+
+        Hopeless iddfs = new Hopeless(tableRows,tableCols,4);
 
         ArrayList<ArrayList<Integer>> statistics = new ArrayList<>();
 
@@ -40,6 +36,7 @@ public class Statistics {
             BFS.copyTable(AStar.table);
             DFS.copyTable(AStar.table);
             greedy.copyTable(AStar.table);
+            iddfs.copyTable(AStar.table);
 
             //AStar Run
             try {
@@ -117,6 +114,25 @@ public class Statistics {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            //IDDFS Run
+            try {
+                IDDFS IDDFSThread = new IDDFS(iddfs);
+                Thread t = new Thread(IDDFSThread);
+                t.start();
+                t.join(timeout);
+                if(IDDFSThread.isFinished())
+                {
+                    current.add(IDDFSThread.getBestScore());
+                }
+                else
+                {
+                    System.out.println("Error IDDFS");
+                    current.add(-1);
+                    t.stop();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             statistics.add(current);
             i++;
         }
@@ -125,7 +141,7 @@ public class Statistics {
 
     static void printStatistics(ArrayList<ArrayList<Integer>> statistics){
 
-        List<Integer> listOfStats = new ArrayList<>(Collections.nCopies(4, 0));
+        List<Integer> listOfStats = new ArrayList<>(Collections.nCopies(5, 0));
 
         for(ArrayList<Integer> tableStats : statistics)
         {
@@ -137,6 +153,7 @@ public class Statistics {
         System.out.println("BFS best : " + listOfStats.get(1));
         System.out.println("DFS best : " + listOfStats.get(2));
         System.out.println("Greedy best : " + listOfStats.get(3));
+        System.out.println("IDDFS best : " + listOfStats.get(4));
     }
 
     static int getBestScoreIndex(ArrayList<Integer> tableStats){

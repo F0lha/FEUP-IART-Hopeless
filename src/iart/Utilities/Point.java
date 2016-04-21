@@ -1,4 +1,4 @@
-package iart.Utilities;
+package iart.utilities;
 
 /**
  * Created by Pedro Castro on 02/03/2016.

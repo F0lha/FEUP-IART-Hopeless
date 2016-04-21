@@ -1,13 +1,11 @@
-package iart.Algorithms;
+package iart.algorithms;
 
-import iart.Game.Hopeless;
-import iart.Nodes.BreadthFirstNode;
-import iart.Nodes.Node;
-import iart.Utilities.Point;
+import iart.game.Hopeless;
+import iart.nodes.BreadthFirstNode;
+import iart.utilities.Point;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by up201305337 on 19-04-2016.

@@ -1,11 +1,8 @@
 package iart;
 
-import iart.Algorithms.AStarSearch;
-import iart.Algorithms.BreadthFirstSearch;
-import iart.Algorithms.DepthFirstSearch;
-import iart.Algorithms.Greedy;
-import iart.Game.Hopeless;
-import iart.Utilities.Point;
+import iart.algorithms.*;
+import iart.game.Hopeless;
+import iart.utilities.Point;
 
 import java.util.ArrayList;
 
@@ -67,7 +64,10 @@ public class main {
         System.out.println("AStar > Other : " + b);
         System.out.println("AStar = Other : " + e);
 */
-        Statistics.createStatistics(500,400,10,20);
+        Statistics.createStatistics(10000,300,5,5);
+
+        //Hopeless hopeAStar2 = new Hopeless(10,20,4);
+        //runAstar(hopeAStar2);
     }
 
     /*
@@ -102,7 +102,7 @@ public class main {
         return points;
     }
 
-
+*/
     static int runAstar(Hopeless hope){
 
         long startTime = System.currentTimeMillis();
@@ -111,9 +111,21 @@ public class main {
 
 
         //A STAR
-        AStarSearch rip = new AStarSearch(hope);
+        IDDFS rip = new IDDFS(hope);
 
-        ArrayList<Point> bestMoves = rip.getAStarMoves();
+        Thread t = new Thread(rip);
+
+        t.start();
+
+
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        ArrayList<Point> bestMoves = rip.getIDDFSMoves();
 
         hope.table = initialTable;
 
@@ -139,7 +151,7 @@ public class main {
 
         return rip.getBestScore();
     }
-
+/*
     static int dfs(Hopeless hope){
         long startTime = System.currentTimeMillis();
 

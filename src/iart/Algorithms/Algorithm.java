@@ -1,13 +1,11 @@
-package iart.Algorithms;
+package iart.algorithms;
 
-import iart.Game.Hopeless;
+import iart.game.Hopeless;
 
 /**
  * Created by Pedro Castro on 21/04/2016.
  */
 public class Algorithm {
-
-
     int bestScore = 0;
 
     Hopeless hope;

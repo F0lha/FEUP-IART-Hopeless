@@ -1,10 +1,10 @@
-package iart.Algorithms;
+package iart.algorithms;
 
-import iart.Nodes.AStarNode;
-import iart.Utilities.AStarNodeComparator;
-import iart.Utilities.HeuristicTable;
-import iart.Game.Hopeless;
-import iart.Utilities.Point;
+import iart.nodes.AStarNode;
+import iart.utilities.AStarNodeComparator;
+import iart.utilities.HeuristicTable;
+import iart.game.Hopeless;
+import iart.utilities.Point;
 
 import java.util.*;
 
@@ -22,6 +22,8 @@ public class AStarSearch extends Algorithm implements Runnable{
         comparator = new AStarNodeComparator();
 
         openList = new PriorityQueue<>(comparator);
+
+        AStarNode.resetCounter();
     }
 
     public void run(){

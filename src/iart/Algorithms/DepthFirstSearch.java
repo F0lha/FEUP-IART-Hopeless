@@ -1,7 +1,7 @@
-package iart.Algorithms;
+package iart.algorithms;
 
-import iart.Game.Hopeless;
-import iart.Utilities.Point;
+import iart.game.Hopeless;
+import iart.utilities.Point;
 
 import java.util.*;
 
@@ -12,9 +12,9 @@ public class DepthFirstSearch extends Algorithm implements Runnable{
     public List<Point> moves = new ArrayList<>();
 
     public DepthFirstSearch(Hopeless hope) {
-
         this.hope = hope;
     }
+
     public void run(){
 
         while(!hope.gameOver())
