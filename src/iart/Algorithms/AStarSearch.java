@@ -11,16 +11,10 @@ import java.util.*;
 /**
  * Created by Pedro Castro on 05/03/2016.
  */
-public class AStarSearch implements Runnable{
+public class AStarSearch extends Algorithm implements Runnable{
     Comparator<AStarNode> comparator;
     PriorityQueue<AStarNode> openList;
     Map<Integer, AStarNode> mapNode = new HashMap<>();
-
-    int bestScore;
-
-    Hopeless hope;
-
-    boolean finished = false;
 
     public AStarSearch(Hopeless hope) {
         this.hope = hope;
@@ -101,11 +95,6 @@ public class AStarSearch implements Runnable{
         return result;
     }
 
-    public int getBestScore(){
-        return bestScore;
-    }
-
-
     public int heuristicF(int points,int realPoints, Hopeless hope, int size) {
         int tablePoints = 0;
 
@@ -169,9 +158,5 @@ public class AStarSearch implements Runnable{
             if (j < hope.getCol() && (hope.getColor(new Point(i, j)) == hope.getColor(new Point(i, j + 1))))
                 recursiveRegions(i, j + 1, hope, HTable, HTableColor);
         }
-    }
-
-    public boolean isFinished() {
-        return finished;
     }
 }

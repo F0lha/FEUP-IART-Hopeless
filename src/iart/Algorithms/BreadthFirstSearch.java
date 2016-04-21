@@ -12,13 +12,9 @@ import java.util.List;
 /**
  * Created by up201305337 on 19-04-2016.
  */
-public class BreadthFirstSearch implements Runnable{
+public class BreadthFirstSearch extends Algorithm implements Runnable{
 
     ArrayList<BreadthFirstNode> currentNodes = new ArrayList<>();
-
-    Hopeless hope;
-
-    boolean finished = false;
 
     public BreadthFirstSearch(Hopeless hope) {
 
@@ -67,15 +63,11 @@ public class BreadthFirstSearch implements Runnable{
             currentNodes = new ArrayList<>(newNodes);
         }
         finished = true;
-    }
 
-    public boolean isFinished() {
-        return finished;
+        bestScore = currentNodes.get(currentNodes.size() - 1).getScore();
     }
 
     public ArrayList<Point> getBFSPlays() {
         return currentNodes.get(currentNodes.size() - 1).getListOfMoves();
     }
-
-    public int getBestScore(){return currentNodes.get(currentNodes.size() - 1).getScore(); }
 }

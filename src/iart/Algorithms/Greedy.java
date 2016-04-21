@@ -9,15 +9,9 @@ import java.util.*;
 /**
  * Created by Pedro Castro on 07/04/2016.
  */
-public class Greedy implements Runnable{
-
-    int bestScore;
+public class Greedy extends Algorithm implements Runnable{
 
     ArrayList<Node> listOfPlays = new ArrayList<>();
-
-    Hopeless hope;
-
-    boolean finished = false;
 
     public Greedy(Hopeless hope) {
 
@@ -26,8 +20,6 @@ public class Greedy implements Runnable{
     public void run(){
 
         ArrayList<Integer> bestTable = new ArrayList<>(hope.table);
-
-        int score = 0;
 
         while(!hope.gameOver()) {
 
@@ -67,8 +59,8 @@ public class Greedy implements Runnable{
 
                 iter = validMoves.iterator();
             }
-            score += bestPlay;
-            listOfPlays.add(new Node(bestMove,bestTable,score));
+            bestScore += bestPlay;
+            listOfPlays.add(new Node(bestMove,bestTable,bestScore));
 
             hope.table = bestTable;
 //            System.out.println("Best Play : " + bestPlay);
@@ -82,24 +74,5 @@ public class Greedy implements Runnable{
             pointArray.add(listOfPlays.get(i).getMove());
         }
         return pointArray;
-    }
-
-    //reversing list
-    public static <T> ArrayList<T> reverse(ArrayList<T> list) {
-        int length = list.size();
-        ArrayList<T> result = new ArrayList<T>(length);
-
-        for (int i = length - 1; i >= 0; i--) {
-            result.add(list.get(i));
-        }
-        return result;
-    }
-
-    public int getBestScore() {
-        return bestScore;
-    }
-
-    public boolean isFinished() {
-        return finished;
     }
 }

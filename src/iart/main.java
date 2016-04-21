@@ -67,9 +67,10 @@ public class main {
         System.out.println("AStar > Other : " + b);
         System.out.println("AStar = Other : " + e);
 */
-        Statistics.createStatistics(10000,200,5,5);
+        Statistics.createStatistics(500,400,10,20);
     }
 
+    /*
     static int greedy(Hopeless hope){
         long startTime = System.currentTimeMillis();
 
@@ -188,4 +189,5 @@ public class main {
 
         return points;
     }
+    */
 }

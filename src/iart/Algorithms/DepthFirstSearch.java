@@ -8,14 +8,8 @@ import java.util.*;
 /**
  * Created by Pedro Castro on 02/03/2016.
  */
-public class DepthFirstSearch implements Runnable{
+public class DepthFirstSearch extends Algorithm implements Runnable{
     public List<Point> moves = new ArrayList<>();
-
-    public int bestScore = 0;
-
-    Hopeless hope;
-
-    boolean finished = false;
 
     public DepthFirstSearch(Hopeless hope) {
 
@@ -30,14 +24,6 @@ public class DepthFirstSearch implements Runnable{
             moves.add(move);
         }
         finished = true;
-    }
-
-    public boolean isFinished() {
-        return finished;
-    }
-
-    public int getBestScore() {
-        return bestScore;
     }
 }
 
