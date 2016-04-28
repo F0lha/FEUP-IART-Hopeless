@@ -1,5 +1,6 @@
 package iart;
 
+import iart.graphics.MainMenu;
 import iart.algorithms.*;
 import iart.game.Hopeless;
 import iart.utilities.Point;
@@ -9,10 +10,11 @@ import java.util.ArrayList;
 /**
  * Created by Pedro Castro on 02/03/2016.
  */
-public class main {
+public class HopelessMain {
 
     public static void main(String[] args)
     {
+        new MainMenu().setVisible(true);
         /*
         Hopeless hopeAStar2 = new Hopeless(5,5,4);
 
@@ -64,7 +66,7 @@ public class main {
         System.out.println("AStar > Other : " + b);
         System.out.println("AStar = Other : " + e);
 */
-        Statistics.createStatistics(10000,300,5,5);
+        //Statistics.createStatistics(10000,300,5,5);
 
         //Hopeless hopeAStar2 = new Hopeless(10,20,4);
         //runAstar(hopeAStar2);
@@ -103,7 +105,7 @@ public class main {
     }
 
 */
-    static int runAstar(Hopeless hope){
+    static int runAstar(iart.game.Hopeless hope){
 
         long startTime = System.currentTimeMillis();
 
@@ -152,7 +154,7 @@ public class main {
         return rip.getBestScore();
     }
 /*
-    static int dfs(Hopeless hope){
+    static int dfs(HopelessMain hope){
         long startTime = System.currentTimeMillis();
 
         DepthFirstSearch rip = new DepthFirstSearch(hope);
@@ -174,7 +176,7 @@ public class main {
         return rip.bestScore;
     }
 
-    static int bfs(Hopeless hope){
+    static int bfs(HopelessMain hope){
         long startTime = System.currentTimeMillis();
 
         ArrayList<Integer> initialTable = new ArrayList<>(hope.table);
