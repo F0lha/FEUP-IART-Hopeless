@@ -1,24 +1,32 @@
 package iart.graphics;
 
+import oracle.jrockit.jfr.JFR;
+
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by inesa on 28/04/2016.
  */
-public class MainMenu extends JFrame{
+public class MainMenu {
 
-
+    public JFrame frame;
+    private JPanel panel1;
     private JButton dfs;
     private JButton bfs;
     private JButton iddfs;
     private JButton greedy;
     private JButton aStar;
     private JButton idaStar;
-    private JPanel panel1;
 
-    public void MainMenu(){
-        setLayout(null);
+    public static void main(String[] args)
+    {
+        new MainMenu();
+    }
+    public MainMenu(){
 
+        frame = new JFrame("HOPELESS");
+        this.frame.setLayout(new FlowLayout());
         dfs = new JButton("DFS");
         dfs.setBounds(50, 50, 80, 25);
 
@@ -36,10 +44,10 @@ public class MainMenu extends JFrame{
         panel1.add(idaStar);
         panel1.add(greedy);
 
-        add(panel1);
+        this.frame.add(panel1);
 
-        setSize(600, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        this.frame.setSize(600, 400);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setVisible(true);
     }
 }

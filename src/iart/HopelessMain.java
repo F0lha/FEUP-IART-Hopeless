@@ -14,7 +14,6 @@ public class HopelessMain {
 
     public static void main(String[] args)
     {
-        new MainMenu().setVisible(true);
         /*
         Hopeless hopeAStar2 = new Hopeless(5,5,4);
 
