@@ -14,33 +14,25 @@ public class HopelessMain {
 
     public static void main(String[] args)
     {
-        /*
-        Hopeless hopeAStar2 = new Hopeless(5,5,4);
 
-        Hopeless hopeDFS = new Hopeless(5,5,4);
+        Hopeless hopeAStar2 = new Hopeless(10,20,4);
 
-        Hopeless hopeBBound = new Hopeless(5,5,4);
+        Hopeless hopeAStar3 = new Hopeless(10,20,4);
 
-        Hopeless hopeBFS = new Hopeless(5,5,4);
-
-        hopeDFS.table = new ArrayList<>(hopeAStar2.table);
-
-        hopeBBound.table = new ArrayList<>(hopeAStar2.table);
-
-        hopeAStar2.table = new ArrayList<>(hopeAStar2.table);
-
-        hopeBFS.table = new ArrayList<>(hopeAStar2.table);
+        hopeAStar3.table = new ArrayList<>(hopeAStar2.table);
 
         hopeAStar2.print();
 
-        runAstar(hopeAStar2);
+        runAstar(hopeAStar2,true);
 
-        dfs(hopeDFS);
+        runAstar(hopeAStar3,false);
 
-        greedy(hopeBBound);
+        //dfs(hopeDFS);
 
-        bfs(hopeBFS);
-*/
+        //greedy(hopeBBound);
+
+        //bfs(hopeBFS);
+
         /*
         int i = 0, b = 0, e=0, tries = 1000;
         while(tries > 0){
@@ -65,7 +57,7 @@ public class HopelessMain {
         System.out.println("AStar > Other : " + b);
         System.out.println("AStar = Other : " + e);
 */
-        //Statistics.createStatistics(10000,300,5,5);
+        // Statistics.createStatistics(10,200000,10,20);
 
         //Hopeless hopeAStar2 = new Hopeless(10,20,4);
         //runAstar(hopeAStar2);
@@ -104,7 +96,7 @@ public class HopelessMain {
     }
 
 */
-    static int runAstar(iart.game.Hopeless hope){
+    static int runAstar(iart.game.Hopeless hope, boolean safe){
 
         long startTime = System.currentTimeMillis();
 
@@ -112,7 +104,7 @@ public class HopelessMain {
 
 
         //A STAR
-        IDDFS rip = new IDDFS(hope);
+        AStarSearch rip = new AStarSearch(hope,safe);
 
         Thread t = new Thread(rip);
 
@@ -126,7 +118,7 @@ public class HopelessMain {
         }
 
 
-        ArrayList<Point> bestMoves = rip.getIDDFSMoves();
+        ArrayList<Point> bestMoves = rip.getAStarMoves();
 
         hope.table = initialTable;
 

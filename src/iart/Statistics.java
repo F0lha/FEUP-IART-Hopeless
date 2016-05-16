@@ -16,47 +16,63 @@ public class Statistics {
 
         Hopeless AStar;
 
-        Hopeless BFS = new Hopeless(tableRows,tableCols,4);
+        Hopeless AStarSafe = new Hopeless(tableRows,tableCols,4);
 
-        Hopeless DFS = new Hopeless(tableRows,tableCols,4);
+        //Hopeless BFS = new Hopeless(tableRows,tableCols,4);
 
-        Hopeless greedy = new Hopeless(tableRows,tableCols,4);
+        //Hopeless DFS = new Hopeless(tableRows,tableCols,4);
 
-        Hopeless iddfs = new Hopeless(tableRows,tableCols,4);
+        //Hopeless greedy = new Hopeless(tableRows,tableCols,4);
 
-        ArrayList<ArrayList<Integer>> statistics = new ArrayList<>();
+        //Hopeless iddfs = new Hopeless(tableRows,tableCols,4);
 
-        while (i < sampleSize)
-        {
+        ArrayList<ArrayList<Integer>> statistics = new ArrayList<>(2);
+
+        while (i < sampleSize) {
             ArrayList<Integer> current = new ArrayList<>();
 
-            AStar = new Hopeless(tableRows,tableCols,4);
+            AStar = new Hopeless(tableRows, tableCols, 4);
 
             //copying tables
-            BFS.copyTable(AStar.table);
-            DFS.copyTable(AStar.table);
-            greedy.copyTable(AStar.table);
-            iddfs.copyTable(AStar.table);
+            AStarSafe.copyTable(AStar.table);
+            //BFS.copyTable(AStar.table);
+            //DFS.copyTable(AStar.table);
+            //greedy.copyTable(AStar.table);
+            //iddfs.copyTable(AStar.table);
 
             //AStar Run
             try {
-                AStarSearch AStartThread = new AStarSearch(AStar);
+                AStarSearch AStartThread = new AStarSearch(AStar, false);
                 Thread t = new Thread(AStartThread);
                 t.start();
                 t.join(timeout);
-                if(AStartThread.isFinished())
-                {
-                    current.add(AStartThread.getBestScore());
-                }
-                else
-                {
-                    System.out.println("Error AStar");
+                if (AStartThread.isFinished()) {
+                    current.add(0,AStartThread.getBestScore());
+                } else {
+                    System.out.println("Error AStar Safe");
                     current.add(-1);
                     t.stop();
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            //AStar Safe Run
+            try {
+                AStarSearch AStartThreadSafe = new AStarSearch(AStarSafe, true);
+                Thread t = new Thread(AStartThreadSafe);
+                t.start();
+                t.join(timeout);
+                if (AStartThreadSafe.isFinished()) {
+                    current.add(1,AStartThreadSafe.getBestScore());
+                } else {
+                    System.out.println("Error AStar Improved");
+                    current.add(-1);
+                    t.stop();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            /*
             //BFS Run
             try {
                 BreadthFirstSearch BFSThread = new BreadthFirstSearch(BFS);
@@ -133,6 +149,10 @@ public class Statistics {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+
+        }
+        */
             statistics.add(current);
             i++;
         }
@@ -149,21 +169,25 @@ public class Statistics {
             listOfStats.set(bestIndex,listOfStats.get(bestIndex)+1);
         }
 
-        System.out.println("AStar best : " + listOfStats.get(0));
-        System.out.println("BFS best : " + listOfStats.get(1));
-        System.out.println("DFS best : " + listOfStats.get(2));
-        System.out.println("Greedy best : " + listOfStats.get(3));
-        System.out.println("IDDFS best : " + listOfStats.get(4));
+        System.out.println("AStar Safe best : " + listOfStats.get(0));
+        System.out.println("AStar Experimental best : " + listOfStats.get(1));
+        //System.out.println("BFS best : " + listOfStats.get(1));
+        //System.out.println("DFS best : " + listOfStats.get(2));
+        //System.out.println("Greedy best : " + listOfStats.get(3));
+        //System.out.println("IDDFS best : " + listOfStats.get(4));
     }
 
     static int getBestScoreIndex(ArrayList<Integer> tableStats){
-        int index = 0, max = 0;
+        int index = 0, max = 0, maxIndex = 0;
         for(int stat : tableStats){
+            System.out.println("Index = " + index);
+            System.out.println("Score = " + stat);
             if(stat > max){
                 max = stat;
-                index = tableStats.indexOf(stat);
+                maxIndex = index;
             }
+            index++;
         }
-        return index;
+        return maxIndex;
     }
 }
