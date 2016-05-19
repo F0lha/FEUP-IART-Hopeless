@@ -110,7 +110,7 @@ public class HopelessMain {
 
 
         //A STAR
-        AStarSearch rip = new AStarSearch(hope);
+        AStarSearch rip = new AStarSearch(hope, false);
 
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(System.in));
