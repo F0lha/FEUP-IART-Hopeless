@@ -23,11 +23,10 @@ public class Game extends JFrame {
         Panel east = new Panel();
         east.add(Box.createHorizontalStrut(100));
         WestPanel west = new WestPanel(9999);
-        Panel south = new Panel();
-        south.add(Box.createVerticalStrut(100));
+        SouthPanel south = new SouthPanel();
 
-        PREF_W = west.PREF_W + centerPanel.PREF_W + 100;
-        PREF_H = 100 + centerPanel.PREF_H + 100;
+        PREF_W = west.PREF_W + centerPanel.PREF_W + 100 ;
+        PREF_H = 100 + centerPanel.PREF_H + 100 + south.PREF_H;
 
         setSize(PREF_W,PREF_H);
 

@@ -43,10 +43,12 @@ public class WestPanel extends JPanel {
         add(greedy);
         greedy.setPreferredSize(new Dimension(100,30));
 
+
         JLabel jlabel = new JLabel("Score: " + score);
         jlabel.setFont(new Font("Verdana",1,15));
         jlabel.setHorizontalAlignment(0);
-        jlabel.setPreferredSize(new Dimension(200,20));
+        jlabel.setVerticalAlignment(0);
+        jlabel.setPreferredSize(new Dimension(200,60));
         add(jlabel);
     }
 
