@@ -42,7 +42,7 @@ public class Statistics {
 
             //AStar Run
             try {
-                AStarSearch AStartThread = new AStarSearch(AStar, false);
+                AStarSearch AStartThread = new AStarSearch(AStar, true);
                 Thread t = new Thread(AStartThread);
                 t.start();
                 t.join(timeout);
@@ -58,7 +58,7 @@ public class Statistics {
             }
             //AStar Safe Run
             try {
-                AStarSearch AStartThreadSafe = new AStarSearch(AStarSafe, true);
+                AStarSearch AStartThreadSafe = new AStarSearch(AStarSafe, false);
                 Thread t = new Thread(AStartThreadSafe);
                 t.start();
                 t.join(timeout);
@@ -163,8 +163,10 @@ public class Statistics {
 
         List<Integer> listOfStats = new ArrayList<>(Collections.nCopies(5, 0));
 
+        int i = 0;
         for(ArrayList<Integer> tableStats : statistics)
         {
+            System.out.println("Index = " + i++);
             int bestIndex = getBestScoreIndex(tableStats);
             listOfStats.set(bestIndex,listOfStats.get(bestIndex)+1);
         }
@@ -180,8 +182,7 @@ public class Statistics {
     static int getBestScoreIndex(ArrayList<Integer> tableStats){
         int index = 0, max = 0, maxIndex = 0;
         for(int stat : tableStats){
-            System.out.println("Index = " + index);
-            System.out.println("Score = " + stat);
+            System.out.println("Astar = " + index + "//Score = " + stat);
             if(stat > max){
                 max = stat;
                 maxIndex = index;
