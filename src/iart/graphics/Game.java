@@ -4,10 +4,10 @@ import java.awt.*;
 
 import javax.swing.*;
 
-public class GameFrame extends JFrame {
+public class Game extends JFrame {
 
-    public GameFrame(){
-        super("Jogo 24");
+    public Game(){
+        super("Hopeless");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000,400);
         CenterPanel centerPanel = new CenterPanel();
@@ -30,7 +30,7 @@ public class GameFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        new GameFrame();
+        new Game();
     }
 
 }
