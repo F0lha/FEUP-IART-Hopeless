@@ -104,7 +104,7 @@ public class HopelessMain {
 
 
         //A STAR
-        AStarSearch rip = new AStarSearch(hope,safe);
+        AStarSearch rip = new AStarSearch(hope);
 
         Thread t = new Thread(rip);
 
