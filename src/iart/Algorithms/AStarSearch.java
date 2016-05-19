@@ -6,6 +6,7 @@ import iart.utilities.HeuristicTable;
 import iart.game.Hopeless;
 import iart.utilities.Point;
 
+import javax.sound.midi.SysexMessage;
 import java.util.*;
 
 /**
@@ -16,8 +17,13 @@ public class AStarSearch extends Algorithm implements Runnable{
     PriorityQueue<AStarNode> openList;
     Map<Integer, AStarNode> mapNode = new HashMap<>();
 
-    public AStarSearch(Hopeless hope) {
+    boolean accelarator = false;
+
+    boolean safe;
+
+    public AStarSearch(Hopeless hope, boolean safe) {
         this.hope = hope;
+        this.safe = safe;
 
         comparator = new AStarNodeComparator();
 
@@ -34,7 +40,7 @@ public class AStarSearch extends Algorithm implements Runnable{
         while(!openList.isEmpty()) {
             AStarNode headNode = openList.peek();
             //if(mapNode.containsKey(headNode.parentNode))
-              //  System.out.println("Last Play : " + (headNode.realScore - mapNode.get(headNode.parentNode).realScore) + " at level :" + headNode.level);
+            //  System.out.println("Last Play : " + (headNode.realScore - mapNode.get(headNode.parentNode).realScore) + " at level :" + headNode.level);
 
             hope.table = new ArrayList<>(headNode.getTable());
 
@@ -44,6 +50,8 @@ public class AStarSearch extends Algorithm implements Runnable{
                 finished = true;
                 break;
             }
+
+            //System.out.println("Level : " + headNode.level + "/RealScore : " + headNode.realScore+ "/Score : " + headNode.score + "/Size : " + openList.size());
 
             openList.poll();
 
@@ -58,8 +66,10 @@ public class AStarSearch extends Algorithm implements Runnable{
                 hope.copyTable(headNode.getTable());
 
                 int tempPoints = hope.makePlay(validMove, validMoves);
-
-                int value = heuristicF(tempPoints,headNode.realScore, hope,openList.size());
+                int value;
+                if(safe)
+                    value = heuristicF(tempPoints,headNode.realScore, hope,openList.size());
+                else value = heuristicOverAchiever(tempPoints,headNode.realScore, hope,openList.size());
 
                 //System.out.println("Value = " + value);
 
@@ -68,11 +78,17 @@ public class AStarSearch extends Algorithm implements Runnable{
                 openList.add(nextNode);
                 mapNode.put(nextNode.nodeID, nextNode);
 
+
                 iter = validMoves.iterator();
             }
             //System.out.println("Best Play : " + bestPlay);
         }
+        System.out.println("Open list size = " + openList.size());
         this.bestScore = openList.peek().realScore;
+    }
+
+    public int getOpenListSize(){
+        return openList.size();
     }
 
     public ArrayList<Point> getAStarMoves(){
@@ -98,6 +114,7 @@ public class AStarSearch extends Algorithm implements Runnable{
     }
 
     public int heuristicF(int points,int realPoints, Hopeless hope, int size) {
+
         int tablePoints = 0;
 
         HeuristicTable HTable = new HeuristicTable(hope.getRow() * hope.getCol());
@@ -130,16 +147,30 @@ public class AStarSearch extends Algorithm implements Runnable{
         for (int i = 1; i < limit; i++) {
             int removals = Collections.frequency(HTable.getTableRegions(), i);
             //if (removals == 1)
-               // tablePoints++;
-             if (removals != 0) {
+            // tablePoints++;
+            if (removals != 0) {
                 tablePoints += Hopeless.getPoints(removals);
             }
         }
 
-        if(size >= 100000)
-        return (int)Math.pow((points + tablePoints + realPoints),2);
-        else return (points + tablePoints + realPoints);
+        return (points + tablePoints + realPoints);
+    }
 
+    public int heuristicOverAchiever(int points,int realPoints, Hopeless hope, int size) {
+        int sum = 0;
+        int heu = this.heuristicF(points,realPoints,hope,size);
+
+        //(Math.pow((hope.getRow()+hope.getCol())/2,2))/(hope.getRow()*hope.getCol()))
+
+        for (int i = 0; i < hope.getDifficulty(); i++)
+            sum += Hopeless.getPoints((Collections.frequency(hope.table, i + 1)));
+
+        //accelerator
+        if(!accelarator)
+            return(int)(sum*0.2 + heu);
+        else {
+            return (int) (sum * 0.2 + heu) * (int)Math.pow(2, size/100000);
+        }
     }
 
     void recursiveRegions(int i, int j, Hopeless hope, HeuristicTable HTable, int HTableColor){
@@ -160,5 +191,10 @@ public class AStarSearch extends Algorithm implements Runnable{
             if (j < hope.getCol() && (hope.getColor(new Point(i, j)) == hope.getColor(new Point(i, j + 1))))
                 recursiveRegions(i, j + 1, hope, HTable, HTableColor);
         }
+    }
+
+    public void setAccelarator(boolean accelarator){
+        System.out.println("Accelerating");
+        this.accelarator = accelarator;
     }
 }
