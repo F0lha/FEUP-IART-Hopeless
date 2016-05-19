@@ -11,23 +11,25 @@ import java.util.ArrayList;
  */
 public class CenterPanel extends JPanel {
 
-    private static final int PREF_W = 500;
-    private static final int PREF_H = 200;
+    public static int PREF_W = 500;
+    public static int PREF_H = 300;
     private static int REC_WITH = 30;
-    private static int REC_HEIGHT = 30;
     private ArrayList<Rectangle> squares = new ArrayList<Rectangle>();
-    Hopeless hopeAStar3 = new Hopeless(10,20,4);
+    Hopeless hopeAStar3;
 
-    public CenterPanel() {
-        //REC_HEIGHT = hopeAStar3.getRow()%PREF_H;
-        //REC_WITH = hopeAStar3.getCol()%PREF_W;
+    public CenterPanel(Hopeless hopeAStar3 ) {
+
+        PREF_W = hopeAStar3.getCol()*REC_WITH;
+        PREF_H = hopeAStar3.getRow()*REC_WITH;
+
+        this.hopeAStar3 = hopeAStar3;
 
         for(int j = 0; j < hopeAStar3.getRow(); j++){
             for(int i = 0; i < hopeAStar3.getCol(); i++) {
-               addSquare(i*REC_WITH , j*REC_HEIGHT, REC_WITH, REC_HEIGHT);
+               addSquare(i*REC_WITH , j*REC_WITH, REC_WITH, REC_WITH);
             }
         }
-        setBorder(BorderFactory.createLineBorder(Color.black));
+        //setBorder(BorderFactory.createLineBorder(Color.black));
 
     }
 
@@ -66,7 +68,7 @@ public class CenterPanel extends JPanel {
                         break;
 
                 }
-                g2.fillRect(i*REC_WITH , j*REC_HEIGHT, REC_WITH, REC_HEIGHT);
+                g2.fillRect(i*REC_WITH , j*REC_WITH, REC_WITH, REC_WITH);
                 g2.draw(squares.get(j * hopeAStar3.getCol() + i));
             }
         }
