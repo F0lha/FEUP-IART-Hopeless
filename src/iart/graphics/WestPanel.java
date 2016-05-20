@@ -76,6 +76,7 @@ public class WestPanel extends JPanel {
         for(int j = 0; j < Game.hopeAStar3.getRow(); j++) {
             for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
                 Game.centerPanel.paintImmediately(i * Game.centerPanel.REC_WITH, j * Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH);
+
             }
         }
     }
@@ -112,13 +113,14 @@ public class WestPanel extends JPanel {
                     for (iart.utilities.Point move : bestMoves) {
                         Game.score += Game.hopeAStar3.makePlay(move, new ArrayList<iart.utilities.Point>());
 
-                        try {
+                        jlabel.setText("Score: " + Game.score);
+
+                     /*   try {
                             Thread.sleep(500);
                         } catch (InterruptedException e1) {
                             e1.printStackTrace();
-                        }
+                        }*/
                         repaintTabel(bestMoves);
-                        jlabel.setText("Score: " + Game.score);
 
                         System.out.println("Move ----" + move.getRow() + " " + move.getCol());
                         Game.hopeAStar3.print();
