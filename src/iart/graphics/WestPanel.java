@@ -25,7 +25,7 @@ public class WestPanel extends JPanel {
     private JButton aStar;
     private JButton idaStar;
     Hopeless hopeAStar3;
-    JLabel jlabel;
+    public JLabel jlabel;
 
     public static final int PREF_W = 200;
     public static final int PREF_H = 300;
@@ -64,7 +64,6 @@ public class WestPanel extends JPanel {
         jlabel.setPreferredSize(new Dimension(200, 60));
         add(jlabel);
 
-        buttons();
     }
 
     @Override
@@ -86,7 +85,6 @@ public class WestPanel extends JPanel {
 
         aStar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                jlabel.setText("Score: cenas" + Game.score);
 
                 ArrayList<Integer> initialTable = new ArrayList<>(Game.hopeAStar3.table);
                 AStarSearch rip = new AStarSearch(Game.hopeAStar3, true);
@@ -117,7 +115,9 @@ public class WestPanel extends JPanel {
                         Game.score += Game.hopeAStar3.makePlay(move, new ArrayList<iart.utilities.Point>());
                         jlabel.setText("Score: " + Game.score);
                         jlabel.paintImmediately(jlabel.getVisibleRect());
-                        
+                        Game.south.jlabel.setText("Move - (" + move.getCol() + " , " + move.getRow() + ")");
+                        Game.south.jlabel.paintImmediately(Game.south.jlabel.getVisibleRect());
+
                        try {
                             Thread.sleep(500);
                         } catch (InterruptedException e1) {
@@ -141,5 +141,7 @@ public class WestPanel extends JPanel {
 
             }
         });
+
+
     }
 }
