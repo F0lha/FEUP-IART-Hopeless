@@ -62,7 +62,7 @@ public class CenterPanel extends JPanel {
                         g2.setColor(Color.blue);
                         break;
                     default:
-                        g2.setColor(Color.black);
+                        g2.setColor(null);
                         break;
 
                 }

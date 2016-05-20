@@ -71,6 +71,15 @@ public class WestPanel extends JPanel {
         return new Dimension(PREF_W, PREF_H);
     }
 
+    public void repaintTabel(ArrayList<iart.utilities.Point> bestMoves){
+
+        for(int j = 0; j < Game.hopeAStar3.getRow(); j++) {
+            for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
+                Game.centerPanel.paintImmediately(i * Game.centerPanel.REC_WITH, j * Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH);
+            }
+        }
+    }
+
     public void buttons() {
 
         aStar.addActionListener(new ActionListener() {
@@ -108,7 +117,7 @@ public class WestPanel extends JPanel {
                         } catch (InterruptedException e1) {
                             e1.printStackTrace();
                         }
-                        Game.centerPanel.paintImmediately(move.getCol() * Game.centerPanel.REC_WITH, move.getRow() * Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH);
+                        repaintTabel(bestMoves);
                         jlabel.setText("Score: " + Game.score);
 
                         System.out.println("Move ----" + move.getRow() + " " + move.getCol());
