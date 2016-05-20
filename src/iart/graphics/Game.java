@@ -15,8 +15,10 @@ public class Game extends JFrame {
     public static int score = 0;
     public static ArrayList<iart.utilities.Point> bestMoves;
     public static Hopeless hopeAStar3 = new Hopeless(10,20,4);
+    static Game g;
 
     static CenterPanel centerPanel = new CenterPanel();
+    static WestPanel west = new WestPanel();
 
     public Game(){
         super("Hopeless");
@@ -26,7 +28,6 @@ public class Game extends JFrame {
         NorthPanel north = new NorthPanel();
         Panel east = new Panel();
         east.add(Box.createHorizontalStrut(100));
-        WestPanel west = new WestPanel();
         SouthPanel south = new SouthPanel();
 
         PREF_W = west.PREF_W + centerPanel.PREF_W + 100 ;
@@ -46,7 +47,7 @@ public class Game extends JFrame {
     }
 
     public static void main(String[] args) {
-        new Game();
+       g =  new Game();
     }
 
 }

@@ -13,16 +13,17 @@ public class CenterPanel extends JPanel {
 
     public static int PREF_W = 500;
     public static int PREF_H = 300;
-    private static int REC_WITH = 30;
+    public static int REC_WITH = 30;
     private ArrayList<Rectangle> squares = new ArrayList<Rectangle>();
+    public static Hopeless hopeless = Game.hopeAStar3;
 
     public CenterPanel() {
 
-        PREF_W = Game.hopeAStar3.getCol()*REC_WITH;
-        PREF_H = Game.hopeAStar3.getRow()*REC_WITH;
+        PREF_W = hopeless.getCol()*REC_WITH;
+        PREF_H = hopeless.getRow()*REC_WITH;
 
-        for(int j = 0; j < Game.hopeAStar3.getRow(); j++){
-            for(int i = 0; i < Game.hopeAStar3.getCol(); i++) {
+        for(int j = 0; j < hopeless.getRow(); j++){
+            for(int i = 0; i < hopeless.getCol(); i++) {
                addSquare(i*REC_WITH , j*REC_WITH, REC_WITH, REC_WITH);
             }
         }
@@ -44,10 +45,10 @@ public class CenterPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        for(int j = 0; j < Game.hopeAStar3.getRow(); j++){
-            for(int i = 0; i < Game.hopeAStar3.getCol(); i++) {
+        for(int j = 0; j < hopeless.getRow(); j++){
+            for(int i = 0; i < hopeless.getCol(); i++) {
 
-                switch (Game.hopeAStar3.table.get(j * Game.hopeAStar3.getCol() + i)){
+                switch (hopeless.table.get(j * hopeless.getCol() + i)){
                     case 1:
                         g2.setColor(Color.red);
                         break;
@@ -66,7 +67,7 @@ public class CenterPanel extends JPanel {
 
                 }
                 g2.fillRect(i*REC_WITH , j*REC_WITH, REC_WITH, REC_WITH);
-                g2.draw(squares.get(j * Game.hopeAStar3.getCol() + i));
+                g2.draw(squares.get(j * hopeless.getCol() + i));
             }
         }
     }

@@ -25,6 +25,7 @@ public class WestPanel extends JPanel {
     private JButton aStar;
     private JButton idaStar;
     Hopeless hopeAStar3;
+    JLabel jlabel;
 
     public static final int PREF_W = 200;
     public static final int PREF_H = 300;
@@ -55,7 +56,7 @@ public class WestPanel extends JPanel {
         greedy.setPreferredSize(new Dimension(100, 30));
 
 
-        JLabel jlabel = new JLabel("Score: " + Game.score);
+        jlabel = new JLabel("Score: " + Game.score);
         jlabel.setFont(new Font("Verdana", 1, 15));
         jlabel.setHorizontalAlignment(0);
         jlabel.setVerticalAlignment(0);
@@ -74,6 +75,7 @@ public class WestPanel extends JPanel {
 
         aStar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
                 ArrayList<Integer> initialTable = new ArrayList<>(Game.hopeAStar3.table);
                 AStarSearch rip = new AStarSearch(Game.hopeAStar3, false);
                 Thread t = new Thread(rip);
@@ -82,15 +84,9 @@ public class WestPanel extends JPanel {
                 try {
                     Thread thread = new Thread() {
                         public void run() {
-                                    // wait until we have data to complete a readLine()
-                                    try {
-                                            Thread.sleep(200);
-                                        } catch (InterruptedException e1) {
-                                        e1.printStackTrace();
-                                    }
-                                    rip.setAccelarator(true);
-                                    }
-                                };
+                            rip.setAccelarator(true);
+                        }
+                    };
 
                     thread.start();
                     t.join();
@@ -103,13 +99,13 @@ public class WestPanel extends JPanel {
 
                 Game.hopeAStar3.table = initialTable;
 
-                int points = 0;
-
-                if(rip.getBestScore()!= 0)
-                    for(iart.utilities.Point move : bestMoves)
-                    {
-                        points += Game.hopeAStar3.makePlay(move,new ArrayList<iart.utilities.Point>());
-                        Game.centerPanel.updateUI();
+                if (rip.getBestScore() != 0)
+                    for (iart.utilities.Point move : bestMoves) {
+                        Game.score += Game.hopeAStar3.makePlay(move, new ArrayList<iart.utilities.Point>());
+                        Game.centerPanel.paintImmediately(move.getCol()*Game.centerPanel.REC_WITH , move.getRow()*Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH);
+                        jlabel.setText("Score: " + Game.score);
+                        System.out.println("Move ----" + move.getRow() + " " + move.getCol());
+                        Game.hopeAStar3.print();
                     }
                 System.out.println("Final ----");
                 Game.hopeAStar3.print();
@@ -118,8 +114,7 @@ public class WestPanel extends JPanel {
                 System.out.println("Moves = " + bestMoves);
                 System.out.println("A* Score = " + rip.getBestScore());
 
-                System.out.println("A* Sum Of Points = " + points);
-
+                System.out.println("A* Sum Of Points = " + Game.score);
 
 
             }

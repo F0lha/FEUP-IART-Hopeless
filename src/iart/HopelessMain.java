@@ -167,6 +167,8 @@ public class HopelessMain {
             for(Point move : bestMoves)
             {
                 points += hope.makePlay(move,new ArrayList<Point>());
+                System.out.println("Move ----" + move.getRow() + " " + move.getCol());
+                hope.print();
             }
         System.out.println("Final ----");
         hope.print();
