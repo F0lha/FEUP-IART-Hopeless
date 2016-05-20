@@ -56,7 +56,8 @@ public class WestPanel extends JPanel {
         greedy.setPreferredSize(new Dimension(100, 30));
 
 
-        jlabel = new JLabel("Score: " + Game.score);
+        jlabel = new JLabel();
+        jlabel.setText("Score: " + Game.score);
         jlabel.setFont(new Font("Verdana", 1, 15));
         jlabel.setHorizontalAlignment(0);
         jlabel.setVerticalAlignment(0);
@@ -71,9 +72,9 @@ public class WestPanel extends JPanel {
         return new Dimension(PREF_W, PREF_H);
     }
 
-    public void repaintTabel(ArrayList<iart.utilities.Point> bestMoves){
+    public void repaintTabel(ArrayList<iart.utilities.Point> bestMoves) {
 
-        for(int j = 0; j < Game.hopeAStar3.getRow(); j++) {
+        for (int j = 0; j < Game.hopeAStar3.getRow(); j++) {
             for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
                 Game.centerPanel.paintImmediately(i * Game.centerPanel.REC_WITH, j * Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH);
 
@@ -85,11 +86,13 @@ public class WestPanel extends JPanel {
 
         aStar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                jlabel.setText("Score: cenas" + Game.score);
 
                 ArrayList<Integer> initialTable = new ArrayList<>(Game.hopeAStar3.table);
                 AStarSearch rip = new AStarSearch(Game.hopeAStar3, true);
                 Thread t = new Thread(rip);
                 t.start();
+
 
                 try {
                     Thread thread = new Thread() {
@@ -112,14 +115,14 @@ public class WestPanel extends JPanel {
                 if (rip.getBestScore() != 0)
                     for (iart.utilities.Point move : bestMoves) {
                         Game.score += Game.hopeAStar3.makePlay(move, new ArrayList<iart.utilities.Point>());
-
                         jlabel.setText("Score: " + Game.score);
-
-                     /*   try {
+                        jlabel.paintImmediately(jlabel.getVisibleRect());
+                        
+                       try {
                             Thread.sleep(500);
                         } catch (InterruptedException e1) {
                             e1.printStackTrace();
-                        }*/
+                        }
                         repaintTabel(bestMoves);
 
                         System.out.println("Move ----" + move.getRow() + " " + move.getCol());
