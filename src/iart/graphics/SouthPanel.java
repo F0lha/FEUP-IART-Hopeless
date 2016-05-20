@@ -72,8 +72,6 @@ public class SouthPanel extends JPanel {
                 Game.south.jlabel.setText("Move - (" + 0  + " , " + 0 + ")");
                 Game.south.jlabel.paintImmediately(Game.south.jlabel.getVisibleRect());
 
-                System.out.println("CArregou new! ------------------------");
-                Game.hopeAStar3.print();
             }
         });
 
@@ -94,8 +92,6 @@ public class SouthPanel extends JPanel {
                 Game.south.jlabel.setText("Move - (" + 0  + " , " + 0 + ")");
                 Game.south.jlabel.paintImmediately(Game.south.jlabel.getVisibleRect());
 
-                System.out.println("CArregou new! ------------------------");
-                Game.hopeAStar3.print();
             }
         });
     }
