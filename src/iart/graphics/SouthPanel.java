@@ -3,6 +3,8 @@ package iart.graphics;
 import iart.game.Hopeless;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +22,7 @@ public class SouthPanel extends JPanel {
     public static final int PREF_W = 200;
     public static final int PREF_H = 300;
     public JLabel jlabel;
+    public JSlider slider;
     public int x = 0;
     public int y = 0;
 
@@ -36,13 +39,81 @@ public class SouthPanel extends JPanel {
 
         add(Box.createHorizontalStrut(20));
 
-        JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 50, 25);
-        slider.setMinorTickSpacing(2);
-        slider.setMajorTickSpacing(10);
-        slider.setPaintTicks(true);
-        slider.setPaintLabels(true);
-        slider.setLabelTable(slider.createStandardLabels(10));
-        add(slider);
+        jlabel = new JLabel();
+        jlabel.setText("Board Height");
+        jlabel.setFont(new Font("Verdana", 1, 15));
+        jlabel.setHorizontalAlignment(0);
+        jlabel.setVerticalAlignment(0);
+        jlabel.setPreferredSize(new Dimension(110, 60));
+
+        add(jlabel);
+
+        SpinnerModel spinnerModel =
+                new SpinnerNumberModel(10, //initial value
+                        1, //min
+                        10, //max
+                        1);//step
+        JSpinner spinner = new JSpinner(spinnerModel);
+        spinner.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+               System.out.println("Altura " + ((JSpinner)e.getSource()).getValue());
+                Game.HBOARD = Integer.parseInt(((JSpinner)e.getSource()).getValue().toString());
+                Game.hopeAStar3 = new Hopeless( Game.HBOARD, Game.WBOARD, Game.DIFF);
+                repaintTabel();
+            }
+        });
+        add(spinner);
+
+        jlabel = new JLabel();
+        jlabel.setText("Board Width");
+        jlabel.setFont(new Font("Verdana", 1, 15));
+        jlabel.setHorizontalAlignment(0);
+        jlabel.setVerticalAlignment(0);
+        jlabel.setPreferredSize(new Dimension(110, 60));
+
+        add(jlabel);
+
+        spinnerModel =
+                new SpinnerNumberModel(20, //initial value
+                        1, //min
+                        20, //max
+                        1);//step
+        spinner = new JSpinner(spinnerModel);
+        spinner.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                System.out.println("Largura " + ((JSpinner)e.getSource()).getValue());
+                Game.WBOARD = Integer.parseInt(((JSpinner)e.getSource()).getValue().toString());
+                Game.hopeAStar3 = new Hopeless( Game.HBOARD, Game.WBOARD, Game.DIFF);
+                repaintTabel();
+            }
+        });
+        add(spinner);
+
+
+        jlabel = new JLabel();
+        jlabel.setText("Board Difficulty");
+        jlabel.setFont(new Font("Verdana", 1, 15));
+        jlabel.setHorizontalAlignment(0);
+        jlabel.setVerticalAlignment(0);
+        jlabel.setPreferredSize(new Dimension(130, 60));
+
+        add(jlabel);
+
+        spinnerModel =
+                new SpinnerNumberModel(4, //initial value
+                        1, //min
+                        7, //max
+                        1);//step
+        spinner = new JSpinner(spinnerModel);
+        spinner.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                System.out.println("Dificuldade " + ((JSpinner)e.getSource()).getValue());
+                Game.DIFF = Integer.parseInt(((JSpinner)e.getSource()).getValue().toString());
+                Game.hopeAStar3 = new Hopeless( Game.HBOARD, Game.WBOARD, Game.DIFF);
+                repaintTabel();
+            }
+        });
+        add(spinner);
 
         jlabel = new JLabel();
         jlabel.setText("Move - (" + x + " , " + y + ")");
@@ -52,6 +123,15 @@ public class SouthPanel extends JPanel {
         jlabel.setPreferredSize(new Dimension(200, 60));
         add(jlabel);
         buttons();
+    }
+
+    public void repaintTabel() {
+
+        for (int j = 0; j < Game.hopeAStar3.getRow(); j++) {
+            for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
+                Game.centerPanel.paintImmediately(i * Game.centerPanel.REC_WITH, j * Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH);
+            }
+        }
     }
 
     public void buttons() {

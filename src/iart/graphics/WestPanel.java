@@ -37,21 +37,15 @@ public class WestPanel extends JPanel {
 
         dfs = new JButton("DFS");
         bfs = new JButton("BFS");
-        iddfs = new JButton("IDDFS");
         greedy = new JButton("GREEDY");
         aStar = new JButton("A*");
-        idaStar = new JButton("IDASTAR");
 
         add(dfs);
         dfs.setPreferredSize(new Dimension(100, 30));
         add(bfs);
         bfs.setPreferredSize(new Dimension(100, 30));
-        add(iddfs);
-        iddfs.setPreferredSize(new Dimension(100, 30));
         add(aStar);
         aStar.setPreferredSize(new Dimension(100, 30));
-        add(idaStar);
-        idaStar.setPreferredSize(new Dimension(100, 30));
         add(greedy);
         greedy.setPreferredSize(new Dimension(100, 30));
 
@@ -76,7 +70,6 @@ public class WestPanel extends JPanel {
         for (int j = 0; j < Game.hopeAStar3.getRow(); j++) {
             for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
                 Game.centerPanel.paintImmediately(i * Game.centerPanel.REC_WITH, j * Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH);
-
             }
         }
     }
