@@ -37,6 +37,7 @@ public class WestPanel extends JPanel {
 
         dfs = new JButton("DFS");
         bfs = new JButton("BFS");
+        iddfs = new JButton("IDDFS");
         greedy = new JButton("GREEDY");
         aStar = new JButton("A*");
 
@@ -46,6 +47,8 @@ public class WestPanel extends JPanel {
         bfs.setPreferredSize(new Dimension(100, 30));
         add(aStar);
         aStar.setPreferredSize(new Dimension(100, 30));
+        add(iddfs);
+        iddfs.setPreferredSize(new Dimension(100, 30));
         add(greedy);
         greedy.setPreferredSize(new Dimension(100, 30));
 
