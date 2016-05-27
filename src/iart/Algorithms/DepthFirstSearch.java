@@ -11,10 +11,18 @@ import java.util.*;
 public class DepthFirstSearch extends Algorithm implements Runnable{
     public List<Point> moves = new ArrayList<>();
 
+
+    /**
+     * Depth First Search constructor
+     * @param hope Hopeless Game Object
+     */
     public DepthFirstSearch(Hopeless hope) {
         this.hope = hope;
     }
 
+    /**
+     * Runnable Depth First Search Algorithm
+     */
     public void run(){
 
         while(!hope.gameOver())
@@ -24,6 +32,14 @@ public class DepthFirstSearch extends Algorithm implements Runnable{
             moves.add(move);
         }
         finished = true;
+    }
+
+    /**
+     * Get best DFS plays in order
+     * @return list of points
+     */
+    public List<Point> getDFSBestPlays(){
+        return moves;
     }
 }
 

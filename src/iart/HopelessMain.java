@@ -21,13 +21,17 @@ public class HopelessMain {
     public static void main(String[] args)
     {
 
+        Statistics.createStatistics(20,200000,5,5);
+
         Hopeless hopeAStar2 = new Hopeless(10,20,4);
 
         Hopeless hopeAStar3 = new Hopeless(10,20,4);
 
-        hopeAStar3.table = new ArrayList<>(hopeAStar2.table);
+        hopeAStar3.setTable(hopeAStar2.getTable());
 
         hopeAStar2.print();
+
+
 
         runAstar(hopeAStar2,true);
 
@@ -63,7 +67,6 @@ public class HopelessMain {
         System.out.println("AStar > Other : " + b);
         System.out.println("AStar = Other : " + e);
 */
-         //Statistics.createStatistics(100,200000,10,10);
 
         //Hopeless hopeAStar2 = new Hopeless(10,20,4);
         //runAstar(hopeAStar2);
@@ -106,11 +109,11 @@ public class HopelessMain {
 
         long startTime = System.currentTimeMillis();
 
-        ArrayList<Integer> initialTable = new ArrayList<>(hope.table);
+        ArrayList<Integer> initialTable = new ArrayList<>(hope.getTable());
 
 
         //A STAR
-        AStarSearch rip = new AStarSearch(hope, false);
+        AStarSearch rip = new AStarSearch(hope,safe);
 
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(System.in));
@@ -132,9 +135,12 @@ public class HopelessMain {
                                     Thread.sleep(200);
                                 }
                                 input = br.readLine();
-                                if(input.equals("acc")) {
-                                    rip.setAccelarator(true);
-                                    }
+                                if(input.equals("score")) {
+                                    System.out.println("Score = " + rip.getTopScore());
+                                }
+                                else if(input.equals("level")) {
+                                    System.out.println("Level = " + rip.getCurrentLevel());
+                                }
                                 else{
                                     System.out.println("Size = " + rip.getOpenListSize());
                                 }
@@ -159,7 +165,7 @@ public class HopelessMain {
 
         ArrayList<Point> bestMoves = rip.getAStarMoves();
 
-        hope.table = initialTable;
+        hope.setTable(initialTable);
 
         int points = 0;
 
@@ -167,8 +173,6 @@ public class HopelessMain {
             for(Point move : bestMoves)
             {
                 points += hope.makePlay(move,new ArrayList<Point>());
-                System.out.println("Move ----" + move.getRow() + " " + move.getCol());
-                hope.print();
             }
         System.out.println("Final ----");
         hope.print();

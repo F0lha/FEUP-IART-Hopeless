@@ -2,9 +2,7 @@ package iart.algorithms;
 
 import iart.game.Hopeless;
 
-/**
- * Created by Pedro Castro on 21/04/2016.
- */
+
 public class Algorithm {
     int bestScore = 0;
 
@@ -12,10 +10,18 @@ public class Algorithm {
 
     boolean finished = false;
 
+    /**
+     * Returns state of the running algortihm
+     * @return state
+     */
     public boolean isFinished() {
         return finished;
     }
 
+    /**
+     * Returns Best Score from the Best Moves calculated
+     * @return Best Score
+     */
     public int getBestScore(){
         return bestScore;
     }

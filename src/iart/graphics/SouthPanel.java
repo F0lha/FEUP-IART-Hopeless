@@ -152,12 +152,14 @@ public class SouthPanel extends JPanel {
                 Game.south.jlabel.setText("Move - (" + 0  + " , " + 0 + ")");
                 Game.south.jlabel.paintImmediately(Game.south.jlabel.getVisibleRect());
 
+                initialTable = new ArrayList<Integer>(Game.hopeAStar3.getTable());
+
             }
         });
 
         resetCurrentBoard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Game.hopeAStar3.table = initialTable;
+                Game.hopeAStar3.setTable(initialTable);
 
                 for (int j = 0; j < Game.hopeAStar3.getRow(); j++) {
                     for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {

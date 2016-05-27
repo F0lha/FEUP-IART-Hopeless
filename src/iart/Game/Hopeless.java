@@ -6,19 +6,20 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.lang.Integer;
 
-/**
- * Created by Pedro Castro on 02/03/2016.
- */
-
-//TODO mems troca todos os rows com os cols
 public class Hopeless {
 
-    public ArrayList<Integer> table;
+    private ArrayList<Integer> table;
 
-    int row, col;
+    private int row, col;
 
-    int difficulty;
+    private int difficulty;
 
+    /**
+     * Hopeless game Object constructor
+     * @param row number of table rows
+     * @param col number of table columns
+     * @param diff difficulty
+     */
     public Hopeless(int row, int col, int diff){
         this.row = row;
         this.col = col;
@@ -30,12 +31,20 @@ public class Hopeless {
 
     }
 
+    /**
+     * Returns colour of a Point in table
+     * @param point point of table
+     * @return colour of point, -1 if point outside table
+     */
     public int getColor(Point point){
         if((point.getRow()>=0 && point.getRow()<row)&&(point.getCol()>=0 && point.getCol()<col))
             return table.get(point.getRow() * col + point.getCol());
         else return -1;
     }
 
+    /**
+     * Initializes a random Hopeless table
+     */
     public void initializeTable(){
         Random rand = new Random();
 
@@ -48,14 +57,17 @@ public class Hopeless {
         }
     }
 
+    /**
+     * Checks if a point is a valid move by checking if its not an empty space or outside the bounds of given the current table
+     * @param point point to check
+     * @return true if valid, false if not
+     */
     boolean validMove(Point point)
     {
         if (point.getRow() >= row || point.getCol() >= col) {
-            //System.out.println("out of bounds");
             return false;
         }
         else if(getColor(point) == 0){
-            //System.out.println("empty");
             return false;
         }
         else if((point.getRow()>0 && (getColor(new Point(point.getRow()-1,point.getCol())) == getColor(point))) ||
@@ -65,17 +77,13 @@ public class Hopeless {
                 )
             return true;
         else
-        {
-            //System.out.println("isolated" + point + " colour = " + getColor(point));
-
-            //System.out.println("Cima = " + getColor(new iart.utilities.Point(point.getRow()-1,point.getCol())));
-            //System.out.println("Baixo = " + getColor(new iart.utilities.Point(point.getRow()+1,point.getCol())));
-            //System.out.println("Esquerda = " + getColor(new iart.utilities.Point(point.getRow(),point.getCol()-1)));
-            //System.out.println("Direita = " + getColor(new iart.utilities.Point(point.getRow(),point.getCol()+1)));
             return false;
-        }
     }
 
+    /**
+     * Returns a list of points where its possible to make a play
+     * @return list of points
+     */
     public ArrayList<Point> getAllValidMoves(){
 
         ArrayList<Point> listOfValidMoves = new ArrayList<>();
@@ -89,6 +97,12 @@ public class Hopeless {
         return listOfValidMoves;
     }
 
+    /**
+     * Makes a play and makes changes to table. Removes from validMoves the points that make up the block to where point points.
+     * @param point point of the move
+     * @param validMoves list of points
+     * @return the number of points made with play, -1 if invalid play
+     */
     public int makePlay(Point point, ArrayList<Point> validMoves){
 
         if(!validMove(point)){
@@ -102,18 +116,30 @@ public class Hopeless {
 
         //colapse the table
 
-        colapseBoardVertically();
-        colapseBoardHorizonatlly();
+        collapseBoardVertically();
+        collapseBoardHorizontally();
 
         double points = getPoints(removals);
 
         return (int)points;
     }
 
+    /**
+     * Calculates points given the size of the block.
+     * @param removals size of block
+     * @return points of removal
+     */
     public static double getPoints(int removals){
         return Math.pow((double)((removals-1)*2),2.0);
     }
 
+    /**
+     * Removes point given from the table, making it empty. Called recursively for adjacent points with same colour.
+     * @param point current point
+     * @param colour current color
+     * @param validMoves list of point
+     * @return number of points removed
+     */
     int removePoint(Point point, int colour,ArrayList<Point> validMoves)
     {
         Point up,down,left,right;
@@ -122,13 +148,10 @@ public class Hopeless {
 
         int index = validMoves.indexOf(point);
 
-        //this.print();
-        //System.out.println("Index : " +index + "//iart.utilities.Point " + point.toString() +"// Colour : " + getColor(point));
-
         table.set((point.getRow()*this.col)+point.getCol(),0);
 
+        //removes unnecessary play
         if(index != -1) {
-            //System.out.println("Apagou jogada desnecessaria");
             validMoves.remove(index);
         }
 
@@ -166,7 +189,10 @@ public class Hopeless {
         return acc;
     }
 
-    void colapseBoardVertically(){
+    /**
+     * Collapse the board vertically if possible.
+     */
+    void collapseBoardVertically(){
         for(int i = row-1; i > 0;i--)
         {
             for(int j = 0; j< col ;j++)
@@ -189,6 +215,11 @@ public class Hopeless {
         }
     }
 
+    /**
+     * Checks if current column is empty.
+     * @param col current column
+     * @return true if column empty, false if not
+     */
     boolean checkIfColumnIsEmpty(int col){
         for(int row = 0;row < this.row;row++)
         {
@@ -198,7 +229,10 @@ public class Hopeless {
         return true;
     }
 
-    void colapseBoardHorizonatlly(){
+    /**
+     * Collapse the board vertically if horizontally.
+     */
+    void collapseBoardHorizontally(){
         for(int i = 0; i < col-1;i++)
         {
             if(checkIfColumnIsEmpty(i))
@@ -215,6 +249,11 @@ public class Hopeless {
         }
     }
 
+    /**
+     * Switches col1 with col2
+     * @param col1
+     * @param col2
+     */
     void switchColumn(int col1, int col2){
         for(int i = 0; i < row;i++)
         {
@@ -224,10 +263,17 @@ public class Hopeless {
         }
     }
 
+    /**
+     * Checks if the its possible to make more plays. If not then the game is over.
+     * @return if game is over
+     */
     public boolean gameOver(){
         return getAllValidMoves().isEmpty();
     }
 
+    /**
+     * Print table to CLI.
+     */
     public void print(){
         for(int i= 0;i < row;i++)
         {
@@ -239,21 +285,44 @@ public class Hopeless {
         }
     }
 
-    public void copyTable(ArrayList<Integer> newTable){
+    /**
+     * Set table. Makes a copy of it.
+     * @param newTable
+     */
+    public void setTable(ArrayList<Integer> newTable){
+
         this.table = new ArrayList<>(newTable);
     }
 
-
+    /**
+     * Returns the number of columns.
+     * @return number of columns
+     */
     public int getCol() {
         return col;
     }
-
+    /**
+     * Returns the number of rows.
+     * @return number of rows
+     */
     public int getRow() {
         return row;
     }
 
+    /**
+     * Returns the difficulty level.
+     * @return difficulty level
+     */
     public int getDifficulty(){
         return difficulty;
+    }
+
+    /**
+     * Returns the table of game
+     * @return table
+     */
+    public ArrayList<Integer> getTable() {
+        return table;
     }
 }
 

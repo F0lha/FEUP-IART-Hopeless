@@ -3,11 +3,15 @@ package iart;
 import iart.algorithms.*;
 import iart.game.Hopeless;
 
+import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Pedro Castro on 20/04/2016.
- */
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 public class Statistics {
 
     static void createStatistics(int sampleSize, int timeout, int tableRows, int tableCols){
@@ -16,36 +20,40 @@ public class Statistics {
 
         Hopeless AStar;
 
-        Hopeless AStarSafe = new Hopeless(tableRows,tableCols,4);
+        Hopeless AStarGoalState = new Hopeless(tableRows,tableCols,4);
 
-        //Hopeless BFS = new Hopeless(tableRows,tableCols,4);
+        Hopeless BFS = new Hopeless(tableRows,tableCols,4);
 
-        //Hopeless DFS = new Hopeless(tableRows,tableCols,4);
+        Hopeless DFS = new Hopeless(tableRows,tableCols,4);
 
-        //Hopeless greedy = new Hopeless(tableRows,tableCols,4);
+        Hopeless greedy = new Hopeless(tableRows,tableCols,4);
 
-        //Hopeless iddfs = new Hopeless(tableRows,tableCols,4);
+        Hopeless iddfs = new Hopeless(tableRows,tableCols,4);
 
-        ArrayList<ArrayList<Integer>> statistics = new ArrayList<>(2);
+        ArrayList<ArrayList<Integer>> statistics = new ArrayList<>();
+        ArrayList<ArrayList<Long>> timeOfExecution = new ArrayList<>();
 
         while (i < sampleSize) {
             ArrayList<Integer> current = new ArrayList<>();
+            ArrayList<Long> timeArray = new ArrayList<>();
 
             AStar = new Hopeless(tableRows, tableCols, 4);
 
             //copying tables
-            AStarSafe.copyTable(AStar.table);
-            //BFS.copyTable(AStar.table);
-            //DFS.copyTable(AStar.table);
-            //greedy.copyTable(AStar.table);
-            //iddfs.copyTable(AStar.table);
+            AStarGoalState.setTable(AStar.getTable());
+            BFS.setTable(AStar.getTable());
+            DFS.setTable(AStar.getTable());
+            greedy.setTable(AStar.getTable());
+            iddfs.setTable(AStar.getTable());
 
             //AStar Run
             try {
                 AStarSearch AStartThread = new AStarSearch(AStar, true);
                 Thread t = new Thread(AStartThread);
+                long time = System.nanoTime();
                 t.start();
                 t.join(timeout);
+                time -= System.nanoTime();
                 if (AStartThread.isFinished()) {
                     current.add(0,AStartThread.getBestScore());
                 } else {
@@ -53,32 +61,37 @@ public class Statistics {
                     current.add(-1);
                     t.stop();
                 }
+                timeArray.add(time);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             //AStar Safe Run
             try {
-                AStarSearch AStartThreadSafe = new AStarSearch(AStarSafe, false);
-                Thread t = new Thread(AStartThreadSafe);
+                AStarSearch AStartThreadGoalState = new AStarSearch(AStarGoalState, false);
+                Thread t = new Thread(AStartThreadGoalState);
+                long time = System.nanoTime();
                 t.start();
                 t.join(timeout);
-                if (AStartThreadSafe.isFinished()) {
-                    current.add(1,AStartThreadSafe.getBestScore());
+                time -= System.nanoTime();
+                if (AStartThreadGoalState.isFinished()) {
+                    current.add(1,AStartThreadGoalState.getBestScore());
                 } else {
                     System.out.println("Error AStar Improved");
                     current.add(-1);
                     t.stop();
                 }
+                timeArray.add(time);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            /*
             //BFS Run
             try {
                 BreadthFirstSearch BFSThread = new BreadthFirstSearch(BFS);
                 Thread t = new Thread(BFSThread);
+                long time = System.nanoTime();
                 t.start();
                 t.join(timeout);
+                time -= System.nanoTime();
                 if(BFSThread.isFinished())
                 {
                     current.add(BFSThread.getBestScore());
@@ -89,6 +102,7 @@ public class Statistics {
                     current.add(-1);
                     t.stop();
                 }
+                timeArray.add(time);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -96,8 +110,10 @@ public class Statistics {
             try {
                 DepthFirstSearch DFSThread = new DepthFirstSearch(DFS);
                 Thread t = new Thread(DFSThread);
+                long time = System.nanoTime();
                 t.start();
                 t.join(timeout);
+                time -= System.nanoTime();
                 if(DFSThread.isFinished())
                 {
                     current.add(DFSThread.getBestScore());
@@ -108,6 +124,7 @@ public class Statistics {
                     current.add(-1);
                     t.stop();
                 }
+                timeArray.add(time);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -115,8 +132,10 @@ public class Statistics {
             try {
                 Greedy GreedyThread = new Greedy(greedy);
                 Thread t = new Thread(GreedyThread);
+                long time = System.nanoTime();
                 t.start();
                 t.join(timeout);
+                time -= System.nanoTime();
                 if(GreedyThread.isFinished())
                 {
                     current.add(GreedyThread.getBestScore());
@@ -127,6 +146,7 @@ public class Statistics {
                     current.add(-1);
                     t.stop();
                 }
+                timeArray.add(time);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -134,8 +154,10 @@ public class Statistics {
             try {
                 IDDFS IDDFSThread = new IDDFS(iddfs);
                 Thread t = new Thread(IDDFSThread);
+                long time = System.nanoTime();
                 t.start();
                 t.join(timeout);
+                time -= System.nanoTime();
                 if(IDDFSThread.isFinished())
                 {
                     current.add(IDDFSThread.getBestScore());
@@ -146,37 +168,115 @@ public class Statistics {
                     current.add(-1);
                     t.stop();
                 }
+                timeArray.add(time);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-
-        }
-        */
             statistics.add(current);
+            timeOfExecution.add(timeArray);
             i++;
         }
-        printStatistics(statistics);
+        makeStatistics(statistics,timeOfExecution);
     }
 
-    static void printStatistics(ArrayList<ArrayList<Integer>> statistics){
+    static void makeStatistics(ArrayList<ArrayList<Integer>> statistics, ArrayList<ArrayList<Long>> timeOfExecution) {
 
-        List<Integer> listOfStats = new ArrayList<>(Collections.nCopies(5, 0));
 
-        int i = 0;
-        for(ArrayList<Integer> tableStats : statistics)
-        {
-            System.out.println("Index = " + i++);
-            int bestIndex = getBestScoreIndex(tableStats);
-            listOfStats.set(bestIndex,listOfStats.get(bestIndex)+1);
+        try {
+            FileOutputStream out = new FileOutputStream(new File("statistics.xlsx"));
+
+            //Blank workbook
+            XSSFWorkbook workbook = new XSSFWorkbook();
+
+            //Create a blank sheet
+            XSSFSheet sheet = workbook.createSheet("Stats");
+
+            makeFirstLine(sheet);
+
+
+            for(int i = 0; i < statistics.size();i++){
+                Row row = sheet.createRow(i+1);
+
+                Cell cell = row.createCell(0);//ID
+
+                cell.setCellValue(i+1);
+                for(int j = 0;j < statistics.get(i).size()*2;j += 2){
+                    cell = row.createCell((j)+1);
+
+                    cell.setCellValue(statistics.get(i/2).get(j/2));
+
+                    cell = row.createCell((j)+2);
+
+                    cell.setCellValue(Math.abs(timeOfExecution.get(i/2).get(j/2) / 1000000));
+                }
+            }
+
+            workbook.write(out);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        System.out.println("AStar Safe best : " + listOfStats.get(0));
-        System.out.println("AStar Experimental best : " + listOfStats.get(1));
-        //System.out.println("BFS best : " + listOfStats.get(1));
-        //System.out.println("DFS best : " + listOfStats.get(2));
-        //System.out.println("Greedy best : " + listOfStats.get(3));
-        //System.out.println("IDDFS best : " + listOfStats.get(4));
+    }
+
+    static void makeFirstLine(XSSFSheet sheet){
+
+        Row row = sheet.createRow(0);
+
+        int i = 0;
+
+        Cell nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("TableNumber");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("A* GoalState = 0");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("A* GoalState = 0 (Time)");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("A* GoalState = h(n)");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("A* GoalState = h(n) (Time)");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("BFS");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("BFS (Time)");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("DFS");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("DFS (Time)");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("Greedy");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("Greedy (Time)");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("IDDFS");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("IDDFS (Time)");
     }
 
     static int getBestScoreIndex(ArrayList<Integer> tableStats){

@@ -82,7 +82,7 @@ public class WestPanel extends JPanel {
         aStar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                ArrayList<Integer> initialTable = new ArrayList<>(Game.hopeAStar3.table);
+                ArrayList<Integer> initialTable = new ArrayList<>(Game.hopeAStar3.getTable());
                 AStarSearch rip = new AStarSearch(Game.hopeAStar3, true);
                 Thread t = new Thread(rip);
                 t.start();
@@ -91,7 +91,7 @@ public class WestPanel extends JPanel {
                 try {
                     Thread thread = new Thread() {
                         public void run() {
-                            rip.setAccelarator(true);
+                            //rip.setAccelarator(true);
                         }
                     };
 
@@ -104,7 +104,7 @@ public class WestPanel extends JPanel {
 
                 ArrayList<iart.utilities.Point> bestMoves = rip.getAStarMoves();
 
-                Game.hopeAStar3.table = initialTable;
+                Game.hopeAStar3.setTable(initialTable);
 
                 if (rip.getBestScore() != 0)
                     for (iart.utilities.Point move : bestMoves) {

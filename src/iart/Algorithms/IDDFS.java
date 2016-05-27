@@ -18,35 +18,42 @@ public class IDDFS extends Algorithm implements Runnable {
     private  ArrayList<Integer> initialTable;
 
     static HashMap<Integer,IDDFSNode> nodeMap;
-
+    /**
+     * Iterative Deepening Depth First Search constructor
+     * @param hope Hopeless Game Object
+     */
     public IDDFS(Hopeless hope){
         this.hope = hope;
-        initialTable = new ArrayList<>(this.hope.table);
+        initialTable = new ArrayList<>(hope.getTable());
         maxDepth = 1;
         nodeMap = new HashMap<>();
     }
-
+    /**
+     * Runnable IDDFS Search Algorithm
+     */
     public void run(){
         while (!isFinished())
         {
             nodeMap = new HashMap<>();
-            hope.copyTable(initialTable);
-            IDDFSNode initialNode = new IDDFSNode(null,hope.table,0,-1,0);
+            hope.setTable(initialTable);
+            IDDFSNode initialNode = new IDDFSNode(null,hope.getTable(),0,-1,0);
             nodeMap.put(initialNode.getNodeID(),initialNode);
             this.DepthFirstLimitedSearch(initialNode,1);
             maxDepth++;
         }
 
     }
-
+    /**
+     * Runnable Iterative Deepening Depth First Search Algorithm
+     */
     void  DepthFirstLimitedSearch(IDDFSNode currentNode, int depth){
         if(isFinished())
             return;
 
 
-        this.hope.copyTable(currentNode.getTable());
+        hope.setTable(currentNode.getTable());
 
-        ArrayList<Point> moves = this.hope.getAllValidMoves();
+        ArrayList<Point> moves = hope.getAllValidMoves();
 
         Iterator<Point> iter = moves.iterator();
 
@@ -55,11 +62,11 @@ public class IDDFS extends Algorithm implements Runnable {
             Point validMove = iter.next();
 
             //resetBoard
-            hope.copyTable(currentNode.getTable());
+            hope.setTable(currentNode.getTable());
 
             int playPoints = hope.makePlay(validMove, moves);
 
-            IDDFSNode newNode = new IDDFSNode(validMove,hope.table,playPoints+currentNode.getScore(),currentNode.getNodeID(),currentNode.getLevel()+1);
+            IDDFSNode newNode = new IDDFSNode(validMove,hope.getTable(),playPoints+currentNode.getScore(),currentNode.getNodeID(),currentNode.getLevel()+1);
 
             if(hope.gameOver())
             {
@@ -77,7 +84,10 @@ public class IDDFS extends Algorithm implements Runnable {
             iter = moves.iterator();
         }
     }
-
+    /**
+     * Get best IDDFS plays in order
+     * @return list of points
+     */
     public ArrayList<Point> getIDDFSMoves(){
         ArrayList<Point> returningList = new ArrayList<>();
         IDDFSNode currentNode = lastNode;
@@ -89,7 +99,12 @@ public class IDDFS extends Algorithm implements Runnable {
         return reverse(returningList);
     }
 
-    //reversing list
+    /**
+     * Reversing list utility function.
+     * @param list list to be reversed
+     * @param <T> type of list
+     * @return reversed list
+     */
     public static <T> ArrayList<T> reverse(ArrayList<T> list) {
         int length = list.size();
         ArrayList<T> result = new ArrayList<T>(length);

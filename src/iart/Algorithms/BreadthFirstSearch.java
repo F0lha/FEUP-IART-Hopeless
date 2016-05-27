@@ -7,20 +7,26 @@ import iart.utilities.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- * Created by up201305337 on 19-04-2016.
- */
+
 public class BreadthFirstSearch extends Algorithm implements Runnable{
 
     ArrayList<BreadthFirstNode> currentNodes = new ArrayList<>();
 
+    /**
+     * Breadth First Search constructor
+     * @param hope Hopeless Game Object
+     */
     public BreadthFirstSearch(Hopeless hope) {
 
         this.hope = hope;
 
     }
+
+    /**
+     * Runnable Breadth First Search Algorithm
+     */
     public void run(){
-        currentNodes.add(new BreadthFirstNode(new Point(-1,-1),hope.table,0,new ArrayList<>()));
+        currentNodes.add(new BreadthFirstNode(new Point(-1,-1),hope.getTable(),0,new ArrayList<>()));
         outerLoop:
         while(!hope.gameOver()) {
 
@@ -30,7 +36,7 @@ public class BreadthFirstSearch extends Algorithm implements Runnable{
                 ArrayList<Integer> currentTable = new ArrayList<>(node.getTable());
 
                 //resetBoard
-                hope.copyTable(currentTable);
+                hope.setTable(currentTable);
 
                 ArrayList<Point> validMoves = hope.getAllValidMoves();
 
@@ -40,11 +46,11 @@ public class BreadthFirstSearch extends Algorithm implements Runnable{
 
                     Point validMove = iter.next();
                     //resetBoard
-                    hope.copyTable(currentTable);
+                    hope.setTable(currentTable);
 
                     int playPoints = hope.makePlay(validMove, validMoves);
 
-                    BreadthFirstNode newNode = new BreadthFirstNode(validMove, hope.table, node.getScore() + playPoints, node.getListOfMoves());
+                    BreadthFirstNode newNode = new BreadthFirstNode(validMove, hope.getTable(), node.getScore() + playPoints, node.getListOfMoves());
 
                     newNodes.add(newNode);
 
@@ -53,7 +59,7 @@ public class BreadthFirstSearch extends Algorithm implements Runnable{
                         break outerLoop;
                     }
 
-                    hope.table = new ArrayList<>(currentTable);
+                    hope.setTable(currentTable);
 
                     iter = validMoves.iterator();
                 }
@@ -65,6 +71,10 @@ public class BreadthFirstSearch extends Algorithm implements Runnable{
         bestScore = currentNodes.get(currentNodes.size() - 1).getScore();
     }
 
+    /**
+     * Get best BFS plays in order
+     * @return list of points
+     */
     public ArrayList<Point> getBFSPlays() {
         return currentNodes.get(currentNodes.size() - 1).getListOfMoves();
     }

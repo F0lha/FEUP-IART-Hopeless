@@ -22,7 +22,7 @@ public class Game extends JFrame {
 
     static CenterPanel centerPanel = new CenterPanel();
     static WestPanel west = new WestPanel();
-    static SouthPanel south = new SouthPanel(hopeAStar3.table);
+    static SouthPanel south = new SouthPanel(hopeAStar3.getTable());
 
     public Game(){
         super("Hopeless");

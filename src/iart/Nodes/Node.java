@@ -15,20 +15,38 @@ public class Node {
 
     ArrayList<Integer> table;
 
+    /**
+     * Node constructor.
+     * @param move point of play made
+     * @param table table of current node
+     * @param score score of current node
+     */
     public Node(Point move, ArrayList<Integer> table, int score){
         this.move = move;
         this.table = new ArrayList<>(table);
         this.score = score;
     }
 
+    /**
+     * Return last move made.
+     * @return point of move
+     */
     public Point getMove() {
         return move;
     }
 
+    /**
+     * Get table of current node
+     * @return table of current node
+     */
     public ArrayList<Integer> getTable() {
         return table;
     }
 
+    /**
+     * Get current score.
+     * @return score
+     */
     public int getScore() {
         return score;
     }

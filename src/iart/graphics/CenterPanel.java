@@ -47,7 +47,7 @@ public class CenterPanel extends JPanel {
         for(int j = 0; j < Game.hopeAStar3.getRow(); j++){
             for(int i = 0; i < Game.hopeAStar3.getCol(); i++) {
 
-                switch (Game.hopeAStar3.table.get(j * Game.hopeAStar3.getCol() + i)){
+                switch (Game.hopeAStar3.getTable().get(j * Game.hopeAStar3.getCol() + i)){
                     case 1:
                         g2.setColor(Color.red);
                         break;
