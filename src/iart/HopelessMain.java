@@ -1,5 +1,6 @@
 package iart;
 
+import iart.graphics.Game;
 import iart.graphics.MainMenu;
 import iart.algorithms.*;
 import iart.game.Hopeless;
@@ -20,7 +21,7 @@ public class HopelessMain {
 
     public static void main(String[] args)
     {
-
+/*
         Statistics.createStatistics(20,200000,5,5);
 
         Hopeless hopeAStar2 = new Hopeless(10,20,4);
@@ -36,6 +37,8 @@ public class HopelessMain {
         runAstar(hopeAStar2,true);
 
         runAstar(hopeAStar3,false);
+*/
+        new Game();
 
         //dfs(hopeDFS);
 

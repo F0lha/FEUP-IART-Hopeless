@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static iart.graphics.Utilities.runAStar;
+
 /**
  * Created by inesa on 19/05/3016.
  */
@@ -68,20 +70,15 @@ public class WestPanel extends JPanel {
         return new Dimension(PREF_W, PREF_H);
     }
 
-    public void repaintTabel(ArrayList<iart.utilities.Point> bestMoves) {
 
-        for (int j = 0; j < Game.hopeAStar3.getRow(); j++) {
-            for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
-                Game.centerPanel.paintImmediately(i * Game.centerPanel.REC_WITH, j * Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH);
-            }
-        }
-    }
 
     public void buttons() {
 
         aStar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                runAStar(Game.hopeAStar3, true, jlabel);
 
+/*
                 ArrayList<Integer> initialTable = new ArrayList<>(Game.hopeAStar3.getTable());
                 AStarSearch rip = new AStarSearch(Game.hopeAStar3, true);
                 Thread t = new Thread(rip);
@@ -104,7 +101,6 @@ public class WestPanel extends JPanel {
 
                 ArrayList<iart.utilities.Point> bestMoves = rip.getAStarMoves();
 
-                Game.hopeAStar3.setTable(initialTable);
 
                 if (rip.getBestScore() != 0)
                     for (iart.utilities.Point move : bestMoves) {
@@ -133,7 +129,7 @@ public class WestPanel extends JPanel {
                 System.out.println("A* Score = " + rip.getBestScore());
 
                 System.out.println("A* Sum Of Points = " + Game.score);
-
+*/
 
             }
         });

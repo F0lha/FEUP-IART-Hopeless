@@ -12,8 +12,8 @@ public class Game extends JFrame {
 
     private static int PREF_W = 1000;
     private static int PREF_H = 600;
-    public static int HBOARD = 10;
-    public static int WBOARD = 20;
+    public static int HBOARD = 5;
+    public static int WBOARD = 5;
     public static int DIFF = 4;
 
     public static int score = 0;
@@ -46,8 +46,6 @@ public class Game extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
-
-
 
     }
 

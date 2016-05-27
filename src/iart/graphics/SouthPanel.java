@@ -5,10 +5,13 @@ import iart.game.Hopeless;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import static iart.graphics.Utilities.changeBoard;
 
 /**
  * Created by inesa on 19/05/2016.
@@ -56,10 +59,8 @@ public class SouthPanel extends JPanel {
         JSpinner spinner = new JSpinner(spinnerModel);
         spinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-               System.out.println("Altura " + ((JSpinner)e.getSource()).getValue());
-                Game.HBOARD = Integer.parseInt(((JSpinner)e.getSource()).getValue().toString());
-                Game.hopeAStar3 = new Hopeless( Game.HBOARD, Game.WBOARD, Game.DIFF);
-                repaintTabel();
+              // System.out.println("Altura " + ((JSpinner)e.getSource()).getValue());
+                changeBoard(Game.HBOARD, e);
             }
         });
         add(spinner);
@@ -81,14 +82,11 @@ public class SouthPanel extends JPanel {
         spinner = new JSpinner(spinnerModel);
         spinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                System.out.println("Largura " + ((JSpinner)e.getSource()).getValue());
-                Game.WBOARD = Integer.parseInt(((JSpinner)e.getSource()).getValue().toString());
-                Game.hopeAStar3 = new Hopeless( Game.HBOARD, Game.WBOARD, Game.DIFF);
-                repaintTabel();
+                //System.out.println("Largura " + ((JSpinner)e.getSource()).getValue());
+                changeBoard(Game.WBOARD, e);
             }
         });
         add(spinner);
-
 
         jlabel = new JLabel();
         jlabel.setText("Board Difficulty");
@@ -107,10 +105,8 @@ public class SouthPanel extends JPanel {
         spinner = new JSpinner(spinnerModel);
         spinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                System.out.println("Dificuldade " + ((JSpinner)e.getSource()).getValue());
-                Game.DIFF = Integer.parseInt(((JSpinner)e.getSource()).getValue().toString());
-                Game.hopeAStar3 = new Hopeless( Game.HBOARD, Game.WBOARD, Game.DIFF);
-                repaintTabel();
+               // System.out.println("Dificuldade " + ((JSpinner)e.getSource()).getValue());
+                changeBoard(Game.DIFF, e);
             }
         });
         add(spinner);
@@ -125,14 +121,6 @@ public class SouthPanel extends JPanel {
         buttons();
     }
 
-    public void repaintTabel() {
-
-        for (int j = 0; j < Game.hopeAStar3.getRow(); j++) {
-            for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
-                Game.centerPanel.paintImmediately(i * Game.centerPanel.REC_WITH, j * Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH);
-            }
-        }
-    }
 
     public void buttons() {
         newBoard.addActionListener(new ActionListener() {
