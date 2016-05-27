@@ -22,6 +22,8 @@ public class Statistics {
 
         Hopeless AStarGoalState = new Hopeless(tableRows,tableCols,4);
 
+        Hopeless bruteForce = new Hopeless(tableRows,tableCols,4);
+
         Hopeless BFS = new Hopeless(tableRows,tableCols,4);
 
         Hopeless DFS = new Hopeless(tableRows,tableCols,4);
@@ -41,6 +43,7 @@ public class Statistics {
 
             //copying tables
             AStarGoalState.setTable(AStar.getTable());
+            bruteForce.setTable(AStar.getTable());
             BFS.setTable(AStar.getTable());
             DFS.setTable(AStar.getTable());
             greedy.setTable(AStar.getTable());
@@ -84,9 +87,31 @@ public class Statistics {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            //BruteForce Run
+            try {
+                BreadthFirstSearch BruteForce = new BreadthFirstSearch(bruteForce,true);
+                Thread t = new Thread(BruteForce);
+                long time = System.nanoTime();
+                t.start();
+                t.join(timeout);
+                time -= System.nanoTime();
+                if(BruteForce.isFinished())
+                {
+                    current.add(BruteForce.getBestScore());
+                }
+                else
+                {
+                    System.out.println("Error BruteForce");
+                    current.add(-1);
+                    t.stop();
+                }
+                timeArray.add(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             //BFS Run
             try {
-                BreadthFirstSearch BFSThread = new BreadthFirstSearch(BFS);
+                BreadthFirstSearch BFSThread = new BreadthFirstSearch(BFS,true);
                 Thread t = new Thread(BFSThread);
                 long time = System.nanoTime();
                 t.start();
@@ -256,6 +281,14 @@ public class Statistics {
 
         nextCell = row.createCell(i++);
 
+        nextCell.setCellValue("BruteForce");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("BruteForce (Time)");
+
+        nextCell = row.createCell(i++);
+
         nextCell.setCellValue("DFS");
 
         nextCell = row.createCell(i++);
@@ -277,18 +310,5 @@ public class Statistics {
         nextCell = row.createCell(i++);
 
         nextCell.setCellValue("IDDFS (Time)");
-    }
-
-    static int getBestScoreIndex(ArrayList<Integer> tableStats){
-        int index = 0, max = 0, maxIndex = 0;
-        for(int stat : tableStats){
-            System.out.println("Astar = " + index + "//Score = " + stat);
-            if(stat > max){
-                max = stat;
-                maxIndex = index;
-            }
-            index++;
-        }
-        return maxIndex;
     }
 }

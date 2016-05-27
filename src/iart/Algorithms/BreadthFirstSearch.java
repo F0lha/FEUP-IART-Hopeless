@@ -12,14 +12,18 @@ public class BreadthFirstSearch extends Algorithm implements Runnable{
 
     ArrayList<BreadthFirstNode> currentNodes = new ArrayList<>();
 
+    private boolean bruteForce;
+
+    BreadthFirstNode bestNode;
+
     /**
      * Breadth First Search constructor
      * @param hope Hopeless Game Object
      */
-    public BreadthFirstSearch(Hopeless hope) {
-
+    public BreadthFirstSearch(Hopeless hope, boolean bruteForce) {
         this.hope = hope;
-
+        this.bruteForce = bruteForce;
+        this.bestScore = 0;
     }
 
     /**
@@ -28,7 +32,7 @@ public class BreadthFirstSearch extends Algorithm implements Runnable{
     public void run(){
         currentNodes.add(new BreadthFirstNode(new Point(-1,-1),hope.getTable(),0,new ArrayList<>()));
         outerLoop:
-        while(!hope.gameOver()) {
+        while((!bruteForce && !hope.gameOver()) || (!currentNodes.isEmpty())) {
 
             ArrayList<BreadthFirstNode> newNodes = new ArrayList<>();
 
@@ -37,6 +41,9 @@ public class BreadthFirstSearch extends Algorithm implements Runnable{
 
                 //resetBoard
                 hope.setTable(currentTable);
+
+                if(hope.gameOver())
+                    continue ;
 
                 ArrayList<Point> validMoves = hope.getAllValidMoves();
 
@@ -54,10 +61,18 @@ public class BreadthFirstSearch extends Algorithm implements Runnable{
 
                     newNodes.add(newNode);
 
-                    if (hope.gameOver()) {
-                        currentNodes = new ArrayList<>(newNodes);
-                        break outerLoop;
+                    if(!bruteForce)
+                    {
+                        if (hope.gameOver()) {
+                            currentNodes = new ArrayList<>(newNodes);
+                            break outerLoop;
+                        }
                     }
+                    else if(bruteForce && newNode.getScore()>bestScore) {
+                        bestNode = newNode;
+                        bestScore = newNode.getScore();
+                    }
+
 
                     hope.setTable(currentTable);
 
@@ -68,7 +83,8 @@ public class BreadthFirstSearch extends Algorithm implements Runnable{
         }
         finished = true;
 
-        bestScore = currentNodes.get(currentNodes.size() - 1).getScore();
+        if(!bruteForce)
+            bestScore = currentNodes.get(currentNodes.size() - 1).getScore();
     }
 
     /**
@@ -76,6 +92,8 @@ public class BreadthFirstSearch extends Algorithm implements Runnable{
      * @return list of points
      */
     public ArrayList<Point> getBFSPlays() {
-        return currentNodes.get(currentNodes.size() - 1).getListOfMoves();
+        if(!bruteForce)
+            return currentNodes.get(currentNodes.size() - 1).getListOfMoves();
+        else return bestNode.getListOfMoves();
     }
 }
