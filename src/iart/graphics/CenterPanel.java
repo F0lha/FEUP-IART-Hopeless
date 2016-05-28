@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import static iart.graphics.Utilities.removeBoardPiece;
 
@@ -25,12 +26,12 @@ public class CenterPanel extends JPanel {
 
     public CenterPanel() {
 
-        PREF_W = Game.hopeAStar3.getCol()*REC_WITH;
-        PREF_H = Game.hopeAStar3.getRow()*REC_WITH;
+        PREF_W = Game.hopeAStar3.getCol() * REC_WITH;
+        PREF_H = Game.hopeAStar3.getRow() * REC_WITH;
 
-        for(int j = 0; j < Game.hopeAStar3.getRow(); j++){
-            for(int i = 0; i < Game.hopeAStar3.getCol(); i++) {
-               addSquare(i*REC_WITH , j*REC_WITH, REC_WITH, REC_WITH);
+        for (int j = 0; j < Game.hopeAStar3.getRow(); j++) {
+            for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
+                addSquare(i * REC_WITH, j * REC_WITH, REC_WITH, REC_WITH);
             }
         }
         //setBorder(BorderFactory.createLineBorder(Color.black));
@@ -44,7 +45,14 @@ public class CenterPanel extends JPanel {
         squares.add(rect);
     }
 
-
+    public void addSquaresNewBoard(){
+        for (int j = 0; j < Game.hopeAStar3.getRow(); j++) {
+            for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
+                addSquare(i * REC_WITH, j * REC_WITH, REC_WITH, REC_WITH);
+            }
+        }
+        mouseListener();
+    }
 
     @Override
     public Dimension getPreferredSize() {
@@ -55,10 +63,10 @@ public class CenterPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        for(int j = 0; j < Game.hopeAStar3.getRow(); j++){
-            for(int i = 0; i < Game.hopeAStar3.getCol(); i++) {
+        for (int j = 0; j < Game.hopeAStar3.getRow(); j++) {
+            for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
 
-                switch (Game.hopeAStar3.getColor(new iart.utilities.Point(j,i))){
+                switch (Game.hopeAStar3.getTable().get(j * Game.hopeAStar3.getCol() + i)) {
                     case 1:
                         g2.setColor(Color.red);
                         break;
@@ -76,15 +84,15 @@ public class CenterPanel extends JPanel {
                         break;
 
                 }
-                g2.fillRect(i*REC_WITH , j*REC_WITH, REC_WITH, REC_WITH);
+
+                g2.fillRect(i * REC_WITH, j * REC_WITH, REC_WITH, REC_WITH);
                 g2.draw(squares.get(j * Game.hopeAStar3.getCol() + i));
-                points.add(new iart.utilities.Point(j,i));
             }
         }
     }
 
 
-    public void mouseListener(){
+    public void mouseListener() {
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -95,7 +103,7 @@ public class CenterPanel extends JPanel {
             public void mousePressed(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                if(y>=0 && y <= PREF_H && x >= 0 && x <= PREF_W) {
+                if (y >= 0 && y <= PREF_H && x >= 0 && x <= PREF_W) {
                     System.out.println("X " + x + " Y " + y);
                     System.out.println("X " + (int) Math.floor(x / 30) + " Y " + (int) Math.floor(y / 30));
                     x = (int) Math.floor(x / 30);

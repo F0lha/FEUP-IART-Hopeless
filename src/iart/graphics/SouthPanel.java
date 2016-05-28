@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import static iart.graphics.Utilities.changeBoard;
+import static iart.graphics.Utilities.repaintTable;
 
 /**
  * Created by inesa on 19/05/2016.
@@ -25,7 +26,7 @@ public class SouthPanel extends JPanel {
     public static final int PREF_W = 200;
     public static final int PREF_H = 300;
     public JLabel jlabel;
-    public JSlider slider;
+    private SpinnerModel diffSpModel, widthSpModel, hightSpModel;
     public int x = 0;
     public int y = 0;
 
@@ -51,16 +52,16 @@ public class SouthPanel extends JPanel {
 
         add(jlabel);
 
-        SpinnerModel spinnerModel =
-                new SpinnerNumberModel(10, //initial value
+        hightSpModel =
+                new SpinnerNumberModel(Game.HBOARD, //initial value
                         1, //min
                         10, //max
                         1);//step
-        JSpinner spinner = new JSpinner(spinnerModel);
+        JSpinner spinner = new JSpinner(hightSpModel);
         spinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
               // System.out.println("Altura " + ((JSpinner)e.getSource()).getValue());
-                changeBoard(Game.HBOARD, e);
+                changeBoard('H', e);
             }
         });
         add(spinner);
@@ -74,16 +75,16 @@ public class SouthPanel extends JPanel {
 
         add(jlabel);
 
-        spinnerModel =
-                new SpinnerNumberModel(20, //initial value
+        widthSpModel  =
+                new SpinnerNumberModel(Game.WBOARD, //initial value
                         1, //min
                         20, //max
                         1);//step
-        spinner = new JSpinner(spinnerModel);
+        spinner = new JSpinner(widthSpModel);
         spinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                //System.out.println("Largura " + ((JSpinner)e.getSource()).getValue());
-                changeBoard(Game.WBOARD, e);
+              //  System.out.println("Largura " + ((JSpinner)e.getSource()).getValue());
+                changeBoard('W', e);
             }
         });
         add(spinner);
@@ -97,16 +98,16 @@ public class SouthPanel extends JPanel {
 
         add(jlabel);
 
-        spinnerModel =
-                new SpinnerNumberModel(4, //initial value
+        diffSpModel =
+                new SpinnerNumberModel(Game.DIFF, //initial value
                         1, //min
                         7, //max
                         1);//step
-        spinner = new JSpinner(spinnerModel);
+        spinner = new JSpinner(diffSpModel);
         spinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                // System.out.println("Dificuldade " + ((JSpinner)e.getSource()).getValue());
-                changeBoard(Game.DIFF, e);
+                changeBoard('D', e);
             }
         });
         add(spinner);
@@ -125,13 +126,11 @@ public class SouthPanel extends JPanel {
     public void buttons() {
         newBoard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Game.hopeAStar3 = new Hopeless(Game.HBOARD, Game.WBOARD, Game.DIFF);
 
-                for (int j = 0; j < Game.hopeAStar3.getRow(); j++) {
-                    for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
-                        Game.centerPanel.paintImmediately(i * Game.centerPanel.REC_WITH, j * Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH);
-                    }
-                }
+                Game.hopeAStar3 = new Hopeless((int)hightSpModel.getValue(), (int) widthSpModel.getValue(), (int)diffSpModel.getValue());
+
+                Game.centerPanel.addSquaresNewBoard();
+                repaintTable();
 
                 Game.score = 0;
                 Game.west.jlabel.setText("Score: " + Game.score);

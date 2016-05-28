@@ -6,6 +6,7 @@ import iart.utilities.Point;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -110,10 +111,25 @@ public class Utilities {
 
     }
 
-    public static void changeBoard(int whitch, ChangeEvent e){
-        whitch = Integer.parseInt(((JSpinner)e.getSource()).getValue().toString());
-        Game.hopeAStar3 = new Hopeless(Game.HBOARD, Game.WBOARD, Game.DIFF);
-        repaintTable();
+    public static void changeBoard(Character c, ChangeEvent e){
+
+        switch (c){
+            case 'H':
+                Game.HBOARD = Integer.parseInt(((JSpinner)e.getSource()).getValue().toString());
+                Game.hopeAStar3.setRow(Game.HBOARD);
+                break;
+            case 'W':
+                Game.WBOARD = Integer.parseInt(((JSpinner)e.getSource()).getValue().toString());
+                Game.hopeAStar3.setRow(Game.WBOARD);
+                break;
+            case 'D':
+                Game.DIFF= Integer.parseInt(((JSpinner)e.getSource()).getValue().toString());
+                Game.hopeAStar3.setRow(Game.DIFF);
+                break;
+            default:
+                System.out.println("Error in character! W or H or D");
+                break;
+        }
     }
 
 }

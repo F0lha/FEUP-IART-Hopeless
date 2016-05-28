@@ -294,6 +294,18 @@ public class Hopeless {
         this.table = new ArrayList<>(newTable);
     }
 
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
     /**
      * Returns the number of columns.
      * @return number of columns
@@ -324,6 +336,8 @@ public class Hopeless {
     public ArrayList<Integer> getTable() {
         return table;
     }
+
+
 }
 
 
