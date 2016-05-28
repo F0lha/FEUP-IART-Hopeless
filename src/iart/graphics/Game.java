@@ -16,6 +16,7 @@ public class Game extends JFrame {
     public static int DIFF = 4;
 
     public static int score = 0;
+    public static int highScore = 0;
     public static ArrayList<iart.utilities.Point> bestMoves;
     public static Hopeless hope = new Hopeless(HBOARD,WBOARD,DIFF);
 
@@ -24,16 +25,12 @@ public class Game extends JFrame {
     static SouthPanel south = new SouthPanel(hope.getTable());
 
     public Game(){
-        super("Hopeless");
-
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         NorthPanel north = new NorthPanel();
         Panel east = new Panel();
         east.add(Box.createHorizontalStrut(100));
-
-        PREF_W = west.PREF_W + centerPanel.PREF_W + 100 ;
-        PREF_H = 100 + centerPanel.PREF_H + 100 + south.PREF_H;
 
         setSize(PREF_W,PREF_H);
 
@@ -45,12 +42,52 @@ public class Game extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
-
     }
 
     public static void main(String[] args){ Game g =  new Game();
-        g.south.buttons();
-        g.west.buttons();
+    }
+
+    static public void resetBoard(){
+        Game.hope.setTable(Game.south.initialTable);
+
+        Game.centerPanel.addSquaresNewBoard();
+
+        Game.score = 0;
+
+        updateScores();
+
+        Game.south.jlabel.setText("Move - (" + 0  + " , " + 0 + ")");
+        Game.south.jlabel.paintImmediately(Game.south.jlabel.getVisibleRect());
+
+        Game.centerPanel.repaintTable(false);
+    }
+
+    static public void newBoard(){
+
+        Game.hope = new Hopeless((int)Game.south.hightSpModel.getValue(), (int) Game.south.widthSpModel.getValue(), (int)Game.south.diffSpModel.getValue());
+
+        Game.centerPanel.addSquaresNewBoard();
+
+        Game.score = 0;
+        Game.highScore = 0;
+
+        updateScores();
+
+        Game.south.jlabel.setText("Move - (" + 0  + " , " + 0 + ")");
+        Game.south.jlabel.paintImmediately(Game.south.jlabel.getVisibleRect());
+
+        Game.south.initialTable = new ArrayList<>(Game.hope.getTable());
+
+        Game.centerPanel.repaintTable(false);
+    }
+
+    static public void updateScores(){
+        Game.west.jlabelScore.setText("Score: " + Game.score);
+        Game.west.jlabelScore.paintImmediately( Game.west.jlabelScore.getVisibleRect());
+
+        Game.west.jlabelHighScore.setText("HighScore: " + Game.highScore);
+        Game.west.jlabelHighScore.paintImmediately( Game.west.jlabelScore.getVisibleRect());
+
     }
 
 }

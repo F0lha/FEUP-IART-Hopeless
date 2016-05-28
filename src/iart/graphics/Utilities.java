@@ -15,6 +15,29 @@ import java.util.ArrayList;
  */
 public class Utilities {
 
+    public static void makePlays(ArrayList<Point> moveList){
+       for(Point move : moveList)
+       {
+           try {
+               Thread.sleep(200);
+           } catch (InterruptedException e1) {
+               e1.printStackTrace();
+           }
+
+           Game.score += Game.hope.makePlay(move, new ArrayList<>());
+
+           if(Game.highScore < Game.score)
+               Game.highScore = Game.score;
+
+           Game.updateScores();
+
+           Game.south.jlabel.setText("Move - (" + move.getCol() + " , " + move.getRow() + ")");
+           Game.south.jlabel.paintImmediately(Game.south.jlabel.getVisibleRect());
+
+           Game.centerPanel.repaintTable(true);
+       }
+    }
+
     public static void runAStar(Hopeless hope, boolean safe, JLabel jlabel) {
 
         ArrayList<Integer> initialTable = new ArrayList<>(hope.getTable());
@@ -59,7 +82,7 @@ public class Utilities {
         if (rip.getBestScore() != 0) {
             for (Point move : bestMoves) {
 
-                Game.score += Game.hope.makePlay(move, new ArrayList<iart.utilities.Point>());
+                Game.score += Game.hope.makePlay(move, new ArrayList<>());
                 jlabel.setText("Score: " + Game.score);
                 jlabel.paintImmediately(jlabel.getVisibleRect());
                 Game.south.jlabel.setText("Move - (" + move.getCol() + " , " + move.getRow() + ")");
@@ -69,7 +92,7 @@ public class Utilities {
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
-                repaintTable();
+                Game.centerPanel.repaintTable(true);
 
                 System.out.println("Move ----" + move.getRow() + " " + move.getCol());
                 Game.hope.print();
@@ -83,36 +106,6 @@ public class Utilities {
 
                 System.out.println("A* Sum Of Points = " + points);
             }
-        }
-    }
-
-    public static void repaintTable() {
-
-        for (int j = 0; j < Game.hope.getRow(); j++) {
-            for (int i = 0; i < Game.hope.getCol(); i++) {
-                Game.centerPanel.paintImmediately(i * Game.centerPanel.REC_WITH, j * Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH);
-            }
-        }
-    }
-
-    public static void changeBoard(Character c, ChangeEvent e){
-
-        switch (c){
-            case 'H':
-                Game.HBOARD = Integer.parseInt(((JSpinner)e.getSource()).getValue().toString());
-                Game.hope.setRow(Game.HBOARD);
-                break;
-            case 'W':
-                Game.WBOARD = Integer.parseInt(((JSpinner)e.getSource()).getValue().toString());
-                Game.hope.setRow(Game.WBOARD);
-                break;
-            case 'D':
-                Game.DIFF= Integer.parseInt(((JSpinner)e.getSource()).getValue().toString());
-                Game.hope.setRow(Game.DIFF);
-                break;
-            default:
-                System.out.println("Error in character! W or H or D");
-                break;
         }
     }
 

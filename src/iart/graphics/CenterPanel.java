@@ -13,26 +13,18 @@ import java.util.ArrayList;
  */
 public class CenterPanel extends JPanel {
 
-    public static int PREF_W = 500;
-    public static int PREF_H = 300;
+    private boolean user = true;
     public static int REC_WITH = 30;
-    private ArrayList<Rectangle> squares = new ArrayList<Rectangle>();
+    private ArrayList<Rectangle> squares = new ArrayList<>();
     private ArrayList<iart.utilities.Point> points = new ArrayList<>();
+    private MouseListener mouseListener= null;
 
     public CenterPanel() {
 
-        PREF_W = Game.hope.getCol() * REC_WITH;
-        PREF_H = Game.hope.getRow() * REC_WITH;
-
-        for (int j = 0; j < Game.hope.getRow(); j++) {
-            for (int i = 0; i < Game.hope.getCol(); i++) {
-                addSquare(i * REC_WITH, j * REC_WITH, REC_WITH, REC_WITH);
-            }
-        }
-        //setBorder(BorderFactory.createLineBorder(Color.black));
+        addSquaresNewBoard();
+        setBorder(BorderFactory.createLineBorder(Color.black));
 
         mouseListener();
-
     }
 
     private void addSquare(int x, int y, int width, int height) {
@@ -41,17 +33,12 @@ public class CenterPanel extends JPanel {
     }
 
     public void addSquaresNewBoard(){
+        squares = new ArrayList<>();
         for (int j = 0; j < Game.hope.getRow(); j++) {
             for (int i = 0; i < Game.hope.getCol(); i++) {
-                addSquare(i * REC_WITH, j * REC_WITH, REC_WITH, REC_WITH);
+                addSquare(getRealI(i) * REC_WITH, getRealJ(j) * REC_WITH, REC_WITH, REC_WITH);
             }
         }
-        mouseListener();
-    }
-
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(PREF_W, PREF_H);
     }
 
     @Override
@@ -62,35 +49,68 @@ public class CenterPanel extends JPanel {
             for (int i = 0; i < Game.hope.getCol(); i++) {
 
                     switch (Game.hope.getColor(new iart.utilities.Point(j,i))){
-                    case 1:
-                        g2.setColor(Color.red);
-                        break;
-                    case 2:
-                        g2.setColor(Color.orange);
-                        break;
-                    case 3:
-                        g2.setColor(Color.yellow);
-                        break;
-                    case 4:
-                        g2.setColor(Color.blue);
-                        break;
-                    default:
-                        g2.setColor(Color.black);
-                        break;
-
+                        case 1:
+                            g2.setColor(Color.red);
+                            break;
+                        case 2:
+                            g2.setColor(Color.orange);
+                            break;
+                        case 3:
+                            g2.setColor(Color.yellow);
+                            break;
+                        case 4:
+                            g2.setColor(Color.blue);
+                            break;
+                        case 5:
+                            g2.setColor(Color.pink);
+                            break;
+                        case 6:
+                            g2.setColor(Color.cyan);
+                            break;
+                        case 7:
+                            g2.setColor(Color.GREEN);
+                            break;
+                        case 8:
+                            g2.setColor(Color.magenta);
+                            break;
+                        case 9:
+                            g2.setColor(Color.lightGray);
+                            break;
+                        case 10:
+                            g2.setColor(Color.white);
+                            break;
+                        default:
+                            g2.setColor(Color.black);
+                            break;
                 }
 
-                g2.fillRect(i * REC_WITH, j * REC_WITH, REC_WITH, REC_WITH);
-                g2.draw(squares.get(j * Game.hope.getCol() + i));
+                g2.fillRect(getRealI(i) * REC_WITH, getRealJ(j)* REC_WITH, REC_WITH, REC_WITH);
             }
         }
     }
 
+    public int offsetI(){
+        return (this.getWidth()/REC_WITH-Game.hope.getCol())/2;
+    }
+
+    public int offsetJ(){
+        return (this.getHeight()/REC_WITH-Game.hope.getRow())/2;
+    }
+
+    public int getRealI(int i){
+        return i+offsetI();
+    }
+
+    public int getRealJ(int j){
+        return j+offsetJ();
+    }
+
 
     public void mouseListener() {
-        addMouseListener(new MouseListener() {
+        addMouseListener(
+                this.mouseListener = new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
 
             }
 
@@ -98,32 +118,25 @@ public class CenterPanel extends JPanel {
             public void mousePressed(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                if (y >= 0 && y <= PREF_H && x >= 0 && x <= PREF_W) {
-                    System.out.println("X " + x + " Y " + y);
-                    System.out.println("X " + (int) Math.floor(x / 30) + " Y " + (int) Math.floor(y / 30));
-                    x = (int) Math.floor(x / 30);
-                    y = (int) Math.floor(y / 30);
 
-                    int score;
-                    if((score = Game.hope.makePlay(new iart.utilities.Point(y,x),null)) > 0){
+                x = (int) Math.floor((float) (x - offsetI() * REC_WITH) / REC_WITH);
+                y = (int) Math.floor((float) (y - offsetJ() * REC_WITH) / REC_WITH);
 
-                        Game.score += score;
+                int score;
+                if ((score = Game.hope.makePlay(new iart.utilities.Point(y, x), null)) > 0) {
 
-                        Game.west.jlabel.setText("Score: " + Game.score);
-                        Game.west.jlabel.paintImmediately(Game.south.jlabel.getVisibleRect());
+                    Game.score += score;
 
-                        Game.south.jlabel.setText("Move - (" + y + " , " + x + ")");
-                        Game.south.jlabel.paintImmediately(Game.south.jlabel.getVisibleRect());
+                    if(Game.score > Game.highScore)
+                        Game.highScore = Game.score;
 
-                        Utilities.repaintTable();
-                    }
+                    Game.updateScores();
+
+                    Game.south.jlabel.setText("Move - (" + y + " , " + x + ")");
+                    Game.south.jlabel.paintImmediately(Game.south.jlabel.getVisibleRect());
+
+                    repaintTable(false);
                 }
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
             }
 
             @Override
@@ -132,10 +145,38 @@ public class CenterPanel extends JPanel {
             }
 
             @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
             public void mouseExited(MouseEvent e) {
 
             }
         });
+    }
+
+    public void repaintTable(boolean immediate) {
+        if(!immediate) {
+            this.removeAll();
+            this.revalidate();
+            this.repaint();
+        }
+        else{
+            for (int j = 0; j < Game.hope.getRow(); j++) {
+                for (int i = 0; i < Game.hope.getCol(); i++) {
+                    Game.centerPanel.paintImmediately(Game.centerPanel.getRealI(i) * Game.centerPanel.REC_WITH, Game.centerPanel.getRealJ(j) * Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH);
+                }
+            }
+        }
+    }
+
+    public void setUser(boolean user)
+    {
+        this.user = user;
+        this.removeMouseListener(mouseListener);
+        if(user)
+            mouseListener();
     }
 
 

@@ -1,11 +1,14 @@
 package iart.graphics;
 
+import iart.algorithms.*;
 import iart.game.Hopeless;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import static iart.graphics.Utilities.runAStar;
 
@@ -14,48 +17,78 @@ import static iart.graphics.Utilities.runAStar;
  */
 public class WestPanel extends JPanel {
 
+    private JButton user;
     private JButton dfs;
     private JButton bfs;
     private JButton iddfs;
     private JButton greedy;
     private JButton aStar;
-    private JButton idaStar;
-    Hopeless hopeAStar3;
-    public JLabel jlabel;
+    private JButton bruteForce;
+    private JButton maxMin;
+    private JButton aStar2;
+    JButton play;
+    public JLabel jlabelScore;
+    public JLabel jlabelHighScore;
 
     public static final int PREF_W = 200;
-    public static final int PREF_H = 300;
+    public static final int PREF_H = 350;
 
 
     public WestPanel() {
-        add(Box.createHorizontalStrut(100));
-        //setBorder(BorderFactory.createLineBorder(Color.black));
 
+        add(Box.createHorizontalStrut(100));
+
+        user = new JButton("User");
         dfs = new JButton("DFS");
         bfs = new JButton("BFS");
+        bruteForce = new JButton("Brute Force");
         iddfs = new JButton("IDDFS");
-        greedy = new JButton("GREEDY");
-        aStar = new JButton("A*");
+        greedy = new JButton("Greedy");
+        aStar = new JButton("A* (h*(n) = 0)");
+        aStar2 = new JButton("A*");
+        maxMin = new JButton("MaxMin");
+        play = new JButton("Play");
 
+        add(user);
+        user.setPreferredSize(new Dimension(120, 30));
         add(dfs);
-        dfs.setPreferredSize(new Dimension(100, 30));
+        dfs.setPreferredSize(new Dimension(120, 30));
         add(bfs);
-        bfs.setPreferredSize(new Dimension(100, 30));
+        bfs.setPreferredSize(new Dimension(120, 30));
+        add(bruteForce);
+        bruteForce.setPreferredSize(new Dimension(120, 30));
         add(aStar);
-        aStar.setPreferredSize(new Dimension(100, 30));
+        aStar.setPreferredSize(new Dimension(120, 30));
+        add(aStar2);
+        aStar2.setPreferredSize(new Dimension(120, 30));
         add(iddfs);
-        iddfs.setPreferredSize(new Dimension(100, 30));
+        iddfs.setPreferredSize(new Dimension(120, 30));
         add(greedy);
-        greedy.setPreferredSize(new Dimension(100, 30));
+        greedy.setPreferredSize(new Dimension(120, 30));
+        add(maxMin);
+        maxMin.setPreferredSize(new Dimension(120, 30));
 
+        jlabelScore = new JLabel();
+        jlabelScore.setText("Score: " + Game.score);
+        jlabelScore.setFont(new Font("Verdana", 1, 15));
+        jlabelScore.setHorizontalAlignment(0);
+        jlabelScore.setVerticalAlignment(0);
+        jlabelScore.setPreferredSize(new Dimension(200, 20));
+        add(jlabelScore);
 
-        jlabel = new JLabel();
-        jlabel.setText("Score: " + Game.score);
-        jlabel.setFont(new Font("Verdana", 1, 15));
-        jlabel.setHorizontalAlignment(0);
-        jlabel.setVerticalAlignment(0);
-        jlabel.setPreferredSize(new Dimension(200, 60));
-        add(jlabel);
+        jlabelHighScore = new JLabel();
+        jlabelHighScore.setText("HighScore: " + Game.highScore);
+        jlabelHighScore.setFont(new Font("Verdana", 1, 15));
+        jlabelHighScore.setHorizontalAlignment(0);
+        jlabelHighScore.setVerticalAlignment(0);
+        jlabelHighScore.setPreferredSize(new Dimension(200, 20));
+        add(jlabelHighScore);
+
+        add(play);
+        play.setPreferredSize(new Dimension(120, 30));
+        play.setVisible(false);
+
+        buttons();
 
     }
 
@@ -68,65 +101,221 @@ public class WestPanel extends JPanel {
 
     public void buttons() {
 
+        user.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                play.setVisible(false);
+                Game.centerPanel.setUser(true);
+                Game.resetBoard();
+            }
+        });
         aStar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                runAStar(Game.hope, true, jlabel);
-
-/*
-                ArrayList<Integer> initialTable = new ArrayList<>(Game.hope.getTable());
-                AStarSearch rip = new AStarSearch(Game.hope, true);
-                Thread t = new Thread(rip);
+                play.setVisible(false);
+                Game.centerPanel.setUser(false);
+                Game.resetBoard();
+                Hopeless newHope = new Hopeless(Game.hope.getRow(),Game.hope.getCol(),Game.hope.getDifficulty());
+                newHope.setTable(Game.hope.getTable());
+                AStarSearch alg = new AStarSearch(newHope,true);
+                Thread t = new Thread(alg);
                 t.start();
-
-
-                try {
-                    Thread thread = new Thread() {
-                        public void run() {
-                            //rip.setAccelarator(true);
-                        }
-                    };
-
-                    thread.start();
-                    t.join();
-                    thread.interrupt();
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
-                }
-
-                ArrayList<iart.utilities.Point> bestMoves = rip.getAStarMoves();
-
-
-                if (rip.getBestScore() != 0)
-                    for (iart.utilities.Point move : bestMoves) {
-                        Game.score += Game.hope.makePlay(move, new ArrayList<iart.utilities.Point>());
-                        jlabel.setText("Score: " + Game.score);
-                        jlabel.paintImmediately(jlabel.getVisibleRect());
-                        Game.south.jlabel.setText("Move - (" + move.getCol() + " , " + move.getRow() + ")");
-                        Game.south.jlabel.paintImmediately(Game.south.jlabel.getVisibleRect());
-
-                       try {
-                            Thread.sleep(500);
+                Thread thread = new Thread() {
+                    public void run() {
+                        try {
+                            t.join();
+                            Game.bestMoves = alg.getAStarMoves();
+                            play.setVisible(true);
                         } catch (InterruptedException e1) {
                             e1.printStackTrace();
                         }
-                        repaintTabel(bestMoves);
-
-                        System.out.println("Move ----" + move.getRow() + " " + move.getCol());
-                        Game.hope.print();
-
                     }
-                System.out.println("Final ----");
-                Game.hope.print();
-
-
-                System.out.println("Moves = " + bestMoves);
-                System.out.println("A* Score = " + rip.getBestScore());
-
-                System.out.println("A* Sum Of Points = " + Game.score);
-*/
-
+                };
+                thread.start();
             }
         });
+        dfs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                play.setVisible(false);
+                Game.centerPanel.setUser(false);
+                Game.resetBoard();
+                Hopeless newHope = new Hopeless(Game.hope.getRow(),Game.hope.getCol(),Game.hope.getDifficulty());
+                newHope.setTable(Game.hope.getTable());
+                DepthFirstSearch alg = new DepthFirstSearch(newHope);
+                Thread t = new Thread(alg);
+                t.start();
+                Thread thread = new Thread() {
+                    public void run() {
+                        try {
+                            t.join();
+                            Game.bestMoves = alg.getDFSBestPlays();
+                            play.setVisible(true);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                };
+                thread.start();
+            }
+        });
+        bfs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                play.setVisible(false);
+                Game.centerPanel.setUser(false);
+                Game.resetBoard();
+                Hopeless newHope = new Hopeless(Game.hope.getRow(),Game.hope.getCol(),Game.hope.getDifficulty());
+                newHope.setTable(Game.hope.getTable());
+                BreadthFirstSearch alg = new BreadthFirstSearch(newHope,false);
+                Thread t = new Thread(alg);
+                t.start();
+                Thread thread = new Thread() {
+                    public void run() {
+                        try {
+                            t.join();
+                            Game.bestMoves = alg.getBFSPlays();
+                            play.setVisible(true);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                };
+                thread.start();
+            }
+        });
+        bruteForce.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                play.setVisible(false);
+                Game.centerPanel.setUser(false);
+                Game.resetBoard();
+                Hopeless newHope = new Hopeless(Game.hope.getRow(),Game.hope.getCol(),Game.hope.getDifficulty());
+                newHope.setTable(Game.hope.getTable());
+                BreadthFirstSearch alg = new BreadthFirstSearch(newHope,true);
+                Thread t = new Thread(alg);
+                t.start();
+                Thread thread = new Thread() {
+                    public void run() {
+                        try {
+                            t.join();
+                            Game.bestMoves = alg.getBFSPlays();
+                            play.setVisible(true);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                };
+                thread.start();
+            }
+        });
+        aStar2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                play.setVisible(false);
+                Game.centerPanel.setUser(false);
+                Game.resetBoard();
+                Hopeless newHope = new Hopeless(Game.hope.getRow(),Game.hope.getCol(),Game.hope.getDifficulty());
+                newHope.setTable(Game.hope.getTable());
+                AStarSearch alg = new AStarSearch(newHope,false);
+                Thread t = new Thread(alg);
+                t.start();
+                Thread thread = new Thread() {
+                    public void run() {
+                        try {
+                            t.join();
+                            Game.bestMoves = alg.getAStarMoves();
+                            play.setVisible(true);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                };
+                thread.start();
+            }
+        });
+        greedy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                play.setVisible(false);
+                Game.centerPanel.setUser(false);
+                Game.resetBoard();
+                Hopeless newHope = new Hopeless(Game.hope.getRow(),Game.hope.getCol(),Game.hope.getDifficulty());
+                newHope.setTable(Game.hope.getTable());
+                Greedy alg = new Greedy(newHope);
+                Thread t = new Thread(alg);
+                t.start();
+                Thread thread = new Thread() {
+                    public void run() {
+                        try {
+                            t.join();
+                            Game.bestMoves = alg.getGreedyPlays();
+                            play.setVisible(true);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                };
+                thread.start();
+            }
+        });
+        iddfs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                play.setVisible(false);
+                Game.centerPanel.setUser(false);
+                Game.resetBoard();
+                Hopeless newHope = new Hopeless(Game.hope.getRow(),Game.hope.getCol(),Game.hope.getDifficulty());
+                newHope.setTable(Game.hope.getTable());
+                IDDFS alg = new IDDFS(newHope);
+                Thread t = new Thread(alg);
+                t.start();
+                Thread thread = new Thread() {
+                    public void run() {
+                        try {
+                            t.join();
+                            Game.bestMoves = alg.getIDDFSMoves();
+                            play.setVisible(true);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                };
+                thread.start();
+            }
+        });
+        maxMin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                play.setVisible(false);
+                Game.centerPanel.setUser(false);
+                Game.resetBoard();
+                Hopeless newHope = new Hopeless(Game.hope.getRow(),Game.hope.getCol(),Game.hope.getDifficulty());
+                newHope.setTable(Game.hope.getTable());
+                MaxMin alg = new MaxMin(newHope);
+                Thread t = new Thread(alg);
+                t.start();
+                Thread thread = new Thread() {
+                    public void run() {
+                        try {
+                            t.join();
+                            Game.bestMoves = alg.getBestMaxMinPlays();
+                            play.setVisible(true);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                };
+                thread.start();
+            }
+        });
+        play.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Game.resetBoard();
+                Utilities.makePlays(Game.bestMoves);
+            }
+        });
+
 
 
     }
