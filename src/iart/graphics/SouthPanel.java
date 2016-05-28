@@ -5,7 +5,6 @@ import iart.game.Hopeless;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -127,7 +126,7 @@ public class SouthPanel extends JPanel {
         newBoard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                Game.hopeAStar3 = new Hopeless((int)hightSpModel.getValue(), (int) widthSpModel.getValue(), (int)diffSpModel.getValue());
+                Game.hope = new Hopeless((int)hightSpModel.getValue(), (int) widthSpModel.getValue(), (int)diffSpModel.getValue());
 
                 Game.centerPanel.addSquaresNewBoard();
                 repaintTable();
@@ -139,17 +138,20 @@ public class SouthPanel extends JPanel {
                 Game.south.jlabel.setText("Move - (" + 0  + " , " + 0 + ")");
                 Game.south.jlabel.paintImmediately(Game.south.jlabel.getVisibleRect());
 
-                initialTable = new ArrayList<Integer>(Game.hopeAStar3.getTable());
+                initialTable = new ArrayList<Integer>(Game.hope.getTable());
+
+                Game.centerPanel.PREF_W = Game.hope.getCol() * Game.centerPanel.REC_WITH;
+                Game.centerPanel.PREF_H = Game.hope.getRow() * Game.centerPanel.REC_WITH;
 
             }
         });
 
         resetCurrentBoard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Game.hopeAStar3.setTable(initialTable);
+                Game.hope.setTable(initialTable);
 
-                for (int j = 0; j < Game.hopeAStar3.getRow(); j++) {
-                    for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
+                for (int j = 0; j < Game.hope.getRow(); j++) {
+                    for (int i = 0; i < Game.hope.getCol(); i++) {
                         Game.centerPanel.paintImmediately(i * Game.centerPanel.REC_WITH, j * Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH, Game.centerPanel.REC_WITH);
                     }
                 }

@@ -1,18 +1,12 @@
 package iart.graphics;
 
-import com.sun.prism.shader.Solid_ImagePattern_Loader;
-import iart.game.Hopeless;
 import iart.utilities.*;
 
 import javax.swing.*;
-import javax.swing.text.Utilities;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Random;
-
-import static iart.graphics.Utilities.removeBoardPiece;
 
 /**
  * Created by inesa on 19/05/2016.
@@ -27,11 +21,11 @@ public class CenterPanel extends JPanel {
 
     public CenterPanel() {
 
-        PREF_W = Game.hopeAStar3.getCol() * REC_WITH;
-        PREF_H = Game.hopeAStar3.getRow() * REC_WITH;
+        PREF_W = Game.hope.getCol() * REC_WITH;
+        PREF_H = Game.hope.getRow() * REC_WITH;
 
-        for (int j = 0; j < Game.hopeAStar3.getRow(); j++) {
-            for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
+        for (int j = 0; j < Game.hope.getRow(); j++) {
+            for (int i = 0; i < Game.hope.getCol(); i++) {
                 addSquare(i * REC_WITH, j * REC_WITH, REC_WITH, REC_WITH);
             }
         }
@@ -47,8 +41,8 @@ public class CenterPanel extends JPanel {
     }
 
     public void addSquaresNewBoard(){
-        for (int j = 0; j < Game.hopeAStar3.getRow(); j++) {
-            for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
+        for (int j = 0; j < Game.hope.getRow(); j++) {
+            for (int i = 0; i < Game.hope.getCol(); i++) {
                 addSquare(i * REC_WITH, j * REC_WITH, REC_WITH, REC_WITH);
             }
         }
@@ -64,10 +58,10 @@ public class CenterPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        for (int j = 0; j < Game.hopeAStar3.getRow(); j++) {
-            for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
+        for (int j = 0; j < Game.hope.getRow(); j++) {
+            for (int i = 0; i < Game.hope.getCol(); i++) {
 
-                    switch (Game.hopeAStar3.getColor(new iart.utilities.Point(j,i))){
+                    switch (Game.hope.getColor(new iart.utilities.Point(j,i))){
                     case 1:
                         g2.setColor(Color.red);
                         break;
@@ -87,7 +81,7 @@ public class CenterPanel extends JPanel {
                 }
 
                 g2.fillRect(i * REC_WITH, j * REC_WITH, REC_WITH, REC_WITH);
-                g2.draw(squares.get(j * Game.hopeAStar3.getCol() + i));
+                g2.draw(squares.get(j * Game.hope.getCol() + i));
             }
         }
     }
@@ -109,7 +103,20 @@ public class CenterPanel extends JPanel {
                     System.out.println("X " + (int) Math.floor(x / 30) + " Y " + (int) Math.floor(y / 30));
                     x = (int) Math.floor(x / 30);
                     y = (int) Math.floor(y / 30);
-                    removeBoardPiece(Game.south.jlabel, x, y);
+
+                    int score;
+                    if((score = Game.hope.makePlay(new iart.utilities.Point(y,x),null)) > 0){
+
+                        Game.score += score;
+
+                        Game.west.jlabel.setText("Score: " + Game.score);
+                        Game.west.jlabel.paintImmediately(Game.south.jlabel.getVisibleRect());
+
+                        Game.south.jlabel.setText("Move - (" + y + " , " + x + ")");
+                        Game.south.jlabel.paintImmediately(Game.south.jlabel.getVisibleRect());
+
+                        Utilities.repaintTable();
+                    }
                 }
 
             }

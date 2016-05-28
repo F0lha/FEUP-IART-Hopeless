@@ -1,17 +1,11 @@
 package iart.graphics;
 
-import iart.algorithms.AStarSearch;
 import iart.game.Hopeless;
-import iart.utilities.*;
-import sun.nio.cs.ext.MacCentralEurope;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.ArrayList;
 
 import static iart.graphics.Utilities.runAStar;
 
@@ -76,11 +70,11 @@ public class WestPanel extends JPanel {
 
         aStar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                runAStar(Game.hopeAStar3, true, jlabel);
+                runAStar(Game.hope, true, jlabel);
 
 /*
-                ArrayList<Integer> initialTable = new ArrayList<>(Game.hopeAStar3.getTable());
-                AStarSearch rip = new AStarSearch(Game.hopeAStar3, true);
+                ArrayList<Integer> initialTable = new ArrayList<>(Game.hope.getTable());
+                AStarSearch rip = new AStarSearch(Game.hope, true);
                 Thread t = new Thread(rip);
                 t.start();
 
@@ -104,7 +98,7 @@ public class WestPanel extends JPanel {
 
                 if (rip.getBestScore() != 0)
                     for (iart.utilities.Point move : bestMoves) {
-                        Game.score += Game.hopeAStar3.makePlay(move, new ArrayList<iart.utilities.Point>());
+                        Game.score += Game.hope.makePlay(move, new ArrayList<iart.utilities.Point>());
                         jlabel.setText("Score: " + Game.score);
                         jlabel.paintImmediately(jlabel.getVisibleRect());
                         Game.south.jlabel.setText("Move - (" + move.getCol() + " , " + move.getRow() + ")");
@@ -118,11 +112,11 @@ public class WestPanel extends JPanel {
                         repaintTabel(bestMoves);
 
                         System.out.println("Move ----" + move.getRow() + " " + move.getCol());
-                        Game.hopeAStar3.print();
+                        Game.hope.print();
 
                     }
                 System.out.println("Final ----");
-                Game.hopeAStar3.print();
+                Game.hope.print();
 
 
                 System.out.println("Moves = " + bestMoves);

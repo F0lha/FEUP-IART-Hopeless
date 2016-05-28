@@ -21,14 +21,14 @@ public class HopelessMain {
 
     public static void main(String[] args)
     {
-/*
-        Statistics.createStatistics(20,200000,5,5);
 
-        Hopeless hopeAStar2 = new Hopeless(10,20,4);
+        //Statistics.createStatistics(1000,200000,5,5);
 
-        Hopeless hopeAStar3 = new Hopeless(10,20,4);
+/*        Hopeless hopeAStar2 = new Hopeless(10,20,4);
 
-        hopeAStar3.setTable(hopeAStar2.getTable());
+        Hopeless hope = new Hopeless(10,20,4);
+
+        hope.setTable(hopeAStar2.getTable());
 
         hopeAStar2.print();
 
@@ -36,7 +36,7 @@ public class HopelessMain {
 
         runAstar(hopeAStar2,true);
 
-        runAstar(hopeAStar3,false);
+        runAstar(hope,false);
 */
         new Game();
 

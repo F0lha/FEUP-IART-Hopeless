@@ -1,7 +1,6 @@
 package iart.graphics;
 
 import iart.game.Hopeless;
-import iart.utilities.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,11 +17,11 @@ public class Game extends JFrame {
 
     public static int score = 0;
     public static ArrayList<iart.utilities.Point> bestMoves;
-    public static Hopeless hopeAStar3 = new Hopeless(HBOARD,WBOARD,DIFF);
+    public static Hopeless hope = new Hopeless(HBOARD,WBOARD,DIFF);
 
     static CenterPanel centerPanel = new CenterPanel();
     static WestPanel west = new WestPanel();
-    static SouthPanel south = new SouthPanel(hopeAStar3.getTable());
+    static SouthPanel south = new SouthPanel(hope.getTable());
 
     public Game(){
         super("Hopeless");

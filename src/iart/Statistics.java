@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -244,23 +245,28 @@ public class Statistics {
 
             makeFirstLine(sheet);
 
+            int i;
 
-            for(int i = 0; i < statistics.size();i+=2){
-                Row row = sheet.createRow(i/2+1);
+            for(i = 0; i < statistics.size();i++){
+                Row row = sheet.createRow(i+1);
 
                 Cell cell = row.createCell(0);//ID
 
-                cell.setCellValue(i/2+1);
+                cell.setCellValue(i+1);
                 for(int j = 0;j < statistics.get(i).size()*2;j += 2){
                     cell = row.createCell((j)+1);
 
-                    cell.setCellValue(statistics.get(i/2).get(j/2));
+                    cell.setCellValue(statistics.get(i).get(j/2));
 
                     cell = row.createCell((j)+2);
 
-                    cell.setCellValue(Math.abs((float)timeOfExecution.get(i/2).get(j/2) / 1000000));
+                    cell.setCellValue(Math.abs((float)timeOfExecution.get(i).get(j/2) / 1000000));
                 }
             }
+
+            makeAverage(sheet,i);
+
+            calculateEfficiency(sheet,i);
 
             workbook.write(out);
             out.close();
@@ -344,4 +350,44 @@ public class Statistics {
 
         nextCell.setCellValue("MaxMin (Time)");
     }
+
+    static void makeAverage(XSSFSheet sheet,int i) {
+
+        Row row = sheet.createRow(i + 1);
+
+        int j = 0;
+
+        Cell cell = row.createCell(j++);
+
+        cell.setCellValue("Average");
+
+        for (; j < 17; j++) {
+            cell = row.createCell(j);
+
+            String strFormula = "AVERAGE(" + Character.toString((char) (65 + j)) + "2:" + Character.toString((char) (65 + j)) + i + ")";
+            cell.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+            cell.setCellFormula(strFormula);
+        }
+    }
+
+        static void calculateEfficiency(XSSFSheet sheet, int i){
+            Row row = sheet.createRow(i + 2);
+
+            int j = 0;
+
+            Cell cell = row.createCell(j++);
+
+            cell.setCellValue("Efficiency");
+
+            for (; j < 17; j+=2) {
+                cell = row.createCell(j);
+
+                String strFormula = Character.toString((char) (65 + j))+(i+2) + "/" + Character.toString((char) (65 + j + 1)) + (i+2);
+                cell.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+                cell.setCellFormula(strFormula);
+            }
+
+    }
+
+
 }
