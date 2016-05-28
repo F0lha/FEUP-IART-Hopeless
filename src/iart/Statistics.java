@@ -32,6 +32,8 @@ public class Statistics {
 
         Hopeless iddfs = new Hopeless(tableRows,tableCols,4);
 
+        Hopeless maxmin = new Hopeless(tableRows,tableCols,4);
+
         ArrayList<ArrayList<Integer>> statistics = new ArrayList<>();
         ArrayList<ArrayList<Long>> timeOfExecution = new ArrayList<>();
 
@@ -48,6 +50,7 @@ public class Statistics {
             DFS.setTable(AStar.getTable());
             greedy.setTable(AStar.getTable());
             iddfs.setTable(AStar.getTable());
+            maxmin.setTable(AStar.getTable());
 
             //AStar Run
             try {
@@ -197,6 +200,28 @@ public class Statistics {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            //IDDFS Run
+            try {
+                MaxMin MaxMinThread = new MaxMin(maxmin);
+                Thread t = new Thread(MaxMinThread);
+                long time = System.nanoTime();
+                t.start();
+                t.join(timeout);
+                time -= System.nanoTime();
+                if(MaxMinThread.isFinished())
+                {
+                    current.add(MaxMinThread.getBestScore());
+                }
+                else
+                {
+                    System.out.println("Error IDDFS");
+                    current.add(-1);
+                    t.stop();
+                }
+                timeArray.add(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             statistics.add(current);
             timeOfExecution.add(timeArray);
@@ -220,12 +245,12 @@ public class Statistics {
             makeFirstLine(sheet);
 
 
-            for(int i = 0; i < statistics.size();i++){
-                Row row = sheet.createRow(i+1);
+            for(int i = 0; i < statistics.size();i+=2){
+                Row row = sheet.createRow(i/2+1);
 
                 Cell cell = row.createCell(0);//ID
 
-                cell.setCellValue(i+1);
+                cell.setCellValue(i/2+1);
                 for(int j = 0;j < statistics.get(i).size()*2;j += 2){
                     cell = row.createCell((j)+1);
 
@@ -233,7 +258,7 @@ public class Statistics {
 
                     cell = row.createCell((j)+2);
 
-                    cell.setCellValue(Math.abs(timeOfExecution.get(i/2).get(j/2) / 1000000));
+                    cell.setCellValue(Math.abs((float)timeOfExecution.get(i/2).get(j/2) / 1000000));
                 }
             }
 
@@ -273,19 +298,19 @@ public class Statistics {
 
         nextCell = row.createCell(i++);
 
-        nextCell.setCellValue("BFS");
-
-        nextCell = row.createCell(i++);
-
-        nextCell.setCellValue("BFS (Time)");
-
-        nextCell = row.createCell(i++);
-
         nextCell.setCellValue("BruteForce");
 
         nextCell = row.createCell(i++);
 
         nextCell.setCellValue("BruteForce (Time)");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("BFS");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("BFS (Time)");
 
         nextCell = row.createCell(i++);
 
@@ -310,5 +335,13 @@ public class Statistics {
         nextCell = row.createCell(i++);
 
         nextCell.setCellValue("IDDFS (Time)");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("MaxMin");
+
+        nextCell = row.createCell(i++);
+
+        nextCell.setCellValue("MaxMin (Time)");
     }
 }

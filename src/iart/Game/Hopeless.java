@@ -144,9 +144,11 @@ public class Hopeless {
     {
         Point up,down,left,right;
 
+        int index;
         //delete color
-
-        int index = validMoves.indexOf(point);
+        if(validMoves != null)
+            index = validMoves.indexOf(point);
+        else  index = -1;
 
         table.set((point.getRow()*this.col)+point.getCol(),0);
 

@@ -120,45 +120,7 @@ public class AStarSearch extends Algorithm implements Runnable{
         return result;
     }
 
-    public int heuristicF(int points,int realPoints, Hopeless hope, int size) {
 
-        int tablePoints = 0;
-
-        HeuristicTable HTable = new HeuristicTable(hope.getRow() * hope.getCol());
-
-        List<Integer> list = new ArrayList<>(Collections.nCopies(hope.getDifficulty(), 0));
-
-        for (int i = 0; i < hope.getRow(); i++) {
-            for (int j = 0; j < hope.getCol(); j++) {
-                int pointColour = hope.getColor(new Point(i, j));
-
-                if (pointColour != 0)
-                    list.set(pointColour - 1, list.get(pointColour - 1));
-
-                if (pointColour == 0) {
-                    HTable.getTableRegions().set(i * hope.getCol() + j, 0);
-                    HTable.getTableVisited().set(i * hope.getCol() + j, 1);
-                } else {
-                    recursiveRegions(i, j, hope, HTable, HTable.getNextColor());
-                    HTable.addNextColor();
-                }
-            }
-        }
-
-        int limit = HTable.getNextColor();
-
-
-        for (int i = 1; i < limit; i++) {
-            int removals = Collections.frequency(HTable.getTableRegions(), i);
-            //if (removals == 1)
-            // tablePoints++;
-            if (removals != 1) {
-                tablePoints += Hopeless.getPoints(removals);
-            }
-        }
-
-        return (points + tablePoints + realPoints);
-    }
 
     /**
      * Heuristic Funtions
@@ -190,26 +152,6 @@ public class AStarSearch extends Algorithm implements Runnable{
      */
     public int getCurrentLevel(){
         return this.openList.peek().level;
-    }
-
-    void recursiveRegions(int i, int j, Hopeless hope, HeuristicTable HTable, int HTableColor){
-        //if not visited
-        if(HTable.getTableVisited().get(i*hope.getCol()+j) != 1) {
-
-            HTable.getTableRegions().set(i * hope.getCol() + j, HTableColor);
-            HTable.getTableVisited().set(i * hope.getCol() + j, 1);
-
-            //surrounding
-
-            if (i > 0 && (hope.getColor(new Point(i, j)) == hope.getColor(new Point(i - 1, j))))
-                recursiveRegions(i - 1, j, hope, HTable, HTableColor);
-            if (j > 0 && (hope.getColor(new Point(i, j)) == hope.getColor(new Point(i, j - 1))))
-                recursiveRegions(i, j - 1, hope, HTable, HTableColor);
-            if (i < hope.getRow() && (hope.getColor(new Point(i, j)) == hope.getColor(new Point(i + 1, j))))
-                recursiveRegions(i + 1, j, hope, HTable, HTableColor);
-            if (j < hope.getCol() && (hope.getColor(new Point(i, j)) == hope.getColor(new Point(i, j + 1))))
-                recursiveRegions(i, j + 1, hope, HTable, HTableColor);
-        }
     }
 
 }
