@@ -2,6 +2,7 @@ package iart.graphics;
 
 import com.sun.prism.shader.Solid_ImagePattern_Loader;
 import iart.game.Hopeless;
+import iart.utilities.*;
 
 import javax.swing.*;
 import javax.swing.text.Utilities;
@@ -66,7 +67,7 @@ public class CenterPanel extends JPanel {
         for (int j = 0; j < Game.hopeAStar3.getRow(); j++) {
             for (int i = 0; i < Game.hopeAStar3.getCol(); i++) {
 
-                switch (Game.hopeAStar3.getTable().get(j * Game.hopeAStar3.getCol() + i)) {
+                    switch (Game.hopeAStar3.getColor(new iart.utilities.Point(j,i))){
                     case 1:
                         g2.setColor(Color.red);
                         break;
