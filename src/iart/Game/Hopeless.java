@@ -67,6 +67,9 @@ public class Hopeless {
         if (point.getRow() >= row || point.getCol() >= col) {
             return false;
         }
+        if (point.getRow() < 0 || point.getCol() < 0) {
+            return false;
+        }
         else if(getColor(point) == 0){
             return false;
         }

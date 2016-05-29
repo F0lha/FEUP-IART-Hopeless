@@ -25,6 +25,7 @@ public class Game extends JFrame {
     static SouthPanel south = new SouthPanel(hope.getTable());
 
     public Game(){
+        Game.south.initialTable = new ArrayList<>(Game.hope.getTable());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -59,7 +60,7 @@ public class Game extends JFrame {
         Game.south.jlabel.setText("Move - (" + 0  + " , " + 0 + ")");
         Game.south.jlabel.paintImmediately(Game.south.jlabel.getVisibleRect());
 
-        Game.centerPanel.repaintTable(false);
+        Game.centerPanel.repaintTable(true);
     }
 
     static public void newBoard(){

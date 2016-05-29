@@ -19,10 +19,21 @@ public class CenterPanel extends JPanel {
     private ArrayList<iart.utilities.Point> points = new ArrayList<>();
     private MouseListener mouseListener= null;
 
+    public JLabel gameOver;
+
     public CenterPanel() {
 
+        gameOver = new JLabel();
+        gameOver.setText("GAMEOVER");
+        gameOver.setFont(new Font("Verdana", 1, 15));
+        gameOver.setHorizontalAlignment(0);
+        gameOver.setVerticalAlignment(0);
+        gameOver.setPreferredSize(new Dimension(1000,500));
+        gameOver.setForeground(Color.WHITE);
+        add(gameOver);
+        gameOver.setVisible(false);
+
         addSquaresNewBoard();
-        setBorder(BorderFactory.createLineBorder(Color.black));
 
         mouseListener();
     }
@@ -116,6 +127,9 @@ public class CenterPanel extends JPanel {
 
             @Override
             public void mousePressed(MouseEvent e) {
+                if(e.getButton() != MouseEvent.BUTTON1)
+                    return;
+
                 int x = e.getX();
                 int y = e.getY();
 
@@ -157,10 +171,12 @@ public class CenterPanel extends JPanel {
     }
 
     public void repaintTable(boolean immediate) {
+        gameOver.setVisible(Game.hope.gameOver());
         if(!immediate) {
             this.removeAll();
             this.revalidate();
             this.repaint();
+            add(gameOver);
         }
         else{
             for (int j = 0; j < Game.hope.getRow(); j++) {

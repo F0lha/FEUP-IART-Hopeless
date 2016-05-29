@@ -77,7 +77,6 @@ public class AStarSearch extends Algorithm implements Runnable{
                 iter = validMoves.iterator();
             }
         }
-        System.out.println("Size = " + openList.size());
         this.bestScore = openList.peek().realScore;
     }
 

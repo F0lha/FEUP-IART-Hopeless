@@ -15,7 +15,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Statistics {
 
-    static void createStatistics(int sampleSize, int timeout, int tableRows, int tableCols){
+    /**
+     * Creates statistics about every algorithm including final score and time of execution.
+     * @param sampleSize number of Hopeless games to test
+     * @param timeout timeout to a search
+     * @param tableRows number of rows
+     * @param tableCols number of columns
+     */
+    public static void createStatistics(int sampleSize, int timeout, int tableRows, int tableCols){
 
         int i = 0;
 
@@ -115,7 +122,7 @@ public class Statistics {
             }
             //BFS Run
             try {
-                BreadthFirstSearch BFSThread = new BreadthFirstSearch(BFS,true);
+                BreadthFirstSearch BFSThread = new BreadthFirstSearch(BFS,false);
                 Thread t = new Thread(BFSThread);
                 long time = System.nanoTime();
                 t.start();
@@ -231,9 +238,12 @@ public class Statistics {
         makeStatistics(statistics,timeOfExecution);
     }
 
+    /**
+     * Prints the statistics to an Excel file.
+     * @param statistics score of algorithms
+     * @param timeOfExecution time of execution of algorithms
+     */
     static void makeStatistics(ArrayList<ArrayList<Integer>> statistics, ArrayList<ArrayList<Long>> timeOfExecution) {
-
-
         try {
             FileOutputStream out = new FileOutputStream(new File("statistics.xlsx"));
 
@@ -276,6 +286,10 @@ public class Statistics {
 
     }
 
+    /**
+     * Write first line of Excel file.
+     * @param sheet sheet of Excel
+     */
     static void makeFirstLine(XSSFSheet sheet){
 
         Row row = sheet.createRow(0);
@@ -351,6 +365,11 @@ public class Statistics {
         nextCell.setCellValue("MaxMin (Time)");
     }
 
+    /**
+     * Make average of the statistics for each algorithm.
+     * @param sheet sheet of Excel
+     * @param i sample size
+     */
     static void makeAverage(XSSFSheet sheet,int i) {
 
         Row row = sheet.createRow(i + 1);
@@ -370,6 +389,11 @@ public class Statistics {
         }
     }
 
+    /**
+     * Calculates the efficiency of each algorithm
+     * @param sheet sheet of Excel
+     * @param i sample size
+     */
         static void calculateEfficiency(XSSFSheet sheet, int i){
             Row row = sheet.createRow(i + 2);
 
@@ -382,7 +406,7 @@ public class Statistics {
             for (; j < 17; j+=2) {
                 cell = row.createCell(j);
 
-                String strFormula = Character.toString((char) (65 + j))+(i+2) + "/" + Character.toString((char) (65 + j + 1)) + (i+2);
+                String strFormula = (Character.toString((char) (65 + j))+(i+2)) + "/" + Character.toString((char) (65 + j + 1)) + (i+2);
                 cell.setCellType(HSSFCell.CELL_TYPE_FORMULA);
                 cell.setCellFormula(strFormula);
             }

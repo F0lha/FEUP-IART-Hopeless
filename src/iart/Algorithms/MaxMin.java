@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MaxMin extends  Algorithm implements Runnable{
 
-    List<Point> listOfMoves = new ArrayList<>();
+    ArrayList<Point> listOfMoves = new ArrayList<>();
 
     public MaxMin(Hopeless hope){
         this.hope = hope;
@@ -141,7 +141,7 @@ public class MaxMin extends  Algorithm implements Runnable{
      * Get best MaxMin plays in order
      * @return list of points
      */
-    public List<Point> getBestMaxMinPlays(){
+    public ArrayList<Point> getBestMaxMinPlays(){
         return listOfMoves;
     }
 

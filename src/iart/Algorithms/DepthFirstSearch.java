@@ -9,7 +9,7 @@ import java.util.*;
  * Created by Pedro Castro on 02/03/2016.
  */
 public class DepthFirstSearch extends Algorithm implements Runnable{
-    public List<Point> moves = new ArrayList<>();
+    public ArrayList<Point> moves = new ArrayList<>();
 
 
     /**
@@ -38,7 +38,7 @@ public class DepthFirstSearch extends Algorithm implements Runnable{
      * Get best DFS plays in order
      * @return list of points
      */
-    public List<Point> getDFSBestPlays(){
+    public ArrayList<Point> getDFSBestPlays(){
         return moves;
     }
 }

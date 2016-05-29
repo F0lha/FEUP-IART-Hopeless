@@ -4,6 +4,7 @@ import iart.algorithms.*;
 import iart.game.Hopeless;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import static iart.graphics.Utilities.runAStar;
+import iart.Statistics ;
 
 /**
  * Created by inesa on 19/05/3016.
@@ -30,6 +32,8 @@ public class WestPanel extends JPanel {
     public JLabel jlabelScore;
     public JLabel jlabelHighScore;
 
+    public JButton stats;
+
     public static final int PREF_W = 200;
     public static final int PREF_H = 350;
 
@@ -48,6 +52,7 @@ public class WestPanel extends JPanel {
         aStar2 = new JButton("A*");
         maxMin = new JButton("MaxMin");
         play = new JButton("Play");
+        stats = new JButton("Statistics");
 
         add(user);
         user.setPreferredSize(new Dimension(120, 30));
@@ -88,6 +93,11 @@ public class WestPanel extends JPanel {
         play.setPreferredSize(new Dimension(120, 30));
         play.setVisible(false);
 
+
+        add(stats);
+        stats.setPreferredSize(new Dimension(120,30));
+
+        add(Box.createVerticalStrut(120));
         buttons();
 
     }
@@ -100,6 +110,13 @@ public class WestPanel extends JPanel {
 
 
     public void buttons() {
+
+        stats.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iart.Statistics.createStatistics(5000, 200000, 5, 5);
+            }
+        });
 
         user.addActionListener(new ActionListener() {
             @Override
