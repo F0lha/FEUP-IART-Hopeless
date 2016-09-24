@@ -80,12 +80,14 @@ not occuring any backtracking.
   In order to use this algorithm in this game it requires some modifications to the original algorithm.
   
   **Minimizing vs Maximization**
+  
     The description says that A* "Has the objective to find the path of least cost."
     However, when it comes to maximizing this is not the objective. In maximizing the most promising node is the one with the value of f\*(n) greater than all others.
     Now h\*(n) will estimate the reward to reach the final state instead of the previous cost.
     
   
   **Heuristic function**
+  
     The definition of the admissibility of a heuristic also has to be reviewed because now it is a maximization problem.
     The necessary adjustment to the definition is:
     **The value of h\*(n) will always be greater than or equal to the reward to
