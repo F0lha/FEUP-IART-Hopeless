@@ -14,10 +14,11 @@ To play it all you have to do import this project to an IDE that runs Java (for 
 ##<a name="Game"></a>Game Overview
 
 The aim of the game is to clear away as many blocks as possible. 
-If a block as one or more neighbor with the same color, by clicking on it they all disapper. 
-The blocks on top of them will fall, like in Tetris game and if any column is cleared, the blocks will shift right. 
+If a block as one or more neighbor with the same color, by clicking on it they all disapper. The blocks on top of them will fall, like in Tetris game and if any column is cleared, the blocks will shift right. 
 The game is over when there are no more moves left.
-The score is calculated based in this formula: score = (2(n − 1))^2 , em que n = nº of squares 
+The score is calculated based in this formula: 
+
+score = (2(n − 1))^2 , em que n = nº of squares 
 
 ##<a name="HowtoUse"></a>How to Use
 
@@ -33,7 +34,7 @@ Here is an example of the [window]() that pops up.
 For this poject this algorithm isn't valid because the results don't have any quality because any move can lead to a final state
 not occuring any backtracking.
 
-* Breadth First Search([BFS](https://en.wikipedia.org/wiki/Breadth-first_search))
+* Breadth First Search ([BFS](https://en.wikipedia.org/wiki/Breadth-first_search))
 
   The solution obtained by this algorithm presents a
   (Or the only) smaller set of possible moves to reach the end state.
@@ -56,6 +57,7 @@ not occuring any backtracking.
   a better move.
 
 * MaxMin
+
   The *maxmin* algorithm is an algorithm invented by us, using search heuristics.
   It was possible to create this algorithm due to a property of the Hopeless boards. This property allows it to be possible to calculate the minimum points possible to make with a board. This is happens because all the moves possible to do in a given board can be performed. This allows us to assign a minimum score to each board and the heuristic value that will serve to
   compare the prosperity of each board.
@@ -67,6 +69,7 @@ not occuring any backtracking.
 
 * [A*](https://en.wikipedia.org/wiki/A*_search_algorithm)
 
+  In order to use this algorithm in this game it requires some modifications to the original algorithm.
 
 ##<a name="Notes">
 All boards are randomly generated based in the size and difficulty (number of colors used) selected.
