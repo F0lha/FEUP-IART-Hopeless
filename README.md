@@ -77,46 +77,46 @@ not occuring any backtracking.
   In order to use this algorithm in this game it requires some modifications to the original algorithm.
   
   **Minimizing vs Maximization**
-    The description says that the A * "t in the objective to find the path of leastcost."
-    However, when it comes to maximizing this is not the objective. In maximizing the most promising node is the one with the value of f * (n) greater than all others.
-    Now h * (n) will estimate the reward to reach the final state instead of the previous cost.
+    The description says that the A* "t in the objective to find the path of leastcost."
+    However, when it comes to maximizing this is not the objective. In maximizing the most promising node is the one with the value of f\*(n) greater than all others.
+    Now h\*(n) will estimate the reward to reach the final state instead of the previous cost.
     
   
   **Heuristic function**
     The definition of the admissibility of a heuristic also has to be reviewed because now it is a maximization problem.
     The necessary adjustment to the definition is:
-    **The value of h*(n) will always be greater than or equal to the reward to
+    **The value of h\*(n) will always be greater than or equal to the reward to
     the final great state from n.**
     In other words will have to always be higher than the maximum score that can
     be obtained from that node.
     The only way for admissibility be ensured is to create a function that
     calculates the score if all points that are at stake were positioned in an optimal way.
     such equation is: 
-      h * (n) = 0
+      h\*(n) = 0
     foreach different_color as color
-    h * (n) += Points(numberOfSquares(color))
+      h\*(n) += Points(numberOfSquares(color))
 
     This score will constantly overestimate. The problem is that it is not possible to approximate this value to the actual score without simulating moves.
     However, simulating moves is exactly the objective of the algorithm.
     
     **Final State**
-    When evaluating a final state, the value of h*(n) can result in a higher value than 0. This is a result of a possible overestimation of the heuristic value.
+    When evaluating a final state, the value of h\*(n) can result in a higher value than 0. This is a result of a possible overestimation of the heuristic value.
       
-      >Therefore, while the f(t) upper bounds the optimal solution, g(t) may not, since
-      >h(t) may be larger than 0. Thus, unlike A* for MIN problems, expanding a goal
-      >with A* in MAX problems does not guarantee that the optimal solution has been
-      >found.”
+      Therefore, while the f(t) upper bounds the optimal solution, g(t) may not, since
+      h(t) may be larger than 0. Thus, unlike A* for MIN problems, expanding a goal
+      with A* in MAX problems does not guarantee that the optimal solution has been
+      found.”
     
 
-    Because h*(n) is, in pratical, a reward to get to the final state it makes no sense for the value to be different from 0. 
-    However it is possible that g(n) is not optimal, then the solution found may not be optimum even if h (n) = 0.
-    However we can use h(n) = 0. If we do we will be making a search for more nodes since we are minimizing the value of f*(n)
-    thereby allowing nodes in OPEN to be expanded that with the value of h*(n)> 0 wouldn't be.
+    Because h\*(n) is, in pratical, a reward to get to the final state it makes no sense for the value to be different from 0. 
+    However it is possible that g(n) is not optimal, then the solution found may not be optimum even if h(n) = 0.
+    However we can use h(n) = 0. If we do we will be making a search for more nodes since we are minimizing the value of f\*(n)
+    thereby allowing nodes in OPEN to be expanded that with the value of h\*(n)> 0 wouldn't be.
     In the final work this option is left to the user.
 
-* **Iterative Deepening A***
+* [**Iterative Deepening A***](https://en.wikipedia.org/wiki/Iterative_deepening_A*)
 
-  The implementation of the algorithm Iterative Deepening A * doesn't make sense when we are talking about
+  The implementation of the algorithm Iterative Deepening A* doesn't make sense when we are talking about
   maximization. Setting a limit for f* isn't beneficial since we are looking to maximize it. 
   For this reason the algorithm has not been implemented.
 
@@ -124,7 +124,7 @@ not occuring any backtracking.
 ##<a name="Notes">Notes
 All boards are randomly generated based in the size and difficulty (number of colors) selected.
 
-  ###Generated Statistics
+  **Generated Statistics**
 
     The multiple algorithms have different run times and get different results.
     We implemented a function that generates a certain number of different boards (for
