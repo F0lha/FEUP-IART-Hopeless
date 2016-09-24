@@ -100,6 +100,7 @@ not occuring any backtracking.
     However, simulating moves is exactly the objective of the algorithm.
     
     **Final State**
+    
     When evaluating a final state, the value of h\*(n) can result in a higher value than 0. This is a result of a possible overestimation of the heuristic value.
       
       Therefore, while the f(t) upper bounds the optimal solution, g(t) may not, since
@@ -126,13 +127,13 @@ All boards are randomly generated based in the size and difficulty (number of co
 
   **Generated Statistics**
 
-    The multiple algorithms have different run times and get different results.
-    We implemented a function that generates a certain number of different boards (for
-    user input). For these boards we run all algorithms and register the
-    scores and the execution time of each algorithm, and calculate the average of these
-    values for each algorithm. From these values we calculate the efficiency of each
-    of these algorithms.
-    As previously mentioned, all of this is automatically generated in
-    a Microsoft Excel file named "statistics.xlsx" so it is called the
-    Function
+  The multiple algorithms have different run times and get different results.
+  We implemented a function that generates a certain number of different boards (for
+  user input). For these boards we run all algorithms and register the
+  scores and the execution time of each algorithm, and calculate the average of these
+  values for each algorithm. From these values we calculate the efficiency of each
+  of these algorithms.
+  As previously mentioned, all of this is automatically generated in
+  a Microsoft Excel file named "statistics.xlsx" so it is called the
+  Function
 
