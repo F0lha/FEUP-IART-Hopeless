@@ -25,7 +25,7 @@ score = (2(n − 1))^2 , em que n = nº of squares
 It is easy to use once you click run a window will open.
 At your left you will see all the algorithms developed and also an option so you can play the game by yourself not the AI, this is also possible by clicking in the squares directly.
 You can also define the size of the board in the options height and width, reset the current board and generate a new one. 
-With the option statistics you generate an excel file that compares algorithms, for more information read notes section.
+With the option statistics you generate an excel file that compares algorithms, for more information read [notes](#notes) section.
 
 ##<a name="Preview">Preview
 
