@@ -3,6 +3,7 @@
 [Hopeless](https://github.com/F0lha/IART/tree/master/src/iart) is a board game based on [this one](http://greenfelt.net/hopeless).
 It was developed for the AI curricular unit. The aim of our project is to give all the necessary moves to get the maximum score possible to the board given. To calculate them we used various search algorithms, such as A*. It is also possible to compare the algorithms in terms of prossesing time, memory used and score so you can avaluate which is best. We made an easy to use interface so it helps you play and see the moves made by the different algoritms.
 To play it all you have to do import this project to an IDE that runs Java (for example, IntelliJ), just press run and follow the instructions given.
+Or run the hopeless jar file, if you're in windows just execute this command-line: java -jar hopeless.jar
 
 # Table of Contents
 1. [Game Overview](#Game)
