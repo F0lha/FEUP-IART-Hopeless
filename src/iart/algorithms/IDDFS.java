@@ -15,7 +15,7 @@ public class IDDFS extends Algorithm implements Runnable {
 
     /**
      * Iterative Deepening Depth First Search constructor
-     * @param hope Hopeless Game Object
+     * @param hope Hopeless game Object
      */
     public IDDFS(Hopeless hope){
         this.hope = hope;

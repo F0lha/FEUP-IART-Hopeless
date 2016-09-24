@@ -14,7 +14,7 @@ public class DepthFirstSearch extends Algorithm implements Runnable{
 
     /**
      * Depth First Search constructor
-     * @param hope Hopeless Game Object
+     * @param hope Hopeless game Object
      */
     public DepthFirstSearch(Hopeless hope) {
         this.hope = hope;

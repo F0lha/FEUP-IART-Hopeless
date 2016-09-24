@@ -19,7 +19,7 @@ public class AStarSearch extends Algorithm implements Runnable{
 
     /**
      * A* Search Contructor
-     * @param hope Hopeless Game Object
+     * @param hope Hopeless game Object
      * @param goalstate true then h(n) = 0, n being a goalstate
      */
     public AStarSearch(Hopeless hope, boolean goalstate) {

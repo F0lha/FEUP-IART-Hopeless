@@ -18,7 +18,7 @@ public class BreadthFirstSearch extends Algorithm implements Runnable{
 
     /**
      * Breadth First Search constructor
-     * @param hope Hopeless Game Object
+     * @param hope Hopeless game Object
      */
     public BreadthFirstSearch(Hopeless hope, boolean bruteForce) {
         this.hope = hope;

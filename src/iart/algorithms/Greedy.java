@@ -15,7 +15,7 @@ public class Greedy extends Algorithm implements Runnable{
 
     /**
      * Greedy Search constructor
-     * @param hope Hopeless Game Object
+     * @param hope Hopeless game Object
      */
     public Greedy(Hopeless hope) {
 
