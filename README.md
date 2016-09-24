@@ -1,7 +1,7 @@
 #Hopeless - Board Game 
 
 [Hopeless](https://github.com/F0lha/IART/tree/master/src/iart) is a board game based on [this one](http://greenfelt.net/hopeless).
-It was developed for the AI curricular unit. The aim of our project is to give all the necessary moves to get the maximum score possible to the board given. To calculate them we used various search algorithms, such as A*. It is also possible to compare the algorithms in terms of prossesing time, memorie used and score so you can avaluate which is best. We made an easy to use interface so it helps you play and see the moves made by the different algoritms.
+It was developed for the AI curricular unit. The aim of our project is to give all the necessary moves to get the maximum score possible to the board given. To calculate them we used various search algorithms, such as A*. It is also possible to compare the algorithms in terms of prossesing time, memory used and score so you can avaluate which is best. We made an easy to use interface so it helps you play and see the moves made by the different algoritms.
 To play it all you have to do import this project to an IDE that runs Java (for example, IntelliJ), just press run and follow the instructions given.
 
 # Table of Contents
@@ -77,7 +77,7 @@ not occuring any backtracking.
   In order to use this algorithm in this game it requires some modifications to the original algorithm.
   
   **Minimizing vs Maximization**
-    The description says that the A* "t in the objective to find the path of leastcost."
+    The description says that A* "t in the objective to find the path of least cost."
     However, when it comes to maximizing this is not the objective. In maximizing the most promising node is the one with the value of f\*(n) greater than all others.
     Now h\*(n) will estimate the reward to reach the final state instead of the previous cost.
     
@@ -109,7 +109,7 @@ not occuring any backtracking.
       found.”
     
 
-    Because h\*(n) is, in pratical, a reward to get to the final state it makes no sense for the value to be different from 0. 
+    Because h\*(n) is, in pratice, a reward to get to the final state it makes no sense for the value to be different from 0. 
     However it is possible that g(n) is not optimal, then the solution found may not be optimum even if h(n) = 0.
     However we can use h(n) = 0. If we do we will be making a search for more nodes since we are minimizing the value of f\*(n)
     thereby allowing nodes in OPEN to be expanded that with the value of h\*(n)> 0 wouldn't be.
@@ -137,3 +137,4 @@ All boards are randomly generated based in the size and difficulty (number of co
   a Microsoft Excel file named "statistics.xlsx" so it is called the
   Function
 
+In case you have any doudt you can read our [report](https://github.com/F0lha/IART/blob/master/FinalReport.pdf).
