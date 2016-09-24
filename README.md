@@ -71,5 +71,5 @@ not occuring any backtracking.
 
   In order to use this algorithm in this game it requires some modifications to the original algorithm.
 
-##<a name="Notes">
-All boards are randomly generated based in the size and difficulty (number of colors used) selected.
+##<a name="Notes">Notes
+All boards are randomly generated based in the size and difficulty (number of colors) selected.
