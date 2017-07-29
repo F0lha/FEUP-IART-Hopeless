@@ -1,4 +1,4 @@
-#Hopeless - Board Game 
+# Hopeless - Board Game 
 
 [Hopeless](https://github.com/F0lha/IART/tree/master/src/iart) is a board game based on [this one](http://greenfelt.net/hopeless).
 It was developed for the AI curricular unit. The aim of our project is to give all the necessary moves to get the maximum score possible to the board given. To calculate them we used various search algorithms, such as A*. It is also possible to compare the algorithms in terms of prossesing time, memory used and score so you can evaluate which is best. We made an easy to use interface so it is simple for you play and see the moves made by the different algoritms.
@@ -14,7 +14,7 @@ Or run the hopeless jar file, if you're in windows just execute this command-lin
 4. [Algorithms Used](#algorithms)
 5. [Notes](#Notes)
 
-##<a name="Game"></a>Game Overview
+## <a name="Game"></a>Game Overview
 
 The aim of the game is to clear away as many blocks as possible. 
 If a block as one or more neighbor with the same color, by clicking on it they all disappear. The blocks on top of them will fall, like in Tetris game and if any column is cleared, the blocks will shift right. 
@@ -23,24 +23,26 @@ The score is calculated based in this formula:
 
 score = (2(n − 1))^2 , em que n = nº of squares 
 
-##<a name="HowtoUse"></a>How to Use
+## <a name="HowtoUse"></a>How to Use
 
 It is easy to use once you click run a window will open.
 At your left you will see all the algorithms developed and also an option so you can play the game by yourself not the AI, this is also possible by clicking in the squares directly. 
 You can also define the size of the board in the options height and width, reset the current board and generate a new one. 
 With the option statistics you generate an excel file that compares algorithms, for more information read [notes](#notes) section.
 
-##<a name="Preview">Preview
+## <a name="Preview">Preview
 
 Here is an example of the window that pops up.
 
 ![alt text](https://github.com/F0lha/IART/blob/master/firstScreen.png "sreen")
 
 
-##<a name="algorithms">Algorithms Used
+## <a name="algorithms">Algorithms Used
+
 * **Depth First Search** ([DFS](https://en.wikipedia.org/wiki/Depth-first_search))
-For this poject this algorithm isn't valid because the results don't have any quality because any move can lead to a final state
-not occuring any backtracking.
+
+  For this poject this algorithm isn't valid because the results don't have any quality because any move can lead to a final state
+  not occuring any backtracking.
 
 * **Breadth First Search** ([BFS](https://en.wikipedia.org/wiki/Breadth-first_search))
 
@@ -127,7 +129,7 @@ not occuring any backtracking.
   For this reason the algorithm has not been implemented.
 
 
-##<a name="Notes">Notes
+## <a name="Notes">Notes
 All boards are randomly generated based in the size and difficulty (number of colors) selected.
 
   **Generated Statistics**
